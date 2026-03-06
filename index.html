@@ -227,6 +227,15 @@
     color: #24384f;
   }
 
+  .poi-research.paid-warning {
+    color: #a3131f;
+    font-weight: 700;
+  }
+
+  .poi-research.paid-warning strong {
+    color: #a3131f;
+  }
+
   .poi-transport {
     margin-top: 6px;
     font-size: 0.82rem;
@@ -1058,6 +1067,7 @@
             const itemKey = getItemKey(day, item, itemIndex);
             const savedCost = costState[itemKey];
             const meta = poiMeta[item.page] || { why: "Noted stop in your trip flow.", researchedCost: "Cost unknown; please verify." };
+            const paidClass = isPotentiallyPaid(meta.researchedCost) ? "paid-warning" : "";
             const transport = getTransportEntry(day.day, itemIndex);
 
             if (transport && transport.bufferMin > 0) {
@@ -1081,7 +1091,7 @@
                   <div class="poi-desc">${item.text}</div>
                   <div class="poi-transport"><strong>Getting there:</strong> ${transport.mode} - allow ~${transport.bufferMin} min transit buffer. ${transport.note}</div>
                   <div class="poi-why"><strong>Why care:</strong> ${meta.why}</div>
-                  <div class="poi-research"><strong>Researched cost:</strong> ${meta.researchedCost}</div>
+                  <div class="poi-research ${paidClass}"><strong>Researched cost:</strong> ${meta.researchedCost}</div>
                   <div class="poi-cost">
                     <label for="cost-${itemKey}">Cost (USD)</label>
                     <input id="cost-${itemKey}" class="cost-input js-cost-input" data-cost-key="${itemKey}" type="number" min="0" step="0.01" value="${savedCost ?? ""}" placeholder="0.00">
@@ -1129,6 +1139,14 @@
       const endH = String(Math.floor(wrapped / 60)).padStart(2, "0");
       const endM = String(wrapped % 60).padStart(2, "0");
       return `${endH}:${endM}`;
+    }
+
+    function isPotentiallyPaid(costText) {
+      if (!costText) return false;
+      const t = String(costText).toLowerCase();
+      if (t.includes("paid") || t.includes("fare required") || t.includes("ticketed") || t.includes("airfare")) return true;
+      if (t.includes("costs apply") || t.includes("may have fees") || t.includes("shopping") || t.includes("purchases")) return true;
+      return false;
     }
 
     function getItemKey(day, item, itemIndex) {
