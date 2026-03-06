@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
   :root {
     --bg: #f4f1ea;
@@ -178,11 +179,77 @@
 
   .poi-text {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
     padding: 12px 14px;
     font-size: 1rem;
     line-height: 1.45;
     color: #1f2b39;
+  }
+
+  .poi-time {
+    display: inline-block;
+    margin-bottom: 6px;
+    border-radius: 999px;
+    border: 1px solid #f0b4b8;
+    background: #ffe6e8;
+    color: #8a1020;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    padding: 3px 9px;
+  }
+
+  .poi-desc {
+    font-size: 0.98rem;
+  }
+
+  .map-panel {
+    margin-top: 28px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 10px 22px rgba(14, 34, 56, 0.08);
+  }
+
+  .map-head {
+    padding: 14px 16px;
+    background: linear-gradient(120deg, #103860 0%, #1c5487 100%);
+    color: #eef6ff;
+  }
+
+  .map-head h2 {
+    margin: 0;
+    font-family: "Libre Baskerville", serif;
+    font-size: 1.15rem;
+  }
+
+  .map-head p {
+    margin: 6px 0 0;
+    font-size: 0.88rem;
+    color: #d6e8fa;
+  }
+
+  #route-map {
+    width: 100%;
+    height: 420px;
+  }
+
+  .map-label {
+    background: rgba(16, 56, 96, 0.9);
+    border: none;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    box-shadow: none;
+  }
+
+  .map-label::before {
+    display: none;
   }
 
   footer {
@@ -195,11 +262,20 @@
   @media (max-width: 920px) {
     .poi-item { grid-template-columns: 1fr; }
     .poi-photo { min-height: 210px; }
+    #route-map { height: 360px; }
   }
 </style>
 </head>
 <body>
   <div class="container">
+    <section class="map-panel">
+      <div class="map-head">
+        <h2>Route Map of Itinerary Points of Interest</h2>
+        <p>Colored dots mark each stop, and the bold red line follows the travel order from London through Scotland.</p>
+      </div>
+      <div id="route-map"></div>
+    </section>
+
     <header class="hero">
       <h1>Chronological UK Family Itinerary</h1>
       <p>Each unique itinerary bullet now has its own dedicated photo to make every stop feel tangible, scenic, and travel-inspiring.</p>
@@ -216,6 +292,7 @@
     <footer>Designed as a true chronological itinerary with one image per unique bullet item.</footer>
   </div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
     const itinerary = [
       {
@@ -348,6 +425,108 @@
       }
     ];
 
+    const visitTimes = {
+      South_Bank: "15:30",
+      "County_Hall,_London": "16:30",
+      Borough_Market: "18:30",
+      Tower_Bridge: "20:15",
+      Buckingham_Palace: "09:30",
+      "St_James's_Park": "10:30",
+      Westminster_Abbey: "11:30",
+      Big_Ben: "13:00",
+      Tower_of_London: "14:30",
+      Tate_Modern: "09:30",
+      "Shakespeare's_Globe": "11:00",
+      National_Gallery: "13:00",
+      Trafalgar_Square: "14:30",
+      Piccadilly_Circus: "16:00",
+      Leicester_Square: "16:45",
+      Soho: "18:00",
+      Oxford_Street: "19:30",
+      British_Museum: "10:00",
+      Camden_Market: "13:30",
+      Kensington_Palace: "16:30",
+      Bletchley_Park: "09:30",
+      "Shakespeare's_Birthplace": "12:00",
+      Royal_Shakespeare_Theatre: "14:00",
+      "Anne_Hathaway's_Cottage": "15:30",
+      "River_Avon,_Warwickshire": "17:00",
+      London: "20:00",
+      LNER: "09:00",
+      Royal_Mile: "15:00",
+      Grassmarket: "16:30",
+      Edinburgh: "19:00",
+      Edinburgh_Castle: "09:00",
+      Holyrood_Palace: "12:00",
+      "Arthur's_Seat": "15:30",
+      "Old_Town,_Edinburgh": "19:00",
+      Stirling_Castle: "09:30",
+      National_Wallace_Monument: "11:30",
+      Battle_of_Bannockburn: "14:00",
+      Scottish_Highlands: "08:30",
+      Urquhart_Castle: "11:30",
+      "Glencoe,_Highland": "15:00",
+      Inverness: "18:30",
+      Eilean_Donan: "10:00",
+      Fairy_Pools: "13:00",
+      Old_Man_of_Storr: "15:30",
+      Neist_Point_Lighthouse: "19:30",
+      "A9_road_(Scotland)": "09:00",
+      Edinburgh_Airport: "13:00",
+      Airplane: "15:30"
+    };
+
+    const poiCoordinates = {
+      South_Bank: [51.5076, -0.1160],
+      "County_Hall,_London": [51.5033, -0.1195],
+      Tower_Bridge: [51.5055, -0.0754],
+      Borough_Market: [51.5055, -0.0911],
+      Buckingham_Palace: [51.5014, -0.1419],
+      "St_James's_Park": [51.5026, -0.1340],
+      Westminster_Abbey: [51.4993, -0.1273],
+      Big_Ben: [51.5007, -0.1246],
+      Tower_of_London: [51.5081, -0.0759],
+      Tate_Modern: [51.5076, -0.0994],
+      "Shakespeare's_Globe": [51.5081, -0.0972],
+      National_Gallery: [51.5089, -0.1283],
+      Trafalgar_Square: [51.5080, -0.1281],
+      Piccadilly_Circus: [51.5101, -0.1340],
+      Leicester_Square: [51.5113, -0.1270],
+      Soho: [51.5136, -0.1365],
+      Oxford_Street: [51.5154, -0.1410],
+      British_Museum: [51.5194, -0.1270],
+      Camden_Market: [51.5416, -0.1439],
+      Kensington_Palace: [51.5050, -0.1877],
+      Bletchley_Park: [51.9977, -0.7403],
+      "Shakespeare's_Birthplace": [52.1918, -1.7073],
+      Royal_Shakespeare_Theatre: [52.1905, -1.7008],
+      "Anne_Hathaway's_Cottage": [52.1855, -1.7405],
+      "River_Avon,_Warwickshire": [52.1910, -1.7090],
+      London: [51.5072, -0.1276],
+      LNER: [51.5308, -0.1238],
+      Royal_Mile: [55.9494, -3.1906],
+      Grassmarket: [55.9472, -3.1952],
+      Edinburgh: [55.9533, -3.1883],
+      Edinburgh_Castle: [55.9486, -3.1999],
+      Holyrood_Palace: [55.9526, -3.1727],
+      "Arthur's_Seat": [55.9445, -3.1619],
+      "Old_Town,_Edinburgh": [55.9497, -3.1900],
+      Stirling_Castle: [56.1238, -3.9469],
+      National_Wallace_Monument: [56.1349, -3.9254],
+      Battle_of_Bannockburn: [56.0899, -3.9365],
+      Scottish_Highlands: [57.1930, -3.8280],
+      Urquhart_Castle: [57.3240, -4.4410],
+      "Glencoe,_Highland": [56.6820, -5.1030],
+      Inverness: [57.4778, -4.2247],
+      Eilean_Donan: [57.2736, -5.5160],
+      Fairy_Pools: [57.2473, -6.2720],
+      Old_Man_of_Storr: [57.5061, -6.1731],
+      Neist_Point_Lighthouse: [57.4230, -6.7870],
+      "A9_road_(Scotland)": [56.8620, -4.2640],
+      Edinburgh_Airport: [55.9500, -3.3725],
+      Airplane: [55.9500, -3.3725]
+    };
+
     const fallbackImages = {
       South_Bank: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       River_Thames: "https://images.pexels.com/photos/1796730/pexels-photo-1796730.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -413,13 +592,18 @@
           const itemsMarkup = day.items
             .map((item) => {
               const fallback = fallbackImages[item.page] || fallbackImages.London;
+              const visitTime = visitTimes[item.page] || "Flexible";
+              const dayPart = getDayPart(visitTime);
               return `
                 <article class="poi-item">
                   <figure class="poi-photo">
                     <img src="${fallback}" data-wiki-page="${item.page}" alt="${item.caption}">
                     <figcaption class="poi-caption">${item.caption}</figcaption>
                   </figure>
-                  <div class="poi-text">${item.text}</div>
+                  <div class="poi-text">
+                    <span class="poi-time">${visitTime}${dayPart ? " · " + dayPart : ""}</span>
+                    <div class="poi-desc">${item.text}</div>
+                  </div>
                 </article>
               `;
             })
@@ -437,6 +621,66 @@
           `;
         })
         .join("");
+    }
+
+    function getDayPart(timeText) {
+      if (!timeText || !timeText.includes(":")) return "";
+      const hour = Number(timeText.split(":")[0]);
+      if (Number.isNaN(hour)) return "";
+      if (hour < 12) return "Morning";
+      if (hour < 17) return "Afternoon";
+      if (hour < 21) return "Evening";
+      return "Night";
+    }
+
+    function buildRouteMap() {
+      if (typeof L === "undefined") return;
+      const map = L.map("route-map");
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap contributors"
+      }).addTo(map);
+
+      const routeStops = [];
+      itinerary.forEach((day) => {
+        day.items.forEach((item) => {
+          const coords = poiCoordinates[item.page];
+          if (!coords) return;
+          routeStops.push({
+            day: day.day,
+            label: item.caption,
+            coords,
+            time: visitTimes[item.page] || "Flexible"
+          });
+        });
+      });
+
+      routeStops.forEach((stop, index) => {
+        const hue = (stop.day * 32) % 360;
+        const marker = L.circleMarker(stop.coords, {
+          radius: 7,
+          color: "#ffffff",
+          weight: 2,
+          fillColor: `hsl(${hue} 80% 45%)`,
+          fillOpacity: 0.95
+        }).addTo(map);
+        marker.bindTooltip(`${stop.day}. ${stop.label}`, {
+          permanent: true,
+          direction: "top",
+          className: "map-label",
+          offset: [0, -8]
+        });
+        marker.bindPopup(`<strong>Day ${stop.day}</strong><br>${stop.label}<br>${stop.time}`);
+      });
+
+      const routeLine = routeStops.map((stop) => stop.coords);
+      L.polyline(routeLine, {
+        color: "#d81d2c",
+        weight: 5,
+        opacity: 0.9
+      }).addTo(map);
+
+      map.fitBounds(routeLine, { padding: [30, 30] });
     }
 
     function loadWikipediaImages() {
@@ -460,6 +704,7 @@
     }
 
     renderTimeline();
+    buildRouteMap();
     loadWikipediaImages();
   </script>
 </body>
