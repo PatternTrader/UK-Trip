@@ -326,6 +326,31 @@
     display: none;
   }
 
+  .day-map-wrap {
+    margin-top: 12px;
+    border: 1px solid #dce3ec;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .day-map-title {
+    margin: 0;
+    padding: 8px 10px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: #284466;
+    border-bottom: 1px solid #e4eaf2;
+    background: #f6f9fd;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .day-map {
+    width: 100%;
+    height: 240px;
+  }
+
   footer {
     text-align: center;
     color: #5b6676;
@@ -337,6 +362,7 @@
     .poi-item { grid-template-columns: 1fr; }
     .poi-photo { min-height: 210px; }
     #route-map { height: 360px; }
+    .day-map { height: 220px; }
   }
 </style>
 </head>
@@ -778,6 +804,10 @@
                 <span class="day-date">${day.date}</span>
               </div>
               <div class="poi-list">${itemsMarkup}</div>
+              <div class="day-map-wrap">
+                <p class="day-map-title">Day ${day.day} Route Map</p>
+                <div id="day-map-${day.day}" class="day-map"></div>
+              </div>
             </section>
           `;
         })
@@ -938,6 +968,65 @@
       map.fitBounds(routeLine, { padding: [30, 30] });
     }
 
+    function buildDayMaps() {
+      if (typeof L === "undefined") return;
+
+      itinerary.forEach((day) => {
+        const mapContainerId = `day-map-${day.day}`;
+        const map = L.map(mapContainerId, {
+          zoomControl: true,
+          attributionControl: true
+        });
+
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution: "&copy; OpenStreetMap contributors"
+        }).addTo(map);
+
+        const dayStops = day.items
+          .map((item) => ({
+            label: item.caption,
+            coords: poiCoordinates[item.page],
+            time: visitTimes[item.page] || "Flexible"
+          }))
+          .filter((stop) => Array.isArray(stop.coords));
+
+        if (!dayStops.length) return;
+
+        dayStops.forEach((stop, stopIndex) => {
+          const hue = (day.day * 32 + stopIndex * 11) % 360;
+          const marker = L.circleMarker(stop.coords, {
+            radius: 7,
+            color: "#ffffff",
+            weight: 2,
+            fillColor: `hsl(${hue} 80% 45%)`,
+            fillOpacity: 0.95
+          }).addTo(map);
+
+          marker.bindTooltip(`${stopIndex + 1}. ${stop.label}`, {
+            permanent: true,
+            direction: "top",
+            className: "map-label",
+            offset: [0, -8]
+          });
+          marker.bindPopup(`<strong>Day ${day.day}</strong><br>${stop.label}<br>${stop.time}`);
+        });
+
+        const dayLine = dayStops.map((stop) => stop.coords);
+        L.polyline(dayLine, {
+          color: "#d81d2c",
+          weight: 5,
+          opacity: 0.9
+        }).addTo(map);
+
+        if (dayLine.length === 1) {
+          map.setView(dayLine[0], 13);
+        } else {
+          map.fitBounds(dayLine, { padding: [24, 24] });
+        }
+      });
+    }
+
     function loadWikipediaImages() {
       const images = document.querySelectorAll("img[data-wiki-page]");
       images.forEach((img) => {
@@ -963,6 +1052,7 @@
     renderCostSheet();
     bindCostInputs();
     buildRouteMap();
+    buildDayMaps();
     loadWikipediaImages();
   </script>
 </body>
