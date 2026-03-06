@@ -612,6 +612,7 @@
         title: "New York to London Flight",
         date: "April 2-3",
         items: [
+          { text: "Leave from 303 E. 83rd St, NY, NY to LaGuardia Airport (LGA). Estimated drive is ~19 min for 8.0 miles in light traffic; plan 30-45 min with typical city traffic.", page: "303_E_83rd_St_NYC", caption: "Depart from 303 E. 83rd St" },
           { text: "Depart New York (LGA) at 2:49pm on United, 1 stop via IAD.", page: "LaGuardia_Airport", caption: "NYC to London flight", defaultCost: 1534.5 },
           { text: "Connection at Washington Dulles (IAD), about 2h 9m.", page: "Washington_Dulles_International_Airport", caption: "IAD connection" },
           { text: "Arrive London Heathrow at 6:55am on April 3.", page: "London_Heathrow_Arrival", caption: "Arrive London Heathrow" },
@@ -738,6 +739,7 @@
     ];
 
     const visitTimes = {
+      "303_E_83rd_St_NYC": "12:10",
       LaGuardia_Airport: "14:49",
       Washington_Dulles_International_Airport: "17:10",
       London_Heathrow_Arrival: "06:55",
@@ -795,6 +797,7 @@
     };
 
     const visitDurationsMin = {
+      "303_E_83rd_St_NYC": 35,
       LaGuardia_Airport: 75,
       Washington_Dulles_International_Airport: 45,
       London_Heathrow_Arrival: 60,
@@ -852,6 +855,7 @@
 
     const dayTransportPlans = {
       1: [
+        { mode: "Taxi/Rideshare", bufferMin: 35, note: "303 E. 83rd St to LGA is ~8.0 miles; baseline routing ~19 min, but city traffic can push this to 30-45 min." },
         { mode: "Airplane", bufferMin: 0, note: "Long-haul departure segment." },
         { mode: "Airplane + terminal transfer", bufferMin: 129, note: "Connection window at IAD." },
         { mode: "Heathrow Express + Tube/Taxi", bufferMin: 75, note: "Immigration + transfer into central London." },
@@ -934,6 +938,7 @@
     };
 
     const poiCoordinates = {
+      "303_E_83rd_St_NYC": [40.7759, -73.9528],
       LaGuardia_Airport: [40.7769, -73.8740],
       Washington_Dulles_International_Airport: [38.9531, -77.4565],
       London_Heathrow_Arrival: [51.4700, -0.4543],
@@ -991,6 +996,7 @@
     };
 
     const fallbackImages = {
+      "303_E_83rd_St_NYC": "https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       LaGuardia_Airport: "https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Washington_Dulles_International_Airport: "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       London_Heathrow_Arrival: "https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -1055,6 +1061,7 @@
     };
 
     const poiMeta = {
+      "303_E_83rd_St_NYC": { why: "Your exact departure point for the airport run.", researchedCost: "No admission cost; taxi/rideshare fare applies." },
       LaGuardia_Airport: { why: "Major New York gateway and your trip's launch point.", researchedCost: "No attraction admission; airline fare applies." },
       Washington_Dulles_International_Airport: { why: "Main transatlantic connection hub in this itinerary.", researchedCost: "No attraction admission; connection only." },
       London_Heathrow_Arrival: { why: "Primary UK entry point and start of your London leg.", researchedCost: "No attraction admission; airport transfer costs apply." },
