@@ -217,6 +217,26 @@
     color: #24384f;
   }
 
+  .poi-transport {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    color: #425266;
+  }
+
+  .poi-transport strong {
+    color: #1d3550;
+  }
+
+  .day-logistics {
+    margin: 4px 0 12px;
+    border: 1px dashed #c7d6e8;
+    background: #f5f9ff;
+    color: #2d4666;
+    border-radius: 10px;
+    padding: 8px 10px;
+    font-size: 0.82rem;
+  }
+
   .poi-cost {
     margin-top: 10px;
     display: flex;
@@ -586,6 +606,88 @@
       Airplane: "08:30"
     };
 
+    const dayTransportPlans = {
+      1: [
+        { mode: "Airplane", bufferMin: 0, note: "Long-haul departure segment." },
+        { mode: "Airplane + terminal transfer", bufferMin: 129, note: "Connection window at IAD." },
+        { mode: "Heathrow Express + Tube/Taxi", bufferMin: 75, note: "Immigration + transfer into central London." },
+        { mode: "Walk", bufferMin: 20, note: "Short local movement on arrival day." }
+      ],
+      2: [
+        { mode: "Tube + walk", bufferMin: 35, note: "Morning transfer from hotel." },
+        { mode: "Walk", bufferMin: 15, note: "Nearby park segment." },
+        { mode: "Walk", bufferMin: 20, note: "Westminster cluster transfer." },
+        { mode: "Walk", bufferMin: 10, note: "Photo stop nearby." },
+        { mode: "Tube", bufferMin: 30, note: "Westminster to Tower district." },
+        { mode: "Walk", bufferMin: 20, note: "Riverside skyline segment." }
+      ],
+      3: [
+        { mode: "Tube + walk", bufferMin: 30, note: "Start on South Bank." },
+        { mode: "Walk", bufferMin: 12, note: "Short riverside transfer." },
+        { mode: "Walk + Tube", bufferMin: 25, note: "Transfer to gallery district." },
+        { mode: "Walk", bufferMin: 10, note: "Adjacent square stop." },
+        { mode: "Walk", bufferMin: 20, note: "West End move." },
+        { mode: "Walk", bufferMin: 10, note: "Very short transfer." },
+        { mode: "Walk", bufferMin: 15, note: "Neighborhood stroll." },
+        { mode: "Walk", bufferMin: 20, note: "Evening high-street finish." }
+      ],
+      4: [
+        { mode: "Tube", bufferMin: 30, note: "Morning museum transfer." },
+        { mode: "Tube", bufferMin: 35, note: "Cross-city move to Camden." },
+        { mode: "Tube + walk", bufferMin: 30, note: "Camden to Kensington." }
+      ],
+      5: [
+        { mode: "Rental car", bufferMin: 30, note: "Pickup and departure from London." },
+        { mode: "Rental car", bufferMin: 75, note: "Drive Bletchley to Stratford." },
+        { mode: "Walk", bufferMin: 12, note: "Town-center transfer." },
+        { mode: "Walk/short taxi", bufferMin: 20, note: "Local movement in Stratford." },
+        { mode: "Walk", bufferMin: 10, note: "Riverside segment." },
+        { mode: "Rental car", bufferMin: 120, note: "Drive back to London." }
+      ],
+      6: [
+        { mode: "Train (LNER)", bufferMin: 270, note: "London to Edinburgh rail journey." },
+        { mode: "Walk/taxi", bufferMin: 25, note: "Station to hotel transfer." },
+        { mode: "Walk", bufferMin: 15, note: "Compact Old Town area." },
+        { mode: "Walk", bufferMin: 20, note: "Evening local movement." }
+      ],
+      7: [
+        { mode: "Walk/taxi", bufferMin: 20, note: "Hotel to castle approach." },
+        { mode: "Walk", bufferMin: 25, note: "Royal Mile route." },
+        { mode: "Walk", bufferMin: 35, note: "Hike buffer for Arthur's Seat." },
+        { mode: "Walk", bufferMin: 20, note: "Dinner transfer." }
+      ],
+      8: [
+        { mode: "Train or car", bufferMin: 55, note: "Edinburgh to Stirling." },
+        { mode: "Bus/taxi", bufferMin: 20, note: "Castle to monument area." },
+        { mode: "Car/taxi", bufferMin: 25, note: "Monument to Bannockburn." },
+        { mode: "Train or car", bufferMin: 55, note: "Return to Edinburgh." }
+      ],
+      9: [
+        { mode: "Rental car", bufferMin: 45, note: "Pickup paperwork + departure from Edinburgh." },
+        { mode: "Rental car", bufferMin: 80, note: "Highlands road segment." },
+        { mode: "Rental car", bufferMin: 90, note: "Loch Ness to Glencoe drive." },
+        { mode: "Rental car", bufferMin: 75, note: "Drive to overnight base." }
+      ],
+      10: [
+        { mode: "Rental car", bufferMin: 55, note: "Morning drive and stop." },
+        { mode: "Rental car", bufferMin: 75, note: "Skye scenic road transfer." },
+        { mode: "Rental car (return)", bufferMin: 240, note: "Long drive south + allow 40 min to return car." },
+        { mode: "Train (LNER)", bufferMin: 270, note: "Evening Edinburgh to London." }
+      ],
+      11: [
+        { mode: "Taxi/ride share", bufferMin: 60, note: "Pre-dawn airport transfer." },
+        { mode: "Airport process", bufferMin: 180, note: "Bag drop, security, boarding buffer." },
+        { mode: "Airplane", bufferMin: 0, note: "LHR to LGA travel segment." }
+      ]
+    };
+
+    const dayLogisticsNotes = {
+      5: "Car day: allow 30 min for pickup in London and about 15 min for fuel/rest stop each direction.",
+      9: "Car rental starts today in Edinburgh; budget 45 min for paperwork plus parking time at major stops.",
+      10: "Return rental car before evening train at Edinburgh; keep at least 40 min for return and station transfer.",
+      11: "8:30am flight: leave central London around 4:30am to comfortably reach Heathrow by 5:30am."
+    };
+
     const poiCoordinates = {
       LaGuardia_Airport: [40.7769, -73.8740],
       Washington_Dulles_International_Airport: [38.9531, -77.4565],
@@ -775,6 +877,7 @@
               const itemKey = getItemKey(day, item, itemIndex);
               const savedCost = costState[itemKey];
               const meta = poiMeta[item.page] || { why: "Noted stop in your trip flow.", researchedCost: "Cost unknown; please verify." };
+              const transport = getTransportEntry(day.day, itemIndex);
               return `
                 <article class="poi-item">
                   <figure class="poi-photo">
@@ -784,6 +887,7 @@
                   <div class="poi-text">
                     <span class="poi-time">${visitTime}${dayPart ? " · " + dayPart : ""}</span>
                     <div class="poi-desc">${item.text}</div>
+                    <div class="poi-transport"><strong>Getting there:</strong> ${transport.mode} · allow ~${transport.bufferMin} min transit buffer. ${transport.note}</div>
                     <div class="poi-why"><strong>Why care:</strong> ${meta.why}</div>
                     <div class="poi-research"><strong>Researched cost:</strong> ${meta.researchedCost}</div>
                     <div class="poi-cost">
@@ -803,6 +907,7 @@
                 <h3 class="day-title">${day.title}</h3>
                 <span class="day-date">${day.date}</span>
               </div>
+              ${dayLogisticsNotes[day.day] ? `<div class="day-logistics"><strong>Logistics:</strong> ${dayLogisticsNotes[day.day]}</div>` : ""}
               <div class="poi-list">${itemsMarkup}</div>
               <div class="day-map-wrap">
                 <p class="day-map-title">Day ${day.day} Route Map</p>
@@ -827,6 +932,11 @@
     function getItemKey(day, item, itemIndex) {
       const safeCaption = item.caption.replace(/[^a-z0-9]+/gi, "_").toLowerCase();
       return `d${day.day}_i${itemIndex}_${safeCaption}`;
+    }
+
+    function getTransportEntry(dayNumber, itemIndex) {
+      const dayPlan = dayTransportPlans[dayNumber] || [];
+      return dayPlan[itemIndex] || { mode: "Walk/Tube", bufferMin: 20, note: "Local transfer buffer." };
     }
 
     function initializeCostState() {
