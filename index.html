@@ -205,6 +205,68 @@
     font-size: 0.98rem;
   }
 
+  .poi-cost {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: #4f5b6a;
+  }
+
+  .cost-input {
+    width: 110px;
+    border: 1px solid #c8d2de;
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 0.85rem;
+  }
+
+  .cost-panel {
+    margin: 8px 0 28px;
+  }
+
+  .cost-sheet-wrap {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: auto;
+    background: #fff;
+    box-shadow: 0 10px 22px rgba(14, 34, 56, 0.08);
+  }
+
+  .cost-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 860px;
+  }
+
+  .cost-table th,
+  .cost-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5ebf2;
+    text-align: left;
+    font-size: 0.86rem;
+    vertical-align: top;
+  }
+
+  .cost-table th {
+    background: #f4f8fc;
+    color: #2f3f52;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .cost-summary {
+    margin-top: 10px;
+    padding: 12px 14px;
+    border: 1px solid #d7dde7;
+    border-radius: 10px;
+    background: #fff;
+    font-weight: 700;
+    color: #12395f;
+  }
+
   .map-panel {
     margin-top: 28px;
     border: 1px solid var(--line);
@@ -289,6 +351,12 @@
     <h2 class="section-title">Day-by-Day Plan With Photo Per Bullet</h2>
     <main id="timeline" class="timeline"></main>
 
+    <section class="cost-panel">
+      <h2 class="section-title">Travel Cost Spreadsheet</h2>
+      <div class="cost-sheet-wrap" id="cost-sheet"></div>
+      <div class="cost-summary" id="cost-summary"></div>
+    </section>
+
     <footer>Designed as a true chronological itinerary with one image per unique bullet item.</footer>
   </div>
 
@@ -297,13 +365,13 @@
     const itinerary = [
       {
         day: 1,
-        title: "Arrive in London",
-        date: "April 2",
+        title: "New York to London Flight",
+        date: "April 2-3",
         items: [
-          { text: "Fly in and check into a family hotel near South Bank.", page: "South_Bank", caption: "South Bank base" },
-          { text: "Walk the Riverside Building and County Hall stretch along the Thames.", page: "County_Hall,_London", caption: "County Hall riverside" },
-          { text: "See Tower Bridge lit up at night.", page: "Tower_Bridge", caption: "Tower Bridge at night" },
-          { text: "Have dinner near Borough Market.", page: "Borough_Market", caption: "Borough Market" }
+          { text: "Depart New York (LGA) at 2:49pm on United, 1 stop via IAD.", page: "LaGuardia_Airport", caption: "NYC to London flight", defaultCost: 1534.5 },
+          { text: "Connection at Washington Dulles (IAD), about 2h 9m.", page: "Washington_Dulles_International_Airport", caption: "IAD connection" },
+          { text: "Arrive London Heathrow at 6:55am on April 3.", page: "London_Heathrow_Arrival", caption: "Arrive London Heathrow" },
+          { text: "Light arrival day near South Bank to reset after overnight travel.", page: "South_Bank", caption: "London arrival morning" }
         ]
       },
       {
@@ -417,14 +485,17 @@
         title: "London Departure to New York",
         date: "April 12",
         items: [
-          { text: "Leave central London very early for Heathrow.", page: "London_Heathrow_Airport", caption: "Early transfer to Heathrow" },
-          { text: "Arrive by 5:30am for check-in and security.", page: "London_Heathrow_Airport", caption: "Heathrow departure terminal" },
-          { text: "Flight departs London at 8:30am bound for New York.", page: "Airplane", caption: "London to New York flight" }
+          { text: "Leave central London very early for Heathrow.", page: "London_Heathrow_Departure", caption: "Early transfer to Heathrow" },
+          { text: "Arrive by 5:30am for check-in and security.", page: "London_Heathrow_Departure", caption: "Heathrow departure terminal" },
+          { text: "Flight departs London at 8:30am and arrives New York at 2:41pm.", page: "Airplane", caption: "London to New York flight", defaultCost: 1534.5 }
         ]
       }
     ];
 
     const visitTimes = {
+      LaGuardia_Airport: "14:49",
+      Washington_Dulles_International_Airport: "17:10",
+      London_Heathrow_Arrival: "06:55",
       South_Bank: "15:30",
       "County_Hall,_London": "16:30",
       Borough_Market: "18:30",
@@ -472,12 +543,15 @@
       Neist_Point_Lighthouse: "19:30",
       "A9_road_(Scotland)": "15:00",
       Edinburgh_Waverley_railway_station: "20:00",
-      London_Heathrow_Airport: "05:30",
+      London_Heathrow_Departure: "05:30",
       Edinburgh_Airport: "13:00",
       Airplane: "08:30"
     };
 
     const poiCoordinates = {
+      LaGuardia_Airport: [40.7769, -73.8740],
+      Washington_Dulles_International_Airport: [38.9531, -77.4565],
+      London_Heathrow_Arrival: [51.4700, -0.4543],
       South_Bank: [51.5076, -0.1160],
       "County_Hall,_London": [51.5033, -0.1195],
       Tower_Bridge: [51.5055, -0.0754],
@@ -525,12 +599,15 @@
       Neist_Point_Lighthouse: [57.4230, -6.7870],
       "A9_road_(Scotland)": [56.8620, -4.2640],
       Edinburgh_Waverley_railway_station: [55.9520, -3.1890],
-      London_Heathrow_Airport: [51.4700, -0.4543],
+      London_Heathrow_Departure: [51.4700, -0.4543],
       Edinburgh_Airport: [55.9500, -3.3725],
       Airplane: [51.4700, -0.4543]
     };
 
     const fallbackImages = {
+      LaGuardia_Airport: "https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Washington_Dulles_International_Airport: "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      London_Heathrow_Arrival: "https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       South_Bank: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       River_Thames: "https://images.pexels.com/photos/1796730/pexels-photo-1796730.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "County_Hall,_London": "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -585,20 +662,25 @@
       Neist_Point_Lighthouse: "https://images.pexels.com/photos/1533720/pexels-photo-1533720.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "A9_road_(Scotland)": "https://images.pexels.com/photos/210243/pexels-photo-210243.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Edinburgh_Waverley_railway_station: "https://images.pexels.com/photos/1004584/pexels-photo-1004584.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
-      London_Heathrow_Airport: "https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      London_Heathrow_Departure: "https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Edinburgh_Airport: "https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Airplane: "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400"
     };
+
+    const COST_STORAGE_KEY = "ukTripCostInputsV1";
+    let costState = {};
 
     function renderTimeline() {
       const timeline = document.getElementById("timeline");
       timeline.innerHTML = itinerary
         .map((day) => {
           const itemsMarkup = day.items
-            .map((item) => {
+            .map((item, itemIndex) => {
               const fallback = fallbackImages[item.page] || fallbackImages.London;
               const visitTime = visitTimes[item.page] || "Flexible";
               const dayPart = getDayPart(visitTime);
+              const itemKey = getItemKey(day, item, itemIndex);
+              const savedCost = costState[itemKey];
               return `
                 <article class="poi-item">
                   <figure class="poi-photo">
@@ -608,6 +690,10 @@
                   <div class="poi-text">
                     <span class="poi-time">${visitTime}${dayPart ? " · " + dayPart : ""}</span>
                     <div class="poi-desc">${item.text}</div>
+                    <div class="poi-cost">
+                      <label for="cost-${itemKey}">Cost (USD)</label>
+                      <input id="cost-${itemKey}" class="cost-input js-cost-input" data-cost-key="${itemKey}" type="number" min="0" step="0.01" value="${savedCost ?? ""}" placeholder="0.00">
+                    </div>
                   </div>
                 </article>
               `;
@@ -636,6 +722,97 @@
       if (hour < 17) return "Afternoon";
       if (hour < 21) return "Evening";
       return "Night";
+    }
+
+    function getItemKey(day, item, itemIndex) {
+      const safeCaption = item.caption.replace(/[^a-z0-9]+/gi, "_").toLowerCase();
+      return `d${day.day}_i${itemIndex}_${safeCaption}`;
+    }
+
+    function initializeCostState() {
+      const saved = localStorage.getItem(COST_STORAGE_KEY);
+      if (saved) {
+        try {
+          costState = JSON.parse(saved) || {};
+        } catch (_) {
+          costState = {};
+        }
+      }
+
+      itinerary.forEach((day) => {
+        day.items.forEach((item, index) => {
+          const key = getItemKey(day, item, index);
+          if ((costState[key] === undefined || costState[key] === "") && typeof item.defaultCost === "number") {
+            costState[key] = item.defaultCost.toFixed(2);
+          }
+        });
+      });
+      localStorage.setItem(COST_STORAGE_KEY, JSON.stringify(costState));
+    }
+
+    function renderCostSheet() {
+      const rows = [];
+      itinerary.forEach((day) => {
+        day.items.forEach((item, itemIndex) => {
+          const key = getItemKey(day, item, itemIndex);
+          const t = visitTimes[item.page] || "";
+          rows.push(`
+            <tr>
+              <td>Day ${day.day}</td>
+              <td>${day.date}</td>
+              <td>${item.caption}</td>
+              <td>${t}</td>
+              <td><input class="cost-input js-cost-input" data-cost-key="${key}" type="number" min="0" step="0.01" value="${costState[key] ?? ""}" placeholder="0.00"></td>
+            </tr>
+          `);
+        });
+      });
+
+      const tableHtml = `
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Date</th>
+              <th>Point Of Interest</th>
+              <th>Planned Time</th>
+              <th>Cost (USD)</th>
+            </tr>
+          </thead>
+          <tbody>${rows.join("")}</tbody>
+        </table>
+      `;
+      document.getElementById("cost-sheet").innerHTML = tableHtml;
+      updateCostSummary();
+    }
+
+    function updateCostSummary() {
+      let total = 0;
+      Object.values(costState).forEach((v) => {
+        const n = Number(v);
+        if (!Number.isNaN(n)) total += n;
+      });
+      document.getElementById("cost-summary").textContent = `Current tracked total: $${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    function bindCostInputs() {
+      document.addEventListener("input", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLInputElement)) return;
+        if (!target.classList.contains("js-cost-input")) return;
+        const key = target.dataset.costKey;
+        if (!key) return;
+
+        costState[key] = target.value;
+        localStorage.setItem(COST_STORAGE_KEY, JSON.stringify(costState));
+
+        document.querySelectorAll(`.js-cost-input[data-cost-key="${key}"]`).forEach((el) => {
+          if (el !== target) {
+            el.value = target.value;
+          }
+        });
+        updateCostSummary();
+      });
     }
 
     function buildRouteMap() {
@@ -708,7 +885,10 @@
       });
     }
 
+    initializeCostState();
     renderTimeline();
+    renderCostSheet();
+    bindCostInputs();
     buildRouteMap();
     loadWikipediaImages();
   </script>
