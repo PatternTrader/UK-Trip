@@ -224,42 +224,47 @@
         date: "April 2",
         items: [
           { text: "Fly in and check into a family hotel near South Bank.", page: "South_Bank", caption: "South Bank base" },
-          { text: "Take an easy evening walk along the Thames.", page: "River_Thames", caption: "Evening Thames walk" },
+          { text: "Walk the Riverside Building and County Hall stretch along the Thames.", page: "County_Hall,_London", caption: "County Hall riverside" },
           { text: "See Tower Bridge lit up at night.", page: "Tower_Bridge", caption: "Tower Bridge at night" },
           { text: "Have dinner near Borough Market.", page: "Borough_Market", caption: "Borough Market" }
         ]
       },
       {
         day: 2,
-        title: "Classic London Icons",
+        title: "Royal and Historic London",
         date: "April 3",
         items: [
-          { text: "Visit the Tower of London and Crown Jewels.", page: "Tower_of_London", caption: "Tower of London" },
-          { text: "Take a Thames river cruise toward Westminster.", page: "Westminster", caption: "Cruise toward Westminster" },
           { text: "Watch the Changing of the Guard at Buckingham Palace.", page: "Buckingham_Palace", caption: "Buckingham Palace" },
-          { text: "Relax in Hyde Park in the afternoon.", page: "Hyde_Park,_London", caption: "Hyde Park" }
+          { text: "Stroll through St James's Park between palace and Westminster.", page: "St_James's_Park", caption: "St James's Park" },
+          { text: "Tour Westminster Abbey.", page: "Westminster_Abbey", caption: "Westminster Abbey" },
+          { text: "Photo stop at Big Ben and Parliament.", page: "Big_Ben", caption: "Big Ben" },
+          { text: "Visit the Tower of London and Crown Jewels.", page: "Tower_of_London", caption: "Tower of London" },
+          { text: "Walk back toward the river for classic Tower Bridge skyline views.", page: "Tower_Bridge", caption: "Tower Bridge skyline" }
         ]
       },
       {
         day: 3,
-        title: "Museums and Westminster",
+        title: "South Bank and West End Highlights",
         date: "April 4",
         items: [
-          { text: "Tour the British Museum.", page: "British_Museum", caption: "British Museum" },
-          { text: "Walk through Westminster Abbey and Parliament area.", page: "Westminster_Abbey", caption: "Westminster Abbey" },
-          { text: "Photo stop at Big Ben.", page: "Big_Ben", caption: "Big Ben" },
-          { text: "Cross Millennium Bridge and visit Tate Modern.", page: "Millennium_Bridge,_London", caption: "Millennium Bridge" }
+          { text: "Start at Tate Modern on the riverfront.", page: "Tate_Modern", caption: "Tate Modern" },
+          { text: "Continue to Shakespeare's Globe.", page: "Shakespeare's_Globe", caption: "Shakespeare's Globe" },
+          { text: "Visit the National Gallery.", page: "National_Gallery", caption: "The National Gallery" },
+          { text: "Step into Trafalgar Square for iconic city views.", page: "Trafalgar_Square", caption: "Trafalgar Square" },
+          { text: "Take in the lights and screens at Piccadilly Circus.", page: "Piccadilly_Circus", caption: "Piccadilly Circus" },
+          { text: "Walk through Leicester Square.", page: "Leicester_Square", caption: "Leicester Square" },
+          { text: "Explore Soho streets and food spots.", page: "Soho", caption: "Soho" },
+          { text: "Finish with an evening stroll down Oxford Street.", page: "Oxford_Street", caption: "Oxford Street" }
         ]
       },
       {
         day: 4,
-        title: "Stonehenge and White Cliffs",
+        title: "Museums and London Neighborhoods",
         date: "April 5",
         items: [
-          { text: "Drive to Stonehenge in the morning.", page: "Stonehenge", caption: "Stonehenge" },
-          { text: "Continue east to the White Cliffs of Dover.", page: "White_Cliffs_of_Dover", caption: "White Cliffs of Dover" },
-          { text: "Walk the cliff path and enjoy Channel views.", page: "Dover", caption: "Dover coast views" },
-          { text: "Return to London in the evening.", page: "London", caption: "Back to London" }
+          { text: "Tour the British Museum.", page: "British_Museum", caption: "British Museum" },
+          { text: "Browse food and vintage stalls at Camden Market.", page: "Camden_Market", caption: "Camden Market" },
+          { text: "Visit Kensington Palace and surrounding gardens.", page: "Kensington_Palace", caption: "Kensington Palace" }
         ]
       },
       {
@@ -268,6 +273,7 @@
         date: "April 6",
         items: [
           { text: "Visit Shakespeare's Birthplace.", page: "Shakespeare's_Birthplace", caption: "Shakespeare's Birthplace" },
+          { text: "Tour the Royal Shakespeare Theatre.", page: "Royal_Shakespeare_Theatre", caption: "Royal Shakespeare Theatre" },
           { text: "Stop by Anne Hathaway's Cottage.", page: "Anne_Hathaway's_Cottage", caption: "Anne Hathaway's Cottage" },
           { text: "Take a River Avon walk.", page: "River_Avon,_Warwickshire", caption: "River Avon" },
           { text: "Drive back to London for final night.", page: "London", caption: "London evening return" }
@@ -344,21 +350,34 @@
     const fallbackImages = {
       South_Bank: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       River_Thames: "https://images.pexels.com/photos/1796730/pexels-photo-1796730.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "County_Hall,_London": "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Tower_Bridge: "https://images.pexels.com/photos/1650899/pexels-photo-1650899.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Borough_Market: "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Tower_of_London: "https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Westminster: "https://images.pexels.com/photos/724533/pexels-photo-724533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Buckingham_Palace: "https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "Hyde_Park,_London": "https://images.pexels.com/photos/2521619/pexels-photo-2521619.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "St_James's_Park": "https://images.pexels.com/photos/1268871/pexels-photo-1268871.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       British_Museum: "https://images.pexels.com/photos/356844/pexels-photo-356844.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Westminster_Abbey: "https://images.pexels.com/photos/2082103/pexels-photo-2082103.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Big_Ben: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "Millennium_Bridge,_London": "https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Tate_Modern: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "Shakespeare's_Globe": "https://images.pexels.com/photos/1796726/pexels-photo-1796726.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      National_Gallery: "https://images.pexels.com/photos/1666021/pexels-photo-1666021.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Trafalgar_Square: "https://images.pexels.com/photos/705764/pexels-photo-705764.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Piccadilly_Circus: "https://images.pexels.com/photos/297640/pexels-photo-297640.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Leicester_Square: "https://images.pexels.com/photos/214699/pexels-photo-214699.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Soho: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Oxford_Street: "https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Camden_Market: "https://images.pexels.com/photos/1450372/pexels-photo-1450372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Kensington_Palace: "https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Stonehenge: "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       White_Cliffs_of_Dover: "https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Dover: "https://images.pexels.com/photos/1005417/pexels-photo-1005417.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       London: "https://images.pexels.com/photos/1837590/pexels-photo-1837590.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "Shakespeare's_Birthplace": "https://images.pexels.com/photos/161154/street-building-road-old-161154.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Royal_Shakespeare_Theatre: "https://images.pexels.com/photos/713149/pexels-photo-713149.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "Anne_Hathaway's_Cottage": "https://images.pexels.com/photos/106152/eiffel-tower-paris-france-tower-106152.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "River_Avon,_Warwickshire": "https://images.pexels.com/photos/355423/pexels-photo-355423.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       LNER: "https://images.pexels.com/photos/1004584/pexels-photo-1004584.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
