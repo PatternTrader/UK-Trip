@@ -201,6 +201,16 @@
     padding: 3px 9px;
   }
 
+  .poi-window {
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: #3f4f64;
+  }
+
+  .poi-window strong {
+    color: #203a58;
+  }
+
   .poi-desc {
     font-size: 0.98rem;
   }
@@ -235,6 +245,28 @@
     border-radius: 10px;
     padding: 8px 10px;
     font-size: 0.82rem;
+  }
+
+  .travel-block {
+    border: 1px dashed #d4ddea;
+    border-radius: 10px;
+    background: #f7faff;
+    padding: 9px 11px;
+    margin: 2px 0;
+  }
+
+  .travel-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #1f4773;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .travel-desc {
+    margin-top: 4px;
+    font-size: 0.84rem;
+    color: #3b4f68;
   }
 
   .poi-cost {
@@ -698,6 +730,61 @@
       Airplane: "08:30"
     };
 
+    const visitDurationsMin = {
+      LaGuardia_Airport: 75,
+      Washington_Dulles_International_Airport: 45,
+      London_Heathrow_Arrival: 60,
+      South_Bank: 90,
+      "County_Hall,_London": 60,
+      Tower_Bridge: 60,
+      Borough_Market: 90,
+      Buckingham_Palace: 75,
+      "St_James's_Park": 45,
+      Westminster_Abbey: 90,
+      Big_Ben: 35,
+      Tower_of_London: 150,
+      Tate_Modern: 90,
+      "Shakespeare's_Globe": 60,
+      National_Gallery: 90,
+      Trafalgar_Square: 40,
+      Piccadilly_Circus: 35,
+      Leicester_Square: 30,
+      Soho: 90,
+      Oxford_Street: 75,
+      British_Museum: 120,
+      Camden_Market: 90,
+      Kensington_Palace: 90,
+      Bletchley_Park: 120,
+      "Shakespeare's_Birthplace": 75,
+      Royal_Shakespeare_Theatre: 90,
+      "Anne_Hathaway's_Cottage": 60,
+      "River_Avon,_Warwickshire": 45,
+      London: 45,
+      LNER: 270,
+      Royal_Mile: 60,
+      Grassmarket: 60,
+      Edinburgh: 75,
+      Edinburgh_Castle: 120,
+      Holyrood_Palace: 90,
+      "Arthur's_Seat": 120,
+      "Old_Town,_Edinburgh": 90,
+      Stirling_Castle: 120,
+      National_Wallace_Monument: 60,
+      Battle_of_Bannockburn: 75,
+      Scottish_Highlands: 60,
+      Urquhart_Castle: 90,
+      "Glencoe,_Highland": 60,
+      Inverness: 60,
+      Eilean_Donan: 60,
+      Fairy_Pools: 90,
+      Old_Man_of_Storr: 90,
+      Neist_Point_Lighthouse: 75,
+      "A9_road_(Scotland)": 240,
+      Edinburgh_Waverley_railway_station: 60,
+      London_Heathrow_Departure: 180,
+      Airplane: 671
+    };
+
     const dayTransportPlans = {
       1: [
         { mode: "Airplane", bufferMin: 0, note: "Long-haul departure segment." },
@@ -961,36 +1048,48 @@
       const timeline = document.getElementById("timeline");
       timeline.innerHTML = itinerary
         .map((day) => {
-          const itemsMarkup = day.items
-            .map((item, itemIndex) => {
-              const fallback = fallbackImages[item.page] || fallbackImages.London;
-              const visitTime = visitTimes[item.page] || "Flexible";
-              const dayPart = getDayPart(visitTime);
-              const itemKey = getItemKey(day, item, itemIndex);
-              const savedCost = costState[itemKey];
-              const meta = poiMeta[item.page] || { why: "Noted stop in your trip flow.", researchedCost: "Cost unknown; please verify." };
-              const transport = getTransportEntry(day.day, itemIndex);
-              return `
-                <article class="poi-item">
-                  <figure class="poi-photo">
-                    <img src="${fallback}" data-wiki-page="${item.page}" alt="${item.caption}">
-                    <figcaption class="poi-caption">${item.caption}</figcaption>
-                  </figure>
-                  <div class="poi-text">
-                    <span class="poi-time">${visitTime}${dayPart ? " - " + dayPart : ""}</span>
-                    <div class="poi-desc">${item.text}</div>
-                    <div class="poi-transport"><strong>Getting there:</strong> ${transport.mode} - allow ~${transport.bufferMin} min transit buffer. ${transport.note}</div>
-                    <div class="poi-why"><strong>Why care:</strong> ${meta.why}</div>
-                    <div class="poi-research"><strong>Researched cost:</strong> ${meta.researchedCost}</div>
-                    <div class="poi-cost">
-                      <label for="cost-${itemKey}">Cost (USD)</label>
-                      <input id="cost-${itemKey}" class="cost-input js-cost-input" data-cost-key="${itemKey}" type="number" min="0" step="0.01" value="${savedCost ?? ""}" placeholder="0.00">
-                    </div>
-                  </div>
+          let itemsMarkup = "";
+          day.items.forEach((item, itemIndex) => {
+            const fallback = fallbackImages[item.page] || fallbackImages.London;
+            const visitTime = visitTimes[item.page] || "Flexible";
+            const duration = visitDurationsMin[item.page] || 60;
+            const visitEndTime = addMinutesToTime(visitTime, duration);
+            const dayPart = getDayPart(visitTime);
+            const itemKey = getItemKey(day, item, itemIndex);
+            const savedCost = costState[itemKey];
+            const meta = poiMeta[item.page] || { why: "Noted stop in your trip flow.", researchedCost: "Cost unknown; please verify." };
+            const transport = getTransportEntry(day.day, itemIndex);
+
+            if (transport && transport.bufferMin > 0) {
+              itemsMarkup += `
+                <article class="travel-block">
+                  <div class="travel-title">Travel Downtime - ${transport.mode}</div>
+                  <div class="travel-desc">Estimated transfer buffer: ~${transport.bufferMin} min. ${transport.note}</div>
                 </article>
               `;
-            })
-            .join("");
+            }
+
+            itemsMarkup += `
+              <article class="poi-item">
+                <figure class="poi-photo">
+                  <img src="${fallback}" data-wiki-page="${item.page}" alt="${item.caption}">
+                  <figcaption class="poi-caption">${item.caption}</figcaption>
+                </figure>
+                <div class="poi-text">
+                  <span class="poi-time">${visitTime}${dayPart ? " - " + dayPart : ""}</span>
+                  <div class="poi-window"><strong>Estimated window:</strong> ${visitTime} - ${visitEndTime}</div>
+                  <div class="poi-desc">${item.text}</div>
+                  <div class="poi-transport"><strong>Getting there:</strong> ${transport.mode} - allow ~${transport.bufferMin} min transit buffer. ${transport.note}</div>
+                  <div class="poi-why"><strong>Why care:</strong> ${meta.why}</div>
+                  <div class="poi-research"><strong>Researched cost:</strong> ${meta.researchedCost}</div>
+                  <div class="poi-cost">
+                    <label for="cost-${itemKey}">Cost (USD)</label>
+                    <input id="cost-${itemKey}" class="cost-input js-cost-input" data-cost-key="${itemKey}" type="number" min="0" step="0.01" value="${savedCost ?? ""}" placeholder="0.00">
+                  </div>
+                </div>
+              </article>
+            `;
+          });
 
           return `
             <section class="day-card">
@@ -1019,6 +1118,17 @@
       if (hour < 17) return "Afternoon";
       if (hour < 21) return "Evening";
       return "Night";
+    }
+
+    function addMinutesToTime(timeText, minutesToAdd) {
+      if (!timeText || !timeText.includes(":")) return "Flexible";
+      const [h, m] = timeText.split(":").map(Number);
+      if (Number.isNaN(h) || Number.isNaN(m)) return "Flexible";
+      const total = h * 60 + m + Number(minutesToAdd || 0);
+      const wrapped = ((total % 1440) + 1440) % 1440;
+      const endH = String(Math.floor(wrapped / 60)).padStart(2, "0");
+      const endM = String(wrapped % 60).padStart(2, "0");
+      return `${endH}:${endM}`;
     }
 
     function getItemKey(day, item, itemIndex) {
