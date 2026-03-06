@@ -205,6 +205,18 @@
     font-size: 0.98rem;
   }
 
+  .poi-why,
+  .poi-research {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    color: #4a5666;
+  }
+
+  .poi-why strong,
+  .poi-research strong {
+    color: #24384f;
+  }
+
   .poi-cost {
     margin-top: 10px;
     display: flex;
@@ -667,6 +679,61 @@
       Airplane: "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400"
     };
 
+    const poiMeta = {
+      LaGuardia_Airport: { why: "Major New York gateway and your trip's launch point.", researchedCost: "No attraction admission; airline fare applies." },
+      Washington_Dulles_International_Airport: { why: "Main transatlantic connection hub in this itinerary.", researchedCost: "No attraction admission; connection only." },
+      London_Heathrow_Arrival: { why: "Primary UK entry point and start of your London leg.", researchedCost: "No attraction admission; airport transfer costs apply." },
+      South_Bank: { why: "One of London's best urban river walks with skyline views.", researchedCost: "Free public area." },
+      "County_Hall,_London": { why: "Historic riverside civic building beside key Westminster sights.", researchedCost: "Exterior/public riverside access is free." },
+      Tower_Bridge: { why: "Iconic Victorian bascule bridge and top London photo location.", researchedCost: "Bridge exterior walk is free; exhibition is paid." },
+      Borough_Market: { why: "Historic food market with strong local and global street-food scene.", researchedCost: "Entry is free; purchases are pay-as-you-go." },
+      Buckingham_Palace: { why: "Symbol of the British monarchy and Changing of the Guard.", researchedCost: "Exterior/guard viewing free; State Rooms are paid seasonal entry." },
+      "St_James's_Park": { why: "Classic royal park linking palace and Westminster.", researchedCost: "Free public park." },
+      Westminster_Abbey: { why: "Coronation church with major royal and national history.", researchedCost: "Paid admission (official tickets required)." },
+      Big_Ben: { why: "One of the world's most recognizable clock towers.", researchedCost: "Exterior viewing is free; tours are limited/paid." },
+      Tower_of_London: { why: "UNESCO fortress with Crown Jewels and deep medieval history.", researchedCost: "Paid admission (online booking recommended)." },
+      Tate_Modern: { why: "Global modern-art museum in a dramatic former power station.", researchedCost: "Main collection free; special exhibitions usually paid." },
+      "Shakespeare's_Globe": { why: "Reconstruction of Shakespeare's open-air playhouse.", researchedCost: "Exterior and riverside area free; tours/performances paid." },
+      National_Gallery: { why: "World-class European art collection on Trafalgar Square.", researchedCost: "Permanent collection free; some exhibitions paid." },
+      Trafalgar_Square: { why: "Historic civic square and central orientation point in London.", researchedCost: "Free public square." },
+      Piccadilly_Circus: { why: "Famous neon-lit junction and West End energy hub.", researchedCost: "Free public area." },
+      Leicester_Square: { why: "Cinema and theatre district heart with constant street activity.", researchedCost: "Free public square; events paid." },
+      Soho: { why: "Dense district of restaurants, music, theatre, and nightlife culture.", researchedCost: "No admission cost; spend depends on dining/activities." },
+      Oxford_Street: { why: "Historic shopping boulevard with flagship stores.", researchedCost: "No admission cost; shopping spend optional." },
+      British_Museum: { why: "Major world-history museum with landmark artifacts.", researchedCost: "Permanent galleries free; some exhibitions paid." },
+      Camden_Market: { why: "Alternative market district known for food, fashion, and music culture.", researchedCost: "Market entry free; food/shopping paid." },
+      Kensington_Palace: { why: "Royal residence with state apartments and palace exhibitions.", researchedCost: "Paid admission (official tickets)." },
+      Bletchley_Park: { why: "WWII codebreaking site tied to Enigma and early computing.", researchedCost: "Paid admission (ticket includes annual return validity in many cases)." },
+      "Shakespeare's_Birthplace": { why: "Preserved birthplace of Shakespeare in Stratford.", researchedCost: "Paid admission via Shakespeare Birthplace Trust tickets." },
+      Royal_Shakespeare_Theatre: { why: "Flagship stage of the Royal Shakespeare Company.", researchedCost: "Performances and most tours are paid (prices vary by show)." },
+      "Anne_Hathaway's_Cottage": { why: "Thatched Tudor home linked to Shakespeare's family history.", researchedCost: "Paid admission, often bundled with Birthplace Trust passes." },
+      "River_Avon,_Warwickshire": { why: "Scenic riverfront that defines Stratford's atmosphere.", researchedCost: "Riverside walk free; boat hires paid." },
+      London: { why: "Global city core and logistical base for this itinerary.", researchedCost: "No general admission; city transport/lodging costs apply." },
+      LNER: { why: "Fast intercity rail route linking London and Edinburgh.", researchedCost: "Rail fare required (dynamic pricing)." },
+      Royal_Mile: { why: "Historic spine of Edinburgh Old Town.", researchedCost: "Street access free." },
+      Grassmarket: { why: "Historic market square turned lively dining quarter.", researchedCost: "Area access free; dining spend optional." },
+      Edinburgh: { why: "Scotland's capital with layered medieval and Georgian history.", researchedCost: "No general city admission cost." },
+      Edinburgh_Castle: { why: "Dominant fortress above the city with national regalia.", researchedCost: "Paid admission (timed tickets advised)." },
+      Holyrood_Palace: { why: "Official Scottish royal residence with major Stuart-era history.", researchedCost: "Paid admission (official Royal Collection ticketing)." },
+      "Arthur's_Seat": { why: "Volcanic hill for panoramic views over Edinburgh.", researchedCost: "Free public hike." },
+      "Old_Town,_Edinburgh": { why: "Dense medieval urban fabric and UNESCO core area.", researchedCost: "Area access free." },
+      Stirling_Castle: { why: "One of Scotland's most historically strategic royal castles.", researchedCost: "Paid admission (Historic Environment Scotland)." },
+      National_Wallace_Monument: { why: "Tribute tower to William Wallace with wide-area views.", researchedCost: "Paid monument admission." },
+      Battle_of_Bannockburn: { why: "Site of a pivotal Scottish independence battle.", researchedCost: "Visitor experience/tours usually paid; grounds access may vary." },
+      Scottish_Highlands: { why: "Signature mountain-and-glen landscapes of Scotland.", researchedCost: "Scenic driving access generally free; parking/attractions may cost." },
+      Urquhart_Castle: { why: "Dramatic Loch Ness ruins with iconic shoreline views.", researchedCost: "Paid admission (Historic Environment Scotland)." },
+      "Glencoe,_Highland": { why: "Iconic glen with epic geology and layered clan history.", researchedCost: "Roadside viewpoints generally free; some car parks/facilities paid." },
+      Inverness: { why: "Highlands gateway city and practical touring base.", researchedCost: "No city admission; lodging/food/transport costs apply." },
+      Eilean_Donan: { why: "Photogenic loch-side castle on a tidal island setting.", researchedCost: "Viewpoints free; interior entry paid." },
+      Fairy_Pools: { why: "Clear blue pools and mountain backdrop on Skye.", researchedCost: "Access free; parking/managed facilities may have fees." },
+      Old_Man_of_Storr: { why: "Skye's famous rock pinnacle hike and viewpoint.", researchedCost: "Trail access free; car park commonly paid." },
+      Neist_Point_Lighthouse: { why: "Dramatic cliffside lighthouse and sunset location.", researchedCost: "Access free; parking conditions vary." },
+      "A9_road_(Scotland)": { why: "Main north-south route connecting Highlands and Edinburgh.", researchedCost: "No toll for standard use; fuel costs apply." },
+      Edinburgh_Waverley_railway_station: { why: "Central rail hub for London return leg.", researchedCost: "Station access free; ticketed rail travel required." },
+      London_Heathrow_Departure: { why: "International departure hub for your flight home.", researchedCost: "No attraction admission; airport transfer and airfare costs apply." },
+      Airplane: { why: "Transatlantic return transport to New York.", researchedCost: "Airfare already budgeted: $1,534.50 per leg based on your screenshot." }
+    };
+
     const COST_STORAGE_KEY = "ukTripCostInputsV1";
     let costState = {};
 
@@ -681,6 +748,7 @@
               const dayPart = getDayPart(visitTime);
               const itemKey = getItemKey(day, item, itemIndex);
               const savedCost = costState[itemKey];
+              const meta = poiMeta[item.page] || { why: "Noted stop in your trip flow.", researchedCost: "Cost unknown; please verify." };
               return `
                 <article class="poi-item">
                   <figure class="poi-photo">
@@ -690,6 +758,8 @@
                   <div class="poi-text">
                     <span class="poi-time">${visitTime}${dayPart ? " · " + dayPart : ""}</span>
                     <div class="poi-desc">${item.text}</div>
+                    <div class="poi-why"><strong>Why care:</strong> ${meta.why}</div>
+                    <div class="poi-research"><strong>Researched cost:</strong> ${meta.researchedCost}</div>
                     <div class="poi-cost">
                       <label for="cost-${itemKey}">Cost (USD)</label>
                       <input id="cost-${itemKey}" class="cost-input js-cost-input" data-cost-key="${itemKey}" type="number" min="0" step="0.01" value="${savedCost ?? ""}" placeholder="0.00">
@@ -756,12 +826,14 @@
         day.items.forEach((item, itemIndex) => {
           const key = getItemKey(day, item, itemIndex);
           const t = visitTimes[item.page] || "";
+          const meta = poiMeta[item.page] || { researchedCost: "Cost unknown; verify manually." };
           rows.push(`
             <tr>
               <td>Day ${day.day}</td>
               <td>${day.date}</td>
               <td>${item.caption}</td>
               <td>${t}</td>
+              <td>${meta.researchedCost}</td>
               <td><input class="cost-input js-cost-input" data-cost-key="${key}" type="number" min="0" step="0.01" value="${costState[key] ?? ""}" placeholder="0.00"></td>
             </tr>
           `);
@@ -776,7 +848,8 @@
               <th>Date</th>
               <th>Point Of Interest</th>
               <th>Planned Time</th>
-              <th>Cost (USD)</th>
+              <th>Researched Cost Guidance</th>
+              <th>Your Cost (USD)</th>
             </tr>
           </thead>
           <tbody>${rows.join("")}</tbody>
