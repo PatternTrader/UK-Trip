@@ -1140,9 +1140,11 @@
             const transport = getTransportEntry(day.day, itemIndex);
 
             if (transport && transport.bufferMin > 0) {
+              const transferEndTime = visitTime;
+              const transferStartTime = subtractMinutesFromTime(visitTime, transport.bufferMin);
               itemsMarkup += `
                 <article class="travel-block">
-                  <div class="travel-title">Travel Downtime - ${transport.mode}</div>
+                  <div class="travel-title">Travel Downtime - ${transport.mode} | ${transferStartTime} - ${transferEndTime} (${transport.bufferMin} min)</div>
                   <div class="travel-desc">Estimated transfer buffer: ~${transport.bufferMin} min. ${transport.note}</div>
                 </article>
               `;
@@ -1207,6 +1209,10 @@
       const endH = String(Math.floor(wrapped / 60)).padStart(2, "0");
       const endM = String(wrapped % 60).padStart(2, "0");
       return `${endH}:${endM}`;
+    }
+
+    function subtractMinutesFromTime(timeText, minutesToSubtract) {
+      return addMinutesToTime(timeText, -Number(minutesToSubtract || 0));
     }
 
     function isPotentiallyPaid(costText) {
