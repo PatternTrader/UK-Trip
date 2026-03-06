@@ -3,1004 +3,514 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>London &amp; Scotland — Family Adventure 2025</title>
+<title>UK Family Trip Itinerary | April 2-12, 2025</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ============================================================
-     RESET & BASE
-  ============================================================ */
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Lato', sans-serif;
-    background: #0d1520;
-    color: #f5f0e8;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* ============================================================
-     COLOUR TOKENS
-  ============================================================ */
   :root {
-    --navy:   #0d1520;
-    --navy2:  #1b2a4a;
-    --navy3:  #243656;
-    --gold:   #c8973a;
-    --gold2:  #e2b86a;
-    --red:    #7a1515;
-    --red2:   #9e2020;
-    --cream:  #f5f0e8;
-    --slate:  #6b7a8d;
-    --slate2: #aabbcc;
+    --bg: #f2efe8;
+    --ink: #1a1a1a;
+    --muted: #4a5565;
+    --navy: #10263f;
+    --navy-2: #17395f;
+    --gold: #bf8b30;
+    --card: #ffffff;
+    --line: #d5d9df;
   }
 
-  /* ============================================================
-     NAVIGATION
-  ============================================================ */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem;
-    height: 60px;
-    background: rgba(13,21,32,0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(200,151,58,0.2);
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem;
-    color: var(--gold);
-    letter-spacing: 1px;
-    white-space: nowrap;
-  }
-  .nav-links {
-    display: flex; gap: 1.8rem; list-style: none;
-  }
-  .nav-links a {
-    color: var(--slate2);
-    text-decoration: none;
-    font-size: 0.82rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-  @media (max-width: 700px) {
-    .nav-links { display: none; }
-  }
+  * { box-sizing: border-box; }
 
-  /* ============================================================
-     HERO
-  ============================================================ */
-  .hero {
-    position: relative;
-    height: 100vh; min-height: 600px;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    overflow: hidden;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
+  body {
+    margin: 0;
+    font-family: "Source Sans 3", sans-serif;
+    color: var(--ink);
     background:
-      linear-gradient(to bottom, rgba(13,21,32,0.45) 0%, rgba(13,21,32,0.65) 60%, rgba(13,21,32,1) 100%),
-      url('https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=1600&w=2400')
-      center center / cover no-repeat;
+      radial-gradient(circle at 15% 5%, rgba(191, 139, 48, 0.12), transparent 36%),
+      radial-gradient(circle at 85% 0%, rgba(23, 57, 95, 0.16), transparent 44%),
+      var(--bg);
   }
-  .hero-content { position: relative; z-index: 2; padding: 1rem 2rem; }
-  .hero-badge {
-    display: inline-block;
-    border: 1px solid var(--gold);
-    color: var(--gold);
-    font-size: 0.72rem;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    padding: 5px 16px;
+
+  .container {
+    width: min(1120px, 92vw);
+    margin: 0 auto;
+  }
+
+  header {
+    padding: 48px 0 28px;
+  }
+
+  .hero {
+    border: 1px solid var(--line);
+    background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: #f7f8fa;
     border-radius: 20px;
-    margin-bottom: 1.2rem;
-    animation: fadeDown 0.8s ease both;
+    padding: 36px;
+    box-shadow: 0 20px 40px rgba(16, 38, 63, 0.2);
   }
+
   .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 8vw, 6.5rem);
-    font-weight: 700;
-    line-height: 1.05;
-    color: var(--cream);
-    animation: fadeDown 0.9s 0.15s ease both;
+    margin: 0;
+    font-family: "Merriweather", serif;
+    line-height: 1.15;
+    font-size: clamp(2rem, 3vw, 3rem);
   }
-  .hero h1 span { color: var(--gold); display: block; }
-  .hero-sub {
-    margin-top: 1rem;
+
+  .hero p {
+    margin: 12px 0 0;
+    color: #dae3ee;
     font-size: 1.05rem;
-    color: var(--slate2);
-    letter-spacing: 2px;
-    animation: fadeDown 1s 0.3s ease both;
-  }
-  .hero-stats {
-    display: flex; gap: 2.5rem; justify-content: center;
-    margin-top: 2.5rem;
-    animation: fadeDown 1.1s 0.45s ease both;
-  }
-  .hero-stat { text-align: center; }
-  .hero-stat .num {
-    display: block;
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    color: var(--gold);
-    line-height: 1;
-  }
-  .hero-stat .lbl {
-    font-size: 0.7rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--slate2);
-  }
-  .hero-scroll {
-    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-    font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--slate); animation: bounce 2s infinite;
-  }
-  @keyframes bounce {
-    0%,100% { transform: translateX(-50%) translateY(0); }
-    50%      { transform: translateX(-50%) translateY(6px); }
-  }
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to   { opacity: 1; transform: translateY(0); }
+    max-width: 780px;
   }
 
-  /* ============================================================
-     ROUTE STRIP
-  ============================================================ */
-  .route-strip {
-    background: var(--navy2);
-    padding: 1.5rem 1.5rem;
-    overflow-x: auto;
-    border-bottom: 1px solid rgba(200,151,58,0.15);
+  .quick-meta {
+    margin-top: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
-  .route-strip::-webkit-scrollbar { height: 4px; }
-  .route-strip::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
-  .route-pills {
-    display: flex; gap: 0.6rem; min-width: max-content;
-    justify-content: center;
-  }
-  .pill {
-    display: flex; flex-direction: column; align-items: center;
-    padding: 0.5rem 1.1rem;
-    border-radius: 30px;
-    border: 1px solid rgba(200,151,58,0.3);
-    background: rgba(200,151,58,0.05);
-    cursor: default;
-    transition: background 0.2s, border-color 0.2s;
-    text-decoration: none;
-    min-width: 80px;
-  }
-  .pill:hover { background: rgba(200,151,58,0.15); border-color: var(--gold); }
-  .pill .p-icon { font-size: 1.1rem; }
-  .pill .p-date { font-size: 0.62rem; color: var(--gold); letter-spacing: 1px; margin-top: 1px; }
-  .pill .p-lbl { font-size: 0.65rem; color: var(--slate2); white-space: nowrap; }
-  .pill.london { border-color: rgba(30,90,200,0.4); background: rgba(30,90,200,0.07); }
-  .pill.london:hover { background: rgba(30,90,200,0.18); border-color: #4a80e0; }
-  .pill.scotland { border-color: rgba(122,21,21,0.4); background: rgba(122,21,21,0.07); }
-  .pill.scotland:hover { background: rgba(122,21,21,0.2); border-color: var(--red2); }
 
-  /* ============================================================
-     SECTION LAYOUT
-  ============================================================ */
-  section { padding: 5rem 2rem; }
-  .section-header {
-    display: flex; align-items: baseline; gap: 1rem;
-    margin-bottom: 3rem;
+  .quick-meta span {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    padding: 7px 12px;
+    font-size: 0.92rem;
+    color: #eef3fa;
+    background: rgba(255, 255, 255, 0.08);
   }
-  .section-flag { font-size: 1.8rem; }
-  .section-title-wrap {}
-  .section-label {
-    font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase;
-    color: var(--gold); display: block; margin-bottom: 2px;
+
+  main {
+    padding: 20px 0 46px;
   }
+
   .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    color: var(--cream);
-    line-height: 1.1;
-  }
-  .section-dates {
-    font-size: 0.8rem; color: var(--slate2);
-    letter-spacing: 1px; margin-top: 4px;
-  }
-  .section-divider {
-    width: 60px; height: 3px;
-    background: linear-gradient(to right, var(--gold), transparent);
-    margin: 0.6rem 0 0;
-    border-radius: 2px;
+    margin: 0 0 16px;
+    font-family: "Merriweather", serif;
+    font-size: clamp(1.5rem, 2.2vw, 2rem);
+    color: var(--navy);
   }
 
-  /* ============================================================
-     PHOTO CARDS
-  ============================================================ */
-  .photo-card {
-    position: relative; overflow: hidden; border-radius: 10px;
-    background: var(--navy2);
-    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
-    cursor: default;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
-  }
-  .photo-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.65); }
-  .photo-card img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform 0.5s ease;
-  }
-  .photo-card:hover img { transform: scale(1.04); }
-  .photo-card .overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(13,21,32,0.95) 0%, rgba(13,21,32,0.3) 55%, transparent 100%);
-  }
-  .photo-card .card-body {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 1.2rem 1.3rem 1.3rem;
-  }
-  .card-tag {
-    display: inline-block;
-    background: rgba(200,151,58,0.2);
-    border: 1px solid rgba(200,151,58,0.5);
-    color: var(--gold); font-size: 0.62rem;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    padding: 2px 9px; border-radius: 20px; margin-bottom: 6px;
-  }
-  .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem; color: var(--cream);
-    line-height: 1.2; margin-bottom: 3px;
-  }
-  .card-date { font-size: 0.72rem; color: var(--gold); letter-spacing: 1px; margin-bottom: 5px; }
-  .card-desc { font-size: 0.8rem; color: var(--slate2); line-height: 1.45; }
-
-  /* ============================================================
-     FEATURED LAYOUT (big + stack)
-  ============================================================ */
-  .featured-layout {
+  .timeline {
+    position: relative;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 240px 240px;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  .featured-layout .big { grid-row: 1 / 3; }
-  .featured-layout .big img { height: 100%; }
-  .featured-layout .stack { }
-  .featured-layout.reversed { direction: rtl; }
-  .featured-layout.reversed > * { direction: ltr; }
-  @media (max-width: 700px) {
-    .featured-layout { grid-template-columns: 1fr; grid-template-rows: auto; }
-    .featured-layout .big { grid-row: auto; }
-    .featured-layout .big img { height: 260px; }
-    .featured-layout .stack img { height: 200px; }
+    gap: 18px;
   }
 
-  /* ============================================================
-     CARD GRIDS
-  ============================================================ */
-  .grid-3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  .grid-3 .photo-card img { height: 220px; }
-  .grid-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  .grid-2 .photo-card img { height: 280px; }
-  @media (max-width: 900px) {
-    .grid-3 { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 600px) {
-    .grid-3, .grid-2 { grid-template-columns: 1fr; }
-    .grid-2 .photo-card img { height: 220px; }
-  }
-
-  /* ============================================================
-     DAY CARDS (itinerary detail)
-  ============================================================ */
-  .day-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1rem;
-    margin-top: 3rem;
-  }
   .day-card {
-    background: var(--navy2);
-    border: 1px solid rgba(200,151,58,0.15);
-    border-radius: 10px;
-    padding: 1.4rem 1.5rem;
-    transition: border-color 0.2s, background 0.2s;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--card);
+    padding: 18px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
   }
-  .day-card:hover { border-color: rgba(200,151,58,0.4); background: var(--navy3); }
-  .day-num {
-    font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 4px;
+
+  .day-head {
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    align-items: baseline;
   }
+
+  .day-tag {
+    display: inline-block;
+    border-radius: 999px;
+    border: 1px solid rgba(16, 38, 63, 0.24);
+    background: #ecf2f9;
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 0.84rem;
+    letter-spacing: 0.02em;
+    padding: 4px 10px;
+  }
+
   .day-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem; color: var(--cream);
-    margin-bottom: 0.8rem;
+    margin: 0;
+    font-size: 1.35rem;
+    font-family: "Merriweather", serif;
+    color: var(--ink);
   }
-  .day-items { list-style: none; }
-  .day-items li {
-    font-size: 0.82rem; color: var(--slate2);
-    padding: 4px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    display: flex; gap: 0.5rem;
-  }
-  .day-items li:last-child { border-bottom: none; }
-  .day-tip {
-    margin-top: 0.9rem;
-    padding: 0.6rem 0.8rem;
-    background: rgba(200,151,58,0.08);
-    border-left: 2px solid var(--gold);
-    border-radius: 0 6px 6px 0;
-    font-size: 0.77rem; color: var(--slate2); line-height: 1.4;
-  }
-  .day-tip strong { color: var(--gold); }
 
-  /* ============================================================
-     TIPS SECTION
-  ============================================================ */
-  .tips-section { background: var(--navy2); }
-  .tips-grid {
+  .day-date {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.96rem;
+  }
+
+  .day-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1rem;
+    grid-template-columns: 40% 1fr;
+    gap: 16px;
+    align-items: start;
   }
-  .tip-card {
-    background: var(--navy);
-    border: 1px solid rgba(200,151,58,0.15);
-    border-radius: 10px;
-    padding: 1.5rem;
-    transition: border-color 0.2s;
-  }
-  .tip-card:hover { border-color: rgba(200,151,58,0.4); }
-  .tip-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
-  .tip-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.05rem; color: var(--cream);
-    margin-bottom: 0.5rem;
-  }
-  .tip-text { font-size: 0.82rem; color: var(--slate2); line-height: 1.55; }
-  .tip-text strong { color: var(--gold2); }
 
-  /* ============================================================
-     FOOTER
-  ============================================================ */
+  .day-photo {
+    margin: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: #dce3eb;
+    min-height: 232px;
+  }
+
+  .day-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .day-photo figcaption {
+    padding: 8px 10px;
+    background: #f7f9fc;
+    border-top: 1px solid var(--line);
+    font-size: 0.84rem;
+    color: var(--muted);
+  }
+
+  .day-list {
+    margin: 0;
+    padding-left: 20px;
+    display: grid;
+    gap: 8px;
+    color: #212d3d;
+    font-size: 1rem;
+  }
+
+  .tip {
+    margin-top: 12px;
+    border-top: 1px dashed var(--line);
+    padding-top: 10px;
+    color: #2f3c4d;
+    font-size: 0.95rem;
+  }
+
+  .tip strong {
+    color: var(--navy);
+  }
+
   footer {
-    background: #060c13;
+    margin: 22px 0 36px;
+    color: var(--muted);
+    font-size: 0.92rem;
     text-align: center;
-    padding: 3rem 2rem;
-    border-top: 1px solid rgba(200,151,58,0.15);
   }
-  footer .footer-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem; color: var(--gold);
-    margin-bottom: 0.5rem;
-  }
-  footer p { font-size: 0.82rem; color: var(--slate); line-height: 1.7; }
-  footer .flags { font-size: 1.5rem; margin-bottom: 0.8rem; }
 
-  /* ============================================================
-     SECTION BG ALTERNATION
-  ============================================================ */
-  .bg-dark  { background: var(--navy); }
-  .bg-mid   { background: #111d2e; }
-  .bg-red   { background: #100a0a; }
+  @media (max-width: 900px) {
+    .day-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .day-photo {
+      min-height: 220px;
+    }
+  }
 </style>
 </head>
 <body>
+  <header>
+    <div class="container">
+      <div class="hero">
+        <h1>Chronological UK Family Itinerary</h1>
+        <p>A day-by-day plan from London to Scotland with each day's key stops listed next to a matching photo.</p>
+        <div class="quick-meta">
+          <span>Dates: April 2-12, 2025</span>
+          <span>Trip Length: 11 days</span>
+          <span>Family of 5</span>
+        </div>
+      </div>
+    </div>
+  </header>
 
-<!-- ============================================================
-     NAVIGATION
-============================================================ -->
-<nav>
-  <div class="nav-logo">🇬🇧 London &amp; Scotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
-  <ul class="nav-links">
-    <li><a href="#london">London</a></li>
-    <li><a href="#daytrips">Day Trips</a></li>
-    <li><a href="#edinburgh">Edinburgh</a></li>
-    <li><a href="#highlands">Highlands</a></li>
-    <li><a href="#tips">Tips</a></li>
-  </ul>
-</nav>
+  <main>
+    <div class="container">
+      <h2 class="section-title">Day-by-Day Timeline</h2>
 
-<!-- ============================================================
-     HERO
-============================================================ -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content">
-    <div class="hero-badge">Family Adventure · April 2025</div>
-    <h1>London<span>&amp; Scotland</span></h1>
-    <p class="hero-sub">April 2 – 12 &nbsp;·&nbsp; Family of 5 &nbsp;·&nbsp; 11 Days</p>
-    <div class="hero-stats">
-      <div class="hero-stat"><span class="num">11</span><span class="lbl">Days</span></div>
-      <div class="hero-stat"><span class="num">5</span><span class="lbl">People</span></div>
-      <div class="hero-stat"><span class="num">15+</span><span class="lbl">Attractions</span></div>
-      <div class="hero-stat"><span class="num">2</span><span class="lbl">Countries</span></div>
-    </div>
-  </div>
-  <div class="hero-scroll">↓ &nbsp; Scroll to explore</div>
-</section>
+      <section class="timeline">
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 1</span>
+            <h3 class="day-title">Arrive in London</h3>
+            <span class="day-date">April 2</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/1650899/pexels-photo-1650899.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Tower_Bridge" alt="Tower Bridge">
+              <figcaption>Tower Bridge evening walk</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Fly in and check into a family hotel near South Bank.</li>
+                <li>Take an easy evening walk along the Thames.</li>
+                <li>See Tower Bridge lit up at night.</li>
+                <li>Have dinner near Borough Market.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Keep Day 1 light to recover from travel and jet lag.</p>
+            </div>
+          </div>
+        </article>
 
-<!-- ============================================================
-     ROUTE STRIP
-============================================================ -->
-<div class="route-strip">
-  <div class="route-pills">
-    <a class="pill london" href="#london">
-      <span class="p-icon">✈️</span>
-      <span class="p-date">Apr 2</span>
-      <span class="p-lbl">Arrive London</span>
-    </a>
-    <a class="pill london" href="#london">
-      <span class="p-icon">🏰</span>
-      <span class="p-date">Apr 3</span>
-      <span class="p-lbl">London Icons</span>
-    </a>
-    <a class="pill london" href="#london">
-      <span class="p-icon">🏛️</span>
-      <span class="p-date">Apr 4</span>
-      <span class="p-lbl">Museums</span>
-    </a>
-    <a class="pill" href="#daytrips">
-      <span class="p-icon">🗿</span>
-      <span class="p-date">Apr 5</span>
-      <span class="p-lbl">Stonehenge</span>
-    </a>
-    <a class="pill" href="#daytrips">
-      <span class="p-icon">🎭</span>
-      <span class="p-date">Apr 6</span>
-      <span class="p-lbl">Stratford</span>
-    </a>
-    <a class="pill scotland" href="#edinburgh">
-      <span class="p-icon">🚄</span>
-      <span class="p-date">Apr 7</span>
-      <span class="p-lbl">Train North</span>
-    </a>
-    <a class="pill scotland" href="#edinburgh">
-      <span class="p-icon">🏯</span>
-      <span class="p-date">Apr 8</span>
-      <span class="p-lbl">Edinburgh</span>
-    </a>
-    <a class="pill scotland" href="#edinburgh">
-      <span class="p-icon">⚔️</span>
-      <span class="p-date">Apr 9</span>
-      <span class="p-lbl">Stirling</span>
-    </a>
-    <a class="pill scotland" href="#highlands">
-      <span class="p-icon">🦕</span>
-      <span class="p-date">Apr 10</span>
-      <span class="p-lbl">Loch Ness</span>
-    </a>
-    <a class="pill scotland" href="#highlands">
-      <span class="p-icon">🌊</span>
-      <span class="p-date">Apr 11</span>
-      <span class="p-lbl">Isle of Skye</span>
-    </a>
-    <a class="pill scotland" href="#tips">
-      <span class="p-icon">🛫</span>
-      <span class="p-date">Apr 12</span>
-      <span class="p-lbl">Fly Home</span>
-    </a>
-  </div>
-</div>
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 2</span>
+            <h3 class="day-title">Classic London Icons</h3>
+            <span class="day-date">April 3</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Tower_of_London" alt="Tower of London">
+              <figcaption>Tower of London</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Visit the Tower of London and Crown Jewels.</li>
+                <li>Take a Thames river cruise toward Westminster.</li>
+                <li>Watch the Changing of the Guard at Buckingham Palace.</li>
+                <li>Relax in Hyde Park in the afternoon.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Reserve Tower of London tickets early in spring.</p>
+            </div>
+          </div>
+        </article>
 
-<!-- ============================================================
-     LONDON
-============================================================ -->
-<section id="london" class="bg-dark">
-  <div class="section-header">
-    <span class="section-flag">🇬🇧</span>
-    <div class="section-title-wrap">
-      <span class="section-label">April 2 – 4</span>
-      <h2 class="section-title">London</h2>
-      <div class="section-dates">3 days · South Bank base · Oyster card</div>
-      <div class="section-divider"></div>
-    </div>
-  </div>
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 3</span>
+            <h3 class="day-title">Museums and Westminster</h3>
+            <span class="day-date">April 4</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/356844/pexels-photo-356844.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="British_Museum" alt="British Museum">
+              <figcaption>British Museum highlights</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Tour the British Museum.</li>
+                <li>Walk through Westminster Abbey and Parliament area.</li>
+                <li>Photo stop at Big Ben.</li>
+                <li>Cross Millennium Bridge and visit Tate Modern.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Focus on 2-3 museum zones for kids.</p>
+            </div>
+          </div>
+        </article>
 
-  <!-- Featured photo layout -->
-  <div class="featured-layout">
-    <div class="photo-card big">
-      <img src="https://images.pexels.com/photos/1650899/pexels-photo-1650899.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Tower_Bridge" alt="Tower Bridge at night" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">London Icons</span>
-        <div class="card-title">Tower Bridge</div>
-        <div class="card-date">April 2 — arrival evening walk</div>
-        <div class="card-desc">Lit brilliantly at night along the South Bank — the perfect welcome to London.</div>
-      </div>
-    </div>
-    <div class="photo-card stack">
-      <img src="https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Buckingham_Palace" alt="Buckingham Palace" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">London Icons</span>
-        <div class="card-title">Buckingham Palace</div>
-        <div class="card-date">April 3 — Changing of the Guard (11am)</div>
-      </div>
-    </div>
-    <div class="photo-card stack">
-      <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=800" data-wiki-page="Big_Ben" alt="Big Ben" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">London Icons</span>
-        <div class="card-title">Big Ben &amp; Westminster</div>
-        <div class="card-date">April 4 — Westminster walk</div>
-      </div>
-    </div>
-  </div>
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 4</span>
+            <h3 class="day-title">Stonehenge and White Cliffs</h3>
+            <span class="day-date">April 5</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Stonehenge" alt="Stonehenge">
+              <figcaption>Stonehenge morning visit</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Drive to Stonehenge in the morning.</li>
+                <li>Continue east to the White Cliffs of Dover.</li>
+                <li>Walk the cliff path and enjoy Channel views.</li>
+                <li>Return to London in the evening.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> This is easiest with a rental car.</p>
+            </div>
+          </div>
+        </article>
 
-  <div class="grid-3">
-    <div class="photo-card">
-      <img src="https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Tower_of_London" alt="Tower of London" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Must-Do</span>
-        <div class="card-title">Tower of London</div>
-        <div class="card-date">April 3</div>
-        <div class="card-desc">Crown Jewels, Beefeaters, and 1,000 years of history. Book ahead — sells out in spring.</div>
-      </div>
-    </div>
-    <div class="photo-card">
-      <img src="https://images.pexels.com/photos/356844/pexels-photo-356844.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="British_Museum" alt="British Museum" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Free Entry</span>
-        <div class="card-title">British Museum</div>
-        <div class="card-date">April 4</div>
-        <div class="card-desc">Rosetta Stone, Egyptian mummies, and treasures from every civilization. Free!</div>
-      </div>
-    </div>
-    <div class="photo-card">
-      <img src="https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Millennium_Bridge,_London" alt="Millennium Bridge and South Bank" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">South Bank</span>
-        <div class="card-title">Tate Modern &amp; Millennium Bridge</div>
-        <div class="card-date">April 4</div>
-        <div class="card-desc">A stunning riverside walk with the Tate Modern, Shakespeare's Globe and views of St Paul's.</div>
-      </div>
-    </div>
-  </div>
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 5</span>
+            <h3 class="day-title">Stratford-upon-Avon</h3>
+            <span class="day-date">April 6</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/161154/street-building-road-old-161154.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Shakespeare's_Birthplace" alt="Shakespeare's Birthplace">
+              <figcaption>Shakespeare's Birthplace</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Visit Shakespeare's Birthplace.</li>
+                <li>Stop by Anne Hathaway's Cottage.</li>
+                <li>Take a River Avon walk.</li>
+                <li>Drive back to London for final night.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Leave early to avoid afternoon motorway traffic.</p>
+            </div>
+          </div>
+        </article>
 
-  <!-- Day-by-day cards -->
-  <div class="day-cards">
-    <div class="day-card">
-      <div class="day-num">Day 1 · April 2</div>
-      <div class="day-title">Arrive &amp; Orient</div>
-      <ul class="day-items">
-        <li><span>✈️</span> Fly in, check into family hotel (South Bank area)</li>
-        <li><span>🌉</span> Evening stroll along the South Bank</li>
-        <li><span>🏰</span> Views of Tower Bridge lit up at night</li>
-        <li><span>🍽️</span> Dinner near Borough Market — relax after travel</li>
-      </ul>
-      <div class="day-tip"><strong>Tip:</strong> Book a hotel with a kitchen or kitchenette — great for feeding 3 kids without restaurant stress every night.</div>
-    </div>
-    <div class="day-card">
-      <div class="day-num">Day 2 · April 3</div>
-      <div class="day-title">Classic London Icons</div>
-      <ul class="day-items">
-        <li><span>🗝️</span> Tower of London — Crown Jewels &amp; Beefeaters</li>
-        <li><span>🚢</span> Thames River Cruise to Westminster</li>
-        <li><span>👑</span> Buckingham Palace — Changing of the Guard (11am)</li>
-        <li><span>🌳</span> Hyde Park afternoon, Serpentine lake, Diana Playground</li>
-      </ul>
-      <div class="day-tip"><strong>Tip:</strong> Changing of the Guard happens alternate days in spring — check the schedule in advance.</div>
-    </div>
-    <div class="day-card">
-      <div class="day-num">Day 3 · April 4</div>
-      <div class="day-title">Museums &amp; Westminster</div>
-      <ul class="day-items">
-        <li><span>🏛️</span> British Museum — Rosetta Stone &amp; mummies (FREE)</li>
-        <li><span>⛪</span> Westminster Abbey — Poets' Corner &amp; royal tombs</li>
-        <li><span>🕰️</span> Big Ben &amp; Parliament Square (great photo stop)</li>
-        <li><span>🎨</span> South Bank: Tate Modern + Millennium Bridge walk</li>
-      </ul>
-      <div class="day-tip"><strong>Tip:</strong> British Museum is massive — focus on Egyptian &amp; Greek galleries with kids. Allow 2–3 hrs minimum.</div>
-    </div>
-  </div>
-</section>
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 6</span>
+            <h3 class="day-title">Train to Edinburgh</h3>
+            <span class="day-date">April 7</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/427679/pexels-photo-427679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Royal_Mile" alt="Royal Mile">
+              <figcaption>Royal Mile area on arrival</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Take the LNER train from London to Edinburgh.</li>
+                <li>Check into hotel near Royal Mile.</li>
+                <li>Explore Grassmarket and Victoria Street.</li>
+                <li>Enjoy a relaxed pub dinner.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Reserve seats around a table for family comfort.</p>
+            </div>
+          </div>
+        </article>
 
-<!-- ============================================================
-     DAY TRIPS
-============================================================ -->
-<section id="daytrips" class="bg-mid">
-  <div class="section-header">
-    <span class="section-flag">🗿</span>
-    <div class="section-title-wrap">
-      <span class="section-label">April 5 &amp; 6</span>
-      <h2 class="section-title">England Day Trips</h2>
-      <div class="section-dates">Stonehenge · White Cliffs · Shakespeare's Birthplace</div>
-      <div class="section-divider"></div>
-    </div>
-  </div>
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 7</span>
+            <h3 class="day-title">Edinburgh Castle and Old Town</h3>
+            <span class="day-date">April 8</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Edinburgh_Castle" alt="Edinburgh Castle">
+              <figcaption>Edinburgh Castle</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Visit Edinburgh Castle in the morning.</li>
+                <li>Walk the Royal Mile toward Holyrood Palace.</li>
+                <li>Optional hike up Arthur's Seat.</li>
+                <li>Dinner in Old Town.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Book a castle slot early for shorter lines.</p>
+            </div>
+          </div>
+        </article>
 
-  <div class="featured-layout reversed">
-    <div class="photo-card stack">
-      <img src="https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="White_Cliffs_of_Dover" alt="White Cliffs of Dover" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">April 5 Afternoon</span>
-        <div class="card-title">White Cliffs of Dover</div>
-        <div class="card-date">350ft chalk cliffs over the Channel</div>
-      </div>
-    </div>
-    <div class="photo-card stack">
-      <img src="https://images.pexels.com/photos/161154/street-building-road-old-161154.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Shakespeare's_Birthplace" alt="Shakespeare's Birthplace" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">April 6</span>
-        <div class="card-title">Shakespeare's Birthplace</div>
-        <div class="card-date">Stratford-upon-Avon</div>
-      </div>
-    </div>
-    <div class="photo-card big">
-      <img src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Stonehenge" alt="Stonehenge" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Day Trip South</span>
-        <div class="card-title">Stonehenge</div>
-        <div class="card-date">April 5 — depart 8am, arrive ~10am</div>
-        <div class="card-desc">5,000 years old and still one of the world's greatest mysteries. Awe-inspiring for every age.</div>
-      </div>
-    </div>
-  </div>
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 8</span>
+            <h3 class="day-title">Stirling Day Trip</h3>
+            <span class="day-date">April 9</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/208701/pexels-photo-208701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Stirling_Castle" alt="Stirling Castle">
+              <figcaption>Stirling Castle day trip</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Take a day trip to Stirling Castle.</li>
+                <li>See the Wallace Monument area.</li>
+                <li>Visit the Bannockburn Heritage Centre.</li>
+                <li>Return to Edinburgh for evening.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Stirling is quick from Edinburgh and very family friendly.</p>
+            </div>
+          </div>
+        </article>
 
-  <div class="day-cards">
-    <div class="day-card">
-      <div class="day-num">Day 4 · April 5</div>
-      <div class="day-title">Stonehenge &amp; White Cliffs of Dover</div>
-      <ul class="day-items">
-        <li><span>🗿</span> Stonehenge (Wiltshire) — depart 8am, arrive ~10am, allow 2 hrs</li>
-        <li><span>🚗</span> Drive east to White Cliffs of Dover (~2 hrs from Stonehenge)</li>
-        <li><span>🌊</span> Walk the cliff path — breathtaking Channel views</li>
-        <li><span>🏠</span> Return to London via M20/M25 — back by 7pm</li>
-      </ul>
-      <div class="day-tip"><strong>Tip:</strong> Rent a car for this day — public transport to both sites on the same day is very difficult. Pre-book Stonehenge tickets!</div>
-    </div>
-    <div class="day-card">
-      <div class="day-num">Day 5 · April 6</div>
-      <div class="day-title">Stratford-upon-Avon</div>
-      <ul class="day-items">
-        <li><span>🎭</span> Shakespeare's Birthplace — guided family tour</li>
-        <li><span>🌸</span> Anne Hathaway's Cottage — beautiful thatched garden</li>
-        <li><span>🦢</span> River Avon walk &amp; swan feeding — kids love this</li>
-        <li><span>🚗</span> ~2 hrs from London — depart 8am, return by 7pm</li>
-      </ul>
-      <div class="day-tip"><strong>Tip:</strong> Stratford is northwest of London — perfect to visit the day before heading north to Scotland.</div>
-    </div>
-  </div>
-</section>
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 9</span>
+            <h3 class="day-title">Highlands Drive</h3>
+            <span class="day-date">April 10</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Urquhart_Castle" alt="Urquhart Castle at Loch Ness">
+              <figcaption>Loch Ness and Urquhart Castle</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Pick up rental car and drive north from Edinburgh.</li>
+                <li>Visit Loch Ness and Urquhart Castle.</li>
+                <li>Continue through Glencoe Valley.</li>
+                <li>Overnight in Inverness or Fort William area.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Plan buffer time for scenic stops.</p>
+            </div>
+          </div>
+        </article>
 
-<!-- ============================================================
-     EDINBURGH
-============================================================ -->
-<section id="edinburgh" class="bg-red">
-  <div class="section-header">
-    <span class="section-flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>
-    <div class="section-title-wrap">
-      <span class="section-label">April 7 – 9</span>
-      <h2 class="section-title">Edinburgh</h2>
-      <div class="section-dates">3 days · Royal Mile base · Castle · Stirling day trip</div>
-      <div class="section-divider"></div>
-    </div>
-  </div>
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 10</span>
+            <h3 class="day-title">Isle of Skye</h3>
+            <span class="day-date">April 11</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Eilean_Donan" alt="Eilean Donan Castle">
+              <figcaption>Eilean Donan en route to Skye</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Drive via Eilean Donan Castle photo stop.</li>
+                <li>Visit Fairy Pools.</li>
+                <li>Hike to Old Man of Storr viewpoint.</li>
+                <li>Sunset at Neist Point if weather allows.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Pick 2-3 top stops to avoid rushing.</p>
+            </div>
+          </div>
+        </article>
 
-  <div class="featured-layout">
-    <div class="photo-card big">
-      <img src="https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Edinburgh_Castle" alt="Edinburgh Castle" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Scotland's #1 Attraction</span>
-        <div class="card-title">Edinburgh Castle</div>
-        <div class="card-date">April 8 — morning</div>
-        <div class="card-desc">Perched on volcanic rock above the city, housing Scotland's Crown Jewels and the One O'Clock Gun.</div>
-      </div>
+        <article class="day-card">
+          <div class="day-head">
+            <span class="day-tag">Day 11</span>
+            <h3 class="day-title">Return and Fly Home</h3>
+            <span class="day-date">April 12</span>
+          </div>
+          <div class="day-layout">
+            <figure class="day-photo">
+              <img src="https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Edinburgh_Airport" alt="Airport departure">
+              <figcaption>Departure day</figcaption>
+            </figure>
+            <div>
+              <ul class="day-list">
+                <li>Drive back toward Edinburgh.</li>
+                <li>Return rental car.</li>
+                <li>Arrive at airport about 2.5 hours before flight.</li>
+                <li>Fly home.</li>
+              </ul>
+              <p class="tip"><strong>Tip:</strong> Keep this day flexible in case of traffic or weather delays.</p>
+            </div>
+          </div>
+        </article>
+      </section>
     </div>
-    <div class="photo-card stack">
-      <img src="https://images.pexels.com/photos/427679/pexels-photo-427679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Royal_Mile" alt="Royal Mile Edinburgh" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Old Town</span>
-        <div class="card-title">The Royal Mile</div>
-        <div class="card-date">April 8 — afternoon</div>
-      </div>
-    </div>
-    <div class="photo-card stack">
-      <img src="https://images.pexels.com/photos/208701/pexels-photo-208701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Stirling_Castle" alt="Stirling Castle" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Day Trip</span>
-        <div class="card-title">Stirling Castle</div>
-        <div class="card-date">April 9</div>
-      </div>
-    </div>
-  </div>
+  </main>
 
-  <div class="day-cards">
-    <div class="day-card">
-      <div class="day-num">Day 6 · April 7</div>
-      <div class="day-title">LNER Train to Edinburgh</div>
-      <ul class="day-items">
-        <li><span>🚄</span> LNER from London Kings Cross → Edinburgh Waverley (4.5 hrs)</li>
-        <li><span>🏔️</span> Stunning scenery through Yorkshire &amp; Northumberland</li>
-        <li><span>🏨</span> Arrive midday — check into hotel near Royal Mile</li>
-        <li><span>🍺</span> Afternoon: Grassmarket, Victoria Street, local pub dinner</li>
-      </ul>
-      <div class="day-tip"><strong>Tip:</strong> Book LNER tickets 8–12 weeks ahead for best family prices. Reserve 4 seats around a table — perfect for kids.</div>
-    </div>
-    <div class="day-card">
-      <div class="day-num">Day 7 · April 8</div>
-      <div class="day-title">Edinburgh Castle &amp; Old Town</div>
-      <ul class="day-items">
-        <li><span>🏯</span> Edinburgh Castle — Crown Jewels, One O'Clock Gun, great views</li>
-        <li><span>⚔️</span> Royal Mile walk from Castle down to Holyrood Palace</li>
-        <li><span>👑</span> Palace of Holyroodhouse — official Scottish royal residence</li>
-        <li><span>⛰️</span> Arthur's Seat — optional easy hike, panoramic city views</li>
-      </ul>
-      <div class="day-tip"><strong>Tip:</strong> Edinburgh Castle can take 2–3 hrs with kids. Book ahead — it sells out in spring.</div>
-    </div>
-    <div class="day-card">
-      <div class="day-num">Day 8 · April 9</div>
-      <div class="day-title">Stirling Castle Day Trip</div>
-      <ul class="day-items">
-        <li><span>🏰</span> Stirling Castle — ~45 min from Edinburgh, spectacular hilltop fortress</li>
-        <li><span>🗡️</span> Wallace Monument &amp; Battle of Stirling Bridge site</li>
-        <li><span>🎮</span> Bannockburn Heritage Centre — interactive, great for kids!</li>
-        <li><span>🌃</span> Return to Edinburgh — evening on Grassmarket or Princes Street</li>
-      </ul>
-      <div class="day-tip"><strong>Tip:</strong> Stirling is perfectly between Edinburgh and the Highlands — visit now to head straight north the next day.</div>
-    </div>
-  </div>
-</section>
+  <footer class="container">
+    Built as a chronological itinerary with photo-and-bullets side-by-side for each day.
+  </footer>
 
-<!-- ============================================================
-     HIGHLANDS & ISLE OF SKYE
-============================================================ -->
-<section id="highlands" class="bg-dark">
-  <div class="section-header">
-    <span class="section-flag">⛰️</span>
-    <div class="section-title-wrap">
-      <span class="section-label">April 10 &amp; 11</span>
-      <h2 class="section-title">Highlands &amp; Isle of Skye</h2>
-      <div class="section-dates">Loch Ness · Glencoe · Eilean Donan · Fairy Pools · Old Man of Storr</div>
-      <div class="section-divider"></div>
-    </div>
-  </div>
+  <script>
+    (function loadPoiImagesFromWikipedia() {
+      const images = document.querySelectorAll("img[data-wiki-page]");
+      if (!images.length) return;
 
-  <div class="grid-2">
-    <div class="photo-card">
-      <img src="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Urquhart_Castle" alt="Loch Ness and Urquhart Castle" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Highlands</span>
-        <div class="card-title">Loch Ness &amp; Urquhart Castle</div>
-        <div class="card-date">April 10 — morning</div>
-        <div class="card-desc">Scotland's most famous loch. Urquhart Castle ruins sit dramatically on the shore — and keep an eye out for Nessie!</div>
-      </div>
-    </div>
-    <div class="photo-card">
-      <img src="https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Glencoe,_Highland" alt="Glencoe Valley" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Highlands</span>
-        <div class="card-title">Glencoe Valley</div>
-        <div class="card-date">April 10 — afternoon drive</div>
-        <div class="card-desc">One of Scotland's most dramatic landscapes — a sweeping glacial valley flanked by towering mountains.</div>
-      </div>
-    </div>
-  </div>
+      images.forEach((img) => {
+        const pageTitle = img.getAttribute("data-wiki-page");
+        if (!pageTitle) return;
 
-  <div class="grid-3">
-    <div class="photo-card">
-      <img src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Eilean_Donan" alt="Eilean Donan Castle" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Isle of Skye Route</span>
-        <div class="card-title">Eilean Donan Castle</div>
-        <div class="card-date">April 11 — en route to Skye</div>
-        <div class="card-desc">Scotland's most photographed castle, on a tiny island where three lochs meet.</div>
-      </div>
-    </div>
-    <div class="photo-card">
-      <img src="https://images.pexels.com/photos/2901209/pexels-photo-2901209.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1000" data-wiki-page="Old_Man_of_Storr" alt="Old Man of Storr" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Isle of Skye</span>
-        <div class="card-title">Old Man of Storr</div>
-        <div class="card-date">April 11 — afternoon</div>
-        <div class="card-desc">Otherworldly rock pinnacles rising above the mist — one of Scotland's most iconic viewpoints.</div>
-      </div>
-    </div>
-    <div class="photo-card">
-      <img src="https://images.pexels.com/photos/355465/pexels-photo-355465.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Fairy_Pools" alt="Fairy Pools Isle of Skye" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Isle of Skye</span>
-        <div class="card-title">Fairy Pools</div>
-        <div class="card-date">April 11 — morning</div>
-        <div class="card-desc">Crystal-clear blue pools fed by waterfalls cascading down from the Cuillin mountains. Magical for kids.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Highland Cattle bonus -->
-  <div style="margin-top:1rem;">
-    <div class="photo-card" style="max-width:100%;">
-      <img src="https://images.pexels.com/photos/162240/field-cattle-cows-animal-162240.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Highland_cattle" alt="Highland Cattle" style="height:280px;" loading="lazy">
-      <div class="overlay"></div>
-      <div class="card-body">
-        <span class="card-tag">Highland Wildlife</span>
-        <div class="card-title">Highland Cattle 🐄</div>
-        <div class="card-date">Spotted all throughout the Highlands!</div>
-        <div class="card-desc">The shaggy, long-horned coos of Scotland. You'll spot them grazing along roadsides — kids absolutely love them.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="day-cards">
-    <div class="day-card">
-      <div class="day-num">Day 9 · April 10</div>
-      <div class="day-title">Loch Ness &amp; The Highlands</div>
-      <ul class="day-items">
-        <li><span>🚗</span> Rent car in Edinburgh — drive north through Pitlochry</li>
-        <li><span>🦕</span> Loch Ness — Urquhart Castle ruins on the loch shore</li>
-        <li><span>🎟️</span> Loch Ness Centre &amp; Exhibition — kids will love the monster lore</li>
-        <li><span>⛰️</span> Drive through Glencoe valley — Scotland's most dramatic landscape</li>
-      </ul>
-      <div class="day-tip"><strong>Tip:</strong> Stay overnight in Inverness or Fort William — best base for Highlands &amp; Skye. Book accommodation well ahead for April.</div>
-    </div>
-    <div class="day-card">
-      <div class="day-num">Day 10 · April 11</div>
-      <div class="day-title">Isle of Skye</div>
-      <ul class="day-items">
-        <li><span>🏰</span> Drive to Skye via Eilean Donan Castle (iconic photo stop!)</li>
-        <li><span>🧚</span> Fairy Pools — magical blue rock pools, easy family walk</li>
-        <li><span>🗿</span> Old Man of Storr — otherworldly rock pinnacles, short hike</li>
-        <li><span>🌅</span> Neist Point Lighthouse — stunning cliffside sunset views</li>
-      </ul>
-      <div class="day-tip"><strong>Tip:</strong> Skye is ~2.5 hrs from Inverness. The island is bigger than it looks — pick 2–3 spots rather than trying to see everything.</div>
-    </div>
-    <div class="day-card">
-      <div class="day-num">Day 11 · April 12</div>
-      <div class="day-title">Fly Home</div>
-      <ul class="day-items">
-        <li><span>🚗</span> Drive back from Skye/Inverness to Edinburgh (~3 hrs)</li>
-        <li><span>✈️</span> Fly from Edinburgh Airport — many direct routes</li>
-        <li><span>⏰</span> Arrive airport 2.5 hrs early with a family of 5</li>
-        <li><span>💭</span> Reflect on an incredible adventure!</li>
-      </ul>
-      <div class="day-tip"><strong>Alternative:</strong> Fly from London instead — take the LNER back from Edinburgh on Apr 12 morning and fly from Heathrow for more flight options.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     TIPS
-============================================================ -->
-<section id="tips" class="tips-section">
-  <div class="section-header">
-    <span class="section-flag">📋</span>
-    <div class="section-title-wrap">
-      <span class="section-label">Practical Guide</span>
-      <h2 class="section-title">Family Travel Tips</h2>
-      <div class="section-dates">Everything you need to know before you go</div>
-      <div class="section-divider"></div>
-    </div>
-  </div>
-  <div class="tips-grid">
-    <div class="tip-card">
-      <div class="tip-icon">🎟️</div>
-      <div class="tip-title">Book These in Advance</div>
-      <div class="tip-text">
-        <strong>Tower of London</strong> — sells out in spring<br>
-        <strong>Stonehenge</strong> — MUST pre-book timed entry<br>
-        <strong>Edinburgh Castle</strong> — book 2–3 weeks ahead<br>
-        <strong>LNER Train</strong> — cheapest 8–12 weeks ahead
-      </div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🚄</div>
-      <div class="tip-title">LNER Train to Edinburgh</div>
-      <div class="tip-text">
-        <strong>London Kings Cross → Edinburgh Waverley</strong> in 4.5 hrs.<br>
-        Book as early as possible for the best family prices. Reserve <strong>4 seats around a table</strong> — perfect for keeping kids entertained on the journey.
-      </div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🚗</div>
-      <div class="tip-title">Rent a Car Twice</div>
-      <div class="tip-text">
-        <strong>Day trip (Apr 5):</strong> London → Stonehenge → White Cliffs → return<br>
-        <strong>Highlands (Apr 10–11):</strong> Rent in Edinburgh for Loch Ness, Glencoe &amp; Isle of Skye<br>
-        In London use the <strong>Oyster card</strong> on Tube &amp; buses.
-      </div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🌦️</div>
-      <div class="tip-title">April Weather</div>
-      <div class="tip-text">
-        Expect <strong>8–13°C (46–55°F)</strong> — pack layers for everyone.<br>
-        Rain is likely, <strong>especially in Scotland</strong> — waterproof jackets are essential.<br>
-        On the bright side: daylight until ~8pm and <strong>fewer crowds than summer</strong>!
-      </div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">💷</div>
-      <div class="tip-title">Currency</div>
-      <div class="tip-text">
-        The UK uses <strong>British Pounds (£ GBP)</strong>.<br>
-        Contactless card payment is accepted almost everywhere.<br>
-        Many London museums are <strong>completely free</strong> (British Museum, Natural History Museum, Tate Modern).
-      </div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🏨</div>
-      <div class="tip-title">Where to Stay</div>
-      <div class="tip-text">
-        <strong>London:</strong> South Bank or Marylebone — family rooms or serviced apartments<br>
-        <strong>Edinburgh:</strong> Royal Mile or New Town area<br>
-        <strong>Highlands:</strong> Inverness — great base for Loch Ness &amp; Skye<br>
-        Book early! <strong>April is busy</strong> in Edinburgh.
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     FOOTER
-============================================================ -->
-<footer>
-  <div class="flags">🇬🇧 🏴󠁧󠁢󠁳󠁣󠁴󠁿</div>
-  <div class="footer-title">London &amp; Scotland Family Adventure 2025</div>
-  <p>April 2 – 12 &nbsp;·&nbsp; Family of 5 &nbsp;·&nbsp; 11 Days</p>
-  <p style="margin-top:0.5rem;">
-    ✈️ London &nbsp;·&nbsp; 🗿 Stonehenge &nbsp;·&nbsp; 🎭 Stratford &nbsp;·&nbsp;
-    🚄 Edinburgh &nbsp;·&nbsp; 🦕 Loch Ness &nbsp;·&nbsp; 🌊 Isle of Skye
-  </p>
-  <p style="margin-top:1.2rem; color:#3a4a5a; font-size:0.75rem;">
-    Have an incredible adventure — memories for a lifetime! 🌟
-  </p>
-</footer>
-
-<script>
-  (function loadPoiImagesFromWikipedia() {
-    const poiImages = document.querySelectorAll("img[data-wiki-page]");
-    if (!poiImages.length) return;
-
-    poiImages.forEach((img) => {
-      const pageTitle = img.getAttribute("data-wiki-page");
-      if (!pageTitle) return;
-
-      const url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(pageTitle);
-      fetch(url, { headers: { Accept: "application/json" } })
-        .then((response) => (response.ok ? response.json() : null))
-        .then((data) => {
-          if (!data) return;
-          const wikiImage = (data.originalimage && data.originalimage.source) || (data.thumbnail && data.thumbnail.source);
-          if (wikiImage) {
-            img.src = wikiImage;
-          }
-        })
-        .catch(() => {
-          // Keep existing src as fallback if the API is unavailable.
-        });
-    });
-  })();
-</script>
+        const summaryUrl = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(pageTitle);
+        fetch(summaryUrl, { headers: { Accept: "application/json" } })
+          .then((response) => (response.ok ? response.json() : null))
+          .then((data) => {
+            if (!data) return;
+            const source = (data.originalimage && data.originalimage.source) || (data.thumbnail && data.thumbnail.source);
+            if (source) img.src = source;
+          })
+          .catch(function () {
+            // Keep fallback image if fetch fails.
+          });
+      });
+    })();
+  </script>
 </body>
 </html>
