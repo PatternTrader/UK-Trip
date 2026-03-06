@@ -246,6 +246,21 @@
     color: #8f0f19;
   }
 
+  .poi-research.mixed-warning {
+    color: #6e5600;
+    font-weight: 700;
+    margin-top: 8px;
+    padding: 8px 10px;
+    border: 2px solid #c9a100;
+    border-radius: 8px;
+    background: #fff8d6;
+    box-shadow: 0 0 0 2px rgba(201, 161, 0, 0.18);
+  }
+
+  .poi-research.mixed-warning strong {
+    color: #6e5600;
+  }
+
   .poi-research.free-warning {
     color: #15652f;
     font-weight: 700;
@@ -281,6 +296,19 @@
     border-radius: 999px;
     background: #238b45;
     color: #fff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .mixed-badge {
+    display: inline-block;
+    margin-bottom: 6px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #c9a100;
+    color: #1f1a00;
     font-size: 0.68rem;
     font-weight: 800;
     letter-spacing: 0.04em;
@@ -1066,7 +1094,7 @@
       "303_E_83rd_St_NYC": { why: "Your exact departure point for the airport run.", researchedCost: "No admission cost; taxi/rideshare fare applies." },
       LaGuardia_Airport: { why: "Major New York gateway and your trip's launch point.", researchedCost: "No attraction admission; airline fare applies." },
       Washington_Dulles_International_Airport: { why: "Main transatlantic connection hub in this itinerary.", researchedCost: "No attraction admission; connection only." },
-      London_Heathrow_Arrival: { why: "Primary UK entry point and start of your London leg.", researchedCost: "No attraction admission; airport transfer costs apply." },
+      London_Heathrow_Arrival: { why: "Primary UK entry point and start of your London leg.", researchedCost: "Free airport terminal access." },
       South_Bank: { why: "One of London's best urban river walks with skyline views.", researchedCost: "Free public area." },
       "County_Hall,_London": { why: "Historic riverside civic building beside key Westminster sights.", researchedCost: "Exterior/public riverside access is free." },
       Tower_Bridge: { why: "Iconic Victorian bascule bridge and top London photo location.", researchedCost: "Bridge exterior walk is free; exhibition is paid." },
@@ -1115,7 +1143,7 @@
       Neist_Point_Lighthouse: { why: "Dramatic cliffside lighthouse and sunset location.", researchedCost: "Access free; parking conditions vary." },
       "A9_road_(Scotland)": { why: "Main north-south route connecting Highlands and Edinburgh.", researchedCost: "No toll for standard use; fuel costs apply." },
       Edinburgh_Waverley_railway_station: { why: "Central rail hub for London return leg.", researchedCost: "Station access free; ticketed rail travel required." },
-      London_Heathrow_Departure: { why: "International departure hub for your flight home.", researchedCost: "No attraction admission; airport transfer and airfare costs apply." },
+      London_Heathrow_Departure: { why: "International departure hub for your flight home.", researchedCost: "Free airport terminal access." },
       Airplane: { why: "Transatlantic return transport to New York.", researchedCost: "Airfare already budgeted: $1,534.50 per leg based on your screenshot." }
     };
 
@@ -1136,9 +1164,8 @@
             const itemKey = getItemKey(day, item, itemIndex);
             const savedCost = costState[itemKey];
             const meta = poiMeta[item.page] || { why: "Noted stop in your trip flow.", researchedCost: "Cost unknown; please verify." };
-            const isPaid = isPotentiallyPaid(meta.researchedCost);
-            const isFree = !isPaid && isLikelyFree(meta.researchedCost);
-            const costClass = isPaid ? "paid-warning" : (isFree ? "free-warning" : "");
+            const costType = getCostType(meta.researchedCost);
+            const costClass = costType === "paid" ? "paid-warning" : (costType === "free" ? "free-warning" : (costType === "mixed" ? "mixed-warning" : ""));
             const transport = getTransportEntry(day.day, itemIndex);
 
             if (transport && transport.bufferMin > 0) {
@@ -1163,7 +1190,7 @@
                   <div class="poi-desc">${item.text}</div>
                   <div class="poi-transport"><strong>Getting there:</strong> ${transport.mode} - allow ~${transport.bufferMin} min transit buffer. ${transport.note}</div>
                   <div class="poi-why"><strong>Why care:</strong> ${meta.why}</div>
-                  <div class="poi-research ${costClass}">${isPaid ? '<span class="paid-badge">Paid / Not Free</span><br>' : (isFree ? '<span class="free-badge">Free</span><br>' : "")}<strong>Researched cost:</strong> ${meta.researchedCost}</div>
+                  <div class="poi-research ${costClass}">${costType === "paid" ? '<span class="paid-badge">Paid / Not Free</span><br>' : (costType === "free" ? '<span class="free-badge">Free</span><br>' : (costType === "mixed" ? '<span class="mixed-badge">Mixed (Free + Paid)</span><br>' : ""))}<strong>Researched cost:</strong> ${meta.researchedCost}</div>
                   <div class="poi-cost">
                     <label for="cost-${itemKey}">Cost (USD)</label>
                     <input id="cost-${itemKey}" class="cost-input js-cost-input" data-cost-key="${itemKey}" type="number" min="0" step="0.01" value="${savedCost ?? ""}" placeholder="0.00">
@@ -1229,6 +1256,15 @@
       if (!costText) return false;
       const t = String(costText).toLowerCase();
       return t.includes("free");
+    }
+
+    function getCostType(costText) {
+      const hasPaid = isPotentiallyPaid(costText);
+      const hasFree = isLikelyFree(costText);
+      if (hasPaid && hasFree) return "mixed";
+      if (hasPaid) return "paid";
+      if (hasFree) return "free";
+      return "neutral";
     }
 
     function getItemKey(day, item, itemIndex) {
