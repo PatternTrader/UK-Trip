@@ -242,12 +242,40 @@
     color: #8f0f19;
   }
 
+  .poi-research.free-warning {
+    color: #15652f;
+    font-weight: 700;
+    margin-top: 8px;
+    padding: 8px 10px;
+    border: 2px solid #238b45;
+    border-radius: 8px;
+    background: #e9f9ee;
+    box-shadow: 0 0 0 2px rgba(35, 139, 69, 0.18);
+  }
+
+  .poi-research.free-warning strong {
+    color: #15652f;
+  }
+
   .paid-badge {
     display: inline-block;
     margin-bottom: 6px;
     padding: 2px 8px;
     border-radius: 999px;
     background: #c1121f;
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .free-badge {
+    display: inline-block;
+    margin-bottom: 6px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #238b45;
     color: #fff;
     font-size: 0.68rem;
     font-weight: 800;
@@ -276,25 +304,28 @@
   }
 
   .travel-block {
-    border: 1px dashed #d4ddea;
+    border: 2px solid #2f6ca7;
+    border-left: 6px solid #1b4e84;
     border-radius: 10px;
-    background: #f7faff;
-    padding: 9px 11px;
-    margin: 2px 0;
+    background: linear-gradient(140deg, #eef5ff 0%, #dcecff 100%);
+    padding: 12px 14px;
+    margin: 8px 0 6px;
+    box-shadow: 0 8px 18px rgba(20, 71, 124, 0.2);
   }
 
   .travel-title {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: #1f4773;
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: #113d6c;
     text-transform: uppercase;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
   }
 
   .travel-desc {
-    margin-top: 4px;
-    font-size: 0.84rem;
-    color: #3b4f68;
+    margin-top: 6px;
+    font-size: 0.9rem;
+    color: #204972;
+    font-weight: 600;
   }
 
   .poi-cost {
@@ -1094,7 +1125,9 @@
             const itemKey = getItemKey(day, item, itemIndex);
             const savedCost = costState[itemKey];
             const meta = poiMeta[item.page] || { why: "Noted stop in your trip flow.", researchedCost: "Cost unknown; please verify." };
-            const paidClass = isPotentiallyPaid(meta.researchedCost) ? "paid-warning" : "";
+            const isPaid = isPotentiallyPaid(meta.researchedCost);
+            const isFree = !isPaid && isLikelyFree(meta.researchedCost);
+            const costClass = isPaid ? "paid-warning" : (isFree ? "free-warning" : "");
             const transport = getTransportEntry(day.day, itemIndex);
 
             if (transport && transport.bufferMin > 0) {
@@ -1118,7 +1151,7 @@
                   <div class="poi-desc">${item.text}</div>
                   <div class="poi-transport"><strong>Getting there:</strong> ${transport.mode} - allow ~${transport.bufferMin} min transit buffer. ${transport.note}</div>
                   <div class="poi-why"><strong>Why care:</strong> ${meta.why}</div>
-                  <div class="poi-research ${paidClass}">${paidClass ? '<span class="paid-badge">Paid / Not Free</span><br>' : ""}<strong>Researched cost:</strong> ${meta.researchedCost}</div>
+                  <div class="poi-research ${costClass}">${isPaid ? '<span class="paid-badge">Paid / Not Free</span><br>' : (isFree ? '<span class="free-badge">Free</span><br>' : "")}<strong>Researched cost:</strong> ${meta.researchedCost}</div>
                   <div class="poi-cost">
                     <label for="cost-${itemKey}">Cost (USD)</label>
                     <input id="cost-${itemKey}" class="cost-input js-cost-input" data-cost-key="${itemKey}" type="number" min="0" step="0.01" value="${savedCost ?? ""}" placeholder="0.00">
@@ -1174,6 +1207,12 @@
       if (t.includes("paid") || t.includes("fare required") || t.includes("ticketed") || t.includes("airfare")) return true;
       if (t.includes("costs apply") || t.includes("may have fees") || t.includes("shopping") || t.includes("purchases")) return true;
       return false;
+    }
+
+    function isLikelyFree(costText) {
+      if (!costText) return false;
+      const t = String(costText).toLowerCase();
+      return t.includes("free");
     }
 
     function getItemKey(day, item, itemIndex) {
