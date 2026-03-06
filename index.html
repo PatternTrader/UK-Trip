@@ -549,6 +549,7 @@
           <ul class="cc-links">
             <li><a href="https://www.historicroyalpalaces.com/tower-of-london/" target="_blank" rel="noopener noreferrer">Tower of London tickets</a></li>
             <li><a href="https://www.westminster-abbey.org/" target="_blank" rel="noopener noreferrer">Westminster Abbey</a></li>
+            <li><a href="https://www.londoneye.com/tickets-and-prices/" target="_blank" rel="noopener noreferrer">London Eye tickets</a></li>
             <li><a href="https://www.edinburghcastle.scot/" target="_blank" rel="noopener noreferrer">Edinburgh Castle</a></li>
             <li><a href="https://www.lner.co.uk/" target="_blank" rel="noopener noreferrer">LNER train bookings</a></li>
             <li><a href="https://www.booking.com/" target="_blank" rel="noopener noreferrer">Hotel search (Booking.com)</a></li>
@@ -593,6 +594,7 @@
           { text: "Stroll through St James's Park between palace and Westminster.", page: "St_James's_Park", caption: "St James's Park" },
           { text: "Tour Westminster Abbey.", page: "Westminster_Abbey", caption: "Westminster Abbey" },
           { text: "Photo stop at Big Ben and Parliament.", page: "Big_Ben", caption: "Big Ben" },
+          { text: "Ride the London Eye for skyline views over Westminster and the Thames.", page: "London_Eye", caption: "London Eye" },
           { text: "Visit the Tower of London and Crown Jewels.", page: "Tower_of_London", caption: "Tower of London" },
           { text: "Walk back toward the river for classic Tower Bridge skyline views.", page: "Tower_Bridge", caption: "Tower Bridge skyline" }
         ]
@@ -714,6 +716,7 @@
       "St_James's_Park": "10:30",
       Westminster_Abbey: "11:30",
       Big_Ben: "13:00",
+      London_Eye: "13:45",
       Tower_of_London: "14:30",
       Tate_Modern: "09:30",
       "Shakespeare's_Globe": "11:00",
@@ -770,6 +773,7 @@
       "St_James's_Park": 45,
       Westminster_Abbey: 90,
       Big_Ben: 35,
+      London_Eye: 60,
       Tower_of_London: 150,
       Tate_Modern: 90,
       "Shakespeare's_Globe": 60,
@@ -825,7 +829,8 @@
         { mode: "Walk", bufferMin: 15, note: "Nearby park segment." },
         { mode: "Walk", bufferMin: 20, note: "Westminster cluster transfer." },
         { mode: "Walk", bufferMin: 10, note: "Photo stop nearby." },
-        { mode: "Tube", bufferMin: 30, note: "Westminster to Tower district." },
+        { mode: "Walk", bufferMin: 15, note: "Cross to South Bank for timed London Eye slot." },
+        { mode: "Tube", bufferMin: 30, note: "Westminster/South Bank to Tower district." },
         { mode: "Walk", bufferMin: 20, note: "Riverside skyline segment." }
       ],
       3: [
@@ -907,6 +912,7 @@
       "St_James's_Park": [51.5026, -0.1340],
       Westminster_Abbey: [51.4993, -0.1273],
       Big_Ben: [51.5007, -0.1246],
+      London_Eye: [51.5033, -0.1196],
       Tower_of_London: [51.5081, -0.0759],
       Tate_Modern: [51.5076, -0.0994],
       "Shakespeare's_Globe": [51.5081, -0.0972],
@@ -968,6 +974,7 @@
       British_Museum: "https://images.pexels.com/photos/356844/pexels-photo-356844.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Westminster_Abbey: "https://images.pexels.com/photos/2082103/pexels-photo-2082103.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Big_Ben: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      London_Eye: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "Millennium_Bridge,_London": "https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Tate_Modern: "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "Shakespeare's_Globe": "https://images.pexels.com/photos/1796726/pexels-photo-1796726.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -1026,6 +1033,7 @@
       "St_James's_Park": { why: "Classic royal park linking palace and Westminster.", researchedCost: "Free public park." },
       Westminster_Abbey: { why: "Coronation church with major royal and national history.", researchedCost: "Paid admission (official tickets required)." },
       Big_Ben: { why: "One of the world's most recognizable clock towers.", researchedCost: "Exterior viewing is free; tours are limited/paid." },
+      London_Eye: { why: "Giant observation wheel with one of the best panoramic views of central London.", researchedCost: "Paid timed-entry ticket required; prices vary by time slot." },
       Tower_of_London: { why: "UNESCO fortress with Crown Jewels and deep medieval history.", researchedCost: "Paid admission (online booking recommended)." },
       Tate_Modern: { why: "Global modern-art museum in a dramatic former power station.", researchedCost: "Main collection free; special exhibitions usually paid." },
       "Shakespeare's_Globe": { why: "Reconstruction of Shakespeare's open-air playhouse.", researchedCost: "Exterior and riverside area free; tours/performances paid." },
