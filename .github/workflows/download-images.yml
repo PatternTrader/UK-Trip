@@ -1,0 +1,70 @@
+name: Download Images Locally
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download images and update HTML
+        run: |
+          python3 << 'EOF'
+          import os, urllib.request
+
+          os.makedirs('images', exist_ok=True)
+
+          images = {
+            'london-skyline.jpg':         'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/City_of_London_skyline_from_London_City_Hall_-_Oct_2008.jpg/1280px-City_of_London_skyline_from_London_City_Hall_-_Oct_2008.jpg',
+            'tower-bridge.jpg':           'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Tower_Bridge_London_Feb_2006.jpg/800px-Tower_Bridge_London_Feb_2006.jpg',
+            'buckingham-palace.jpg':      'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Buckingham_Palace%2C_London_-_April_2009.jpg/800px-Buckingham_Palace%2C_London_-_April_2009.jpg',
+            'big-ben.jpg':                'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Clock_Tower_-_Palace_of_Westminster%2C_London_-_May_2007_edit.jpg/450px-Clock_Tower_-_Palace_of_Westminster%2C_London_-_May_2007_edit.jpg',
+            'tower-of-london.jpg':        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/White_Tower_-_geograph.org.uk_-_1098313.jpg/800px-White_Tower_-_geograph.org.uk_-_1098313.jpg',
+            'british-museum.jpg':         'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/British_Museum_from_NE_2.JPG/800px-British_Museum_from_NE_2.JPG',
+            'millennium-bridge.jpg':      'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Millennium_Bridge%2C_London_-_DSC08159.JPG/800px-Millennium_Bridge%2C_London_-_DSC08159.JPG',
+            'white-cliffs.jpg':           'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/The_White_Cliffs_of_Dover_%28cropped%29.jpg/800px-The_White_Cliffs_of_Dover_%28cropped%29.jpg',
+            'shakespeares-birthplace.jpg':'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Shakespeare%27s_Birthplace_2011.jpg/800px-Shakespeare%27s_Birthplace_2011.jpg',
+            'stonehenge.jpg':             'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Stonehenge2007_07_30.jpg/800px-Stonehenge2007_07_30.jpg',
+            'edinburgh-castle.jpg':       'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Edinburgh_castle_from_princes_st.jpg/800px-Edinburgh_castle_from_princes_st.jpg',
+            'royal-mile.jpg':             'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Royal_mile.JPG/800px-Royal_mile.JPG',
+            'stirling-castle.jpg':        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Stirling_Castle_from_below.jpg/800px-Stirling_Castle_from_below.jpg',
+            'urquhart-castle.jpg':        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Urquhart-Castle-Apr-2013.jpg/800px-Urquhart-Castle-Apr-2013.jpg',
+            'glencoe.jpg':                'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Glencoe_valley_towards_clachaig_inn.jpg/800px-Glencoe_valley_towards_clachaig_inn.jpg',
+            'eilean-donan.jpg':           'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Eilean_Donan_Castle_-_October_2010.jpg/800px-Eilean_Donan_Castle_-_October_2010.jpg',
+            'old-man-of-storr.jpg':       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Old_Man_of_Storr.JPG/600px-Old_Man_of_Storr.JPG',
+            'fairy-pools.jpg':            'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Fairy_Pools%2C_Skye%2C_Scotland_14_%28highest_pool%29.jpg/800px-Fairy_Pools%2C_Skye%2C_Scotland_14_%28highest_pool%29.jpg',
+            'highland-cattle.jpg':        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Highland_cattle.jpg/800px-Highland_cattle.jpg',
+          }
+
+          with open('index.html', 'r') as f:
+              html = f.read()
+
+          for local_name, url in images.items():
+              dest = f'images/{local_name}'
+              print(f'Downloading {local_name} ...')
+              try:
+                  urllib.request.urlretrieve(url, dest)
+                  size = os.path.getsize(dest)
+                  print(f'  OK ({size:,} bytes)')
+                  html = html.replace(url, dest)
+              except Exception as e:
+                  print(f'  FAILED: {e}')
+
+          with open('index.html', 'w') as f:
+              f.write(html)
+
+          print('Done.')
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/ index.html
+          git diff --cached --quiet && echo "Nothing to commit" && exit 0
+          git commit -m "Download POI images locally for reliable display"
+          git push
