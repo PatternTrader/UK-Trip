@@ -371,6 +371,56 @@
     height: 240px;
   }
 
+  .command-center {
+    margin: 8px 0 26px;
+  }
+
+  .cc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .cc-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: #fff;
+    padding: 12px 13px;
+    box-shadow: 0 10px 22px rgba(14, 34, 56, 0.08);
+  }
+
+  .cc-card h3 {
+    margin: 0 0 8px;
+    font-size: 0.95rem;
+    color: #153e66;
+  }
+
+  .cc-list {
+    margin: 0;
+    padding-left: 18px;
+    display: grid;
+    gap: 5px;
+    font-size: 0.85rem;
+    color: #324559;
+  }
+
+  .cc-links {
+    margin: 0;
+    padding-left: 18px;
+    display: grid;
+    gap: 6px;
+    font-size: 0.84rem;
+  }
+
+  .cc-links a {
+    color: #0f4e84;
+    text-decoration: none;
+  }
+
+  .cc-links a:hover {
+    text-decoration: underline;
+  }
+
   footer {
     text-align: center;
     color: #5b6676;
@@ -383,6 +433,7 @@
     .poi-photo { min-height: 210px; }
     #route-map { height: 360px; }
     .day-map { height: 220px; }
+    .cc-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -405,6 +456,47 @@
         <span>Family of 5</span>
       </div>
     </header>
+
+    <section class="command-center">
+      <h2 class="section-title">Dad-Level Trip Command Center</h2>
+      <div class="cc-grid">
+        <article class="cc-card">
+          <h3>Flights Tracker</h3>
+          <ul class="cc-list">
+            <li>Outbound: Thu Apr 2, 2:49pm LGA -> Fri Apr 3, 6:55am LHR (IAD connection)</li>
+            <li>Return: Sun Apr 12, 8:30am LHR -> 2:41pm LGA (YYZ connection)</li>
+            <li>Total flight cost tracked: $3,069.00</li>
+          </ul>
+        </article>
+        <article class="cc-card">
+          <h3>Hotel Options (When Needed)</h3>
+          <ul class="cc-list">
+            <li>London base (South Bank / Westminster): Apr 3-6 and Apr 11 night</li>
+            <li>Edinburgh base (Royal Mile / New Town): Apr 7-9</li>
+            <li>Highlands transit base (Inverness/Fort William): Apr 10</li>
+          </ul>
+        </article>
+        <article class="cc-card">
+          <h3>Ticket Purchases Tracker</h3>
+          <ul class="cc-list">
+            <li>Priority buys: Tower of London, Westminster Abbey, Edinburgh Castle, Stirling Castle, Bletchley Park</li>
+            <li>Rail buys: LNER London -> Edinburgh and Edinburgh -> London</li>
+            <li>Reminder: update each paid POI cost in the itinerary and spreadsheet</li>
+          </ul>
+        </article>
+        <article class="cc-card">
+          <h3>Booking Links</h3>
+          <ul class="cc-links">
+            <li><a href="https://www.historicroyalpalaces.com/tower-of-london/" target="_blank" rel="noopener noreferrer">Tower of London tickets</a></li>
+            <li><a href="https://www.westminster-abbey.org/" target="_blank" rel="noopener noreferrer">Westminster Abbey</a></li>
+            <li><a href="https://www.edinburghcastle.scot/" target="_blank" rel="noopener noreferrer">Edinburgh Castle</a></li>
+            <li><a href="https://www.lner.co.uk/" target="_blank" rel="noopener noreferrer">LNER train bookings</a></li>
+            <li><a href="https://www.booking.com/" target="_blank" rel="noopener noreferrer">Hotel search (Booking.com)</a></li>
+            <li><a href="https://www.bletchleypark.org.uk/" target="_blank" rel="noopener noreferrer">Bletchley Park</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
     <h2 class="section-title">Day-by-Day Plan With Photo Per Bullet</h2>
     <main id="timeline" class="timeline"></main>
@@ -885,9 +977,9 @@
                     <figcaption class="poi-caption">${item.caption}</figcaption>
                   </figure>
                   <div class="poi-text">
-                    <span class="poi-time">${visitTime}${dayPart ? " · " + dayPart : ""}</span>
+                    <span class="poi-time">${visitTime}${dayPart ? " - " + dayPart : ""}</span>
                     <div class="poi-desc">${item.text}</div>
-                    <div class="poi-transport"><strong>Getting there:</strong> ${transport.mode} · allow ~${transport.bufferMin} min transit buffer. ${transport.note}</div>
+                    <div class="poi-transport"><strong>Getting there:</strong> ${transport.mode} - allow ~${transport.bufferMin} min transit buffer. ${transport.note}</div>
                     <div class="poi-why"><strong>Why care:</strong> ${meta.why}</div>
                     <div class="poi-research"><strong>Researched cost:</strong> ${meta.researchedCost}</div>
                     <div class="poi-cost">
@@ -908,11 +1000,11 @@
                 <span class="day-date">${day.date}</span>
               </div>
               ${dayLogisticsNotes[day.day] ? `<div class="day-logistics"><strong>Logistics:</strong> ${dayLogisticsNotes[day.day]}</div>` : ""}
-              <div class="poi-list">${itemsMarkup}</div>
               <div class="day-map-wrap">
                 <p class="day-map-title">Day ${day.day} Route Map</p>
                 <div id="day-map-${day.day}" class="day-map"></div>
               </div>
+              <div class="poi-list">${itemsMarkup}</div>
             </section>
           `;
         })
@@ -1167,3 +1259,4 @@
   </script>
 </body>
 </html>
+
