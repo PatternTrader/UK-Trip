@@ -6,511 +6,440 @@
 <title>UK Family Trip Itinerary | April 2-12, 2025</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f2efe8;
-    --ink: #1a1a1a;
-    --muted: #4a5565;
-    --navy: #10263f;
-    --navy-2: #17395f;
-    --gold: #bf8b30;
+    --bg: #f4f1ea;
+    --ink: #1d2530;
+    --ink-soft: #445061;
+    --line: #d7dde7;
     --card: #ffffff;
-    --line: #d5d9df;
+    --brand: #103860;
+    --brand-2: #1c5487;
+    --accent: #c58f2f;
   }
 
   * { box-sizing: border-box; }
 
   body {
     margin: 0;
-    font-family: "Source Sans 3", sans-serif;
+    font-family: "Manrope", sans-serif;
     color: var(--ink);
     background:
-      radial-gradient(circle at 15% 5%, rgba(191, 139, 48, 0.12), transparent 36%),
-      radial-gradient(circle at 85% 0%, rgba(23, 57, 95, 0.16), transparent 44%),
+      radial-gradient(circle at 8% 2%, rgba(197, 143, 47, 0.15), transparent 30%),
+      radial-gradient(circle at 95% 4%, rgba(28, 84, 135, 0.16), transparent 35%),
       var(--bg);
   }
 
   .container {
-    width: min(1120px, 92vw);
+    width: min(1180px, 92vw);
     margin: 0 auto;
   }
 
-  header {
-    padding: 48px 0 28px;
-  }
-
   .hero {
-    border: 1px solid var(--line);
-    background: linear-gradient(120deg, var(--navy) 0%, var(--navy-2) 100%);
-    color: #f7f8fa;
+    margin: 36px 0 26px;
+    padding: 34px;
     border-radius: 20px;
-    padding: 36px;
-    box-shadow: 0 20px 40px rgba(16, 38, 63, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: linear-gradient(120deg, var(--brand) 0%, var(--brand-2) 100%);
+    color: #f2f7fb;
+    box-shadow: 0 20px 45px rgba(16, 56, 96, 0.25);
   }
 
   .hero h1 {
     margin: 0;
-    font-family: "Merriweather", serif;
-    line-height: 1.15;
-    font-size: clamp(2rem, 3vw, 3rem);
+    font-family: "Libre Baskerville", serif;
+    font-size: clamp(2rem, 3.2vw, 3rem);
+    line-height: 1.2;
   }
 
   .hero p {
     margin: 12px 0 0;
-    color: #dae3ee;
-    font-size: 1.05rem;
-    max-width: 780px;
+    max-width: 820px;
+    color: #d5e3ef;
+    font-size: 1.03rem;
   }
 
-  .quick-meta {
-    margin-top: 18px;
+  .meta {
+    margin-top: 16px;
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
+    flex-wrap: wrap;
   }
 
-  .quick-meta span {
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.25);
+  .meta span {
+    border: 1px solid rgba(255, 255, 255, 0.33);
     border-radius: 999px;
-    padding: 7px 12px;
-    font-size: 0.92rem;
-    color: #eef3fa;
-    background: rgba(255, 255, 255, 0.08);
-  }
-
-  main {
-    padding: 20px 0 46px;
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .section-title {
-    margin: 0 0 16px;
-    font-family: "Merriweather", serif;
-    font-size: clamp(1.5rem, 2.2vw, 2rem);
-    color: var(--navy);
+    margin: 0 0 14px;
+    font-family: "Libre Baskerville", serif;
+    font-size: clamp(1.45rem, 2.2vw, 2rem);
+    color: var(--brand);
   }
 
   .timeline {
-    position: relative;
     display: grid;
     gap: 18px;
+    padding-bottom: 36px;
   }
 
   .day-card {
     border: 1px solid var(--line);
     border-radius: 16px;
     background: var(--card);
-    padding: 18px;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+    padding: 16px;
+    box-shadow: 0 10px 22px rgba(14, 34, 56, 0.08);
   }
 
   .day-head {
-    margin-bottom: 12px;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 12px;
     align-items: baseline;
+    gap: 8px 12px;
+    margin-bottom: 12px;
   }
 
-  .day-tag {
-    display: inline-block;
+  .day-pill {
+    border: 1px solid rgba(16, 56, 96, 0.25);
     border-radius: 999px;
-    border: 1px solid rgba(16, 38, 63, 0.24);
-    background: #ecf2f9;
-    color: var(--navy);
+    background: #e9f1f9;
+    color: var(--brand);
     font-weight: 700;
-    font-size: 0.84rem;
-    letter-spacing: 0.02em;
+    font-size: 0.83rem;
     padding: 4px 10px;
+    letter-spacing: 0.03em;
   }
 
   .day-title {
     margin: 0;
-    font-size: 1.35rem;
-    font-family: "Merriweather", serif;
-    color: var(--ink);
+    font-family: "Libre Baskerville", serif;
+    font-size: 1.25rem;
   }
 
   .day-date {
-    color: var(--muted);
-    font-weight: 600;
-    font-size: 0.96rem;
+    color: var(--ink-soft);
+    font-weight: 700;
+    font-size: 0.94rem;
   }
 
-  .day-layout {
+  .poi-list {
     display: grid;
-    grid-template-columns: 40% 1fr;
-    gap: 16px;
-    align-items: start;
+    gap: 12px;
   }
 
-  .day-photo {
-    margin: 0;
+  .poi-item {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 12px;
+    border: 1px solid var(--line);
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid var(--line);
-    background: #dce3eb;
-    min-height: 232px;
+    background: linear-gradient(180deg, #ffffff 0%, #f9fbfd 100%);
   }
 
-  .day-photo img {
+  .poi-photo {
+    margin: 0;
+    min-height: 150px;
+    position: relative;
+    background: #dce7f2;
+  }
+
+  .poi-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
 
-  .day-photo figcaption {
-    padding: 8px 10px;
-    background: #f7f9fc;
-    border-top: 1px solid var(--line);
-    font-size: 0.84rem;
-    color: var(--muted);
+  .poi-photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 55%);
+    pointer-events: none;
   }
 
-  .day-list {
-    margin: 0;
-    padding-left: 20px;
-    display: grid;
-    gap: 8px;
-    color: #212d3d;
+  .poi-caption {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    z-index: 2;
+    color: #fff;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  }
+
+  .poi-text {
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
     font-size: 1rem;
-  }
-
-  .tip {
-    margin-top: 12px;
-    border-top: 1px dashed var(--line);
-    padding-top: 10px;
-    color: #2f3c4d;
-    font-size: 0.95rem;
-  }
-
-  .tip strong {
-    color: var(--navy);
+    line-height: 1.45;
+    color: #1f2b39;
   }
 
   footer {
-    margin: 22px 0 36px;
-    color: var(--muted);
-    font-size: 0.92rem;
     text-align: center;
+    color: #5b6676;
+    font-size: 0.9rem;
+    padding-bottom: 26px;
   }
 
-  @media (max-width: 900px) {
-    .day-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .day-photo {
-      min-height: 220px;
-    }
+  @media (max-width: 920px) {
+    .poi-item { grid-template-columns: 1fr; }
+    .poi-photo { min-height: 210px; }
   }
 </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="hero">
-        <h1>Chronological UK Family Itinerary</h1>
-        <p>A day-by-day plan from London to Scotland with each day's key stops listed next to a matching photo.</p>
-        <div class="quick-meta">
-          <span>Dates: April 2-12, 2025</span>
-          <span>Trip Length: 11 days</span>
-          <span>Family of 5</span>
-        </div>
+  <div class="container">
+    <header class="hero">
+      <h1>Chronological UK Family Itinerary</h1>
+      <p>Each unique itinerary bullet now has its own dedicated photo to make every stop feel tangible, scenic, and travel-inspiring.</p>
+      <div class="meta">
+        <span>Dates: April 2-12, 2025</span>
+        <span>Trip length: 11 days</span>
+        <span>Family of 5</span>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <div class="container">
-      <h2 class="section-title">Day-by-Day Timeline</h2>
+    <h2 class="section-title">Day-by-Day Plan With Photo Per Bullet</h2>
+    <main id="timeline" class="timeline"></main>
 
-      <section class="timeline">
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 1</span>
-            <h3 class="day-title">Arrive in London</h3>
-            <span class="day-date">April 2</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/1650899/pexels-photo-1650899.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Tower_Bridge" alt="Tower Bridge">
-              <figcaption>Tower Bridge evening walk</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Fly in and check into a family hotel near South Bank.</li>
-                <li>Take an easy evening walk along the Thames.</li>
-                <li>See Tower Bridge lit up at night.</li>
-                <li>Have dinner near Borough Market.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Keep Day 1 light to recover from travel and jet lag.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 2</span>
-            <h3 class="day-title">Classic London Icons</h3>
-            <span class="day-date">April 3</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Tower_of_London" alt="Tower of London">
-              <figcaption>Tower of London</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Visit the Tower of London and Crown Jewels.</li>
-                <li>Take a Thames river cruise toward Westminster.</li>
-                <li>Watch the Changing of the Guard at Buckingham Palace.</li>
-                <li>Relax in Hyde Park in the afternoon.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Reserve Tower of London tickets early in spring.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 3</span>
-            <h3 class="day-title">Museums and Westminster</h3>
-            <span class="day-date">April 4</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/356844/pexels-photo-356844.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="British_Museum" alt="British Museum">
-              <figcaption>British Museum highlights</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Tour the British Museum.</li>
-                <li>Walk through Westminster Abbey and Parliament area.</li>
-                <li>Photo stop at Big Ben.</li>
-                <li>Cross Millennium Bridge and visit Tate Modern.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Focus on 2-3 museum zones for kids.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 4</span>
-            <h3 class="day-title">Stonehenge and White Cliffs</h3>
-            <span class="day-date">April 5</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Stonehenge" alt="Stonehenge">
-              <figcaption>Stonehenge morning visit</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Drive to Stonehenge in the morning.</li>
-                <li>Continue east to the White Cliffs of Dover.</li>
-                <li>Walk the cliff path and enjoy Channel views.</li>
-                <li>Return to London in the evening.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> This is easiest with a rental car.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 5</span>
-            <h3 class="day-title">Stratford-upon-Avon</h3>
-            <span class="day-date">April 6</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/161154/street-building-road-old-161154.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Shakespeare's_Birthplace" alt="Shakespeare's Birthplace">
-              <figcaption>Shakespeare's Birthplace</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Visit Shakespeare's Birthplace.</li>
-                <li>Stop by Anne Hathaway's Cottage.</li>
-                <li>Take a River Avon walk.</li>
-                <li>Drive back to London for final night.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Leave early to avoid afternoon motorway traffic.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 6</span>
-            <h3 class="day-title">Train to Edinburgh</h3>
-            <span class="day-date">April 7</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/427679/pexels-photo-427679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Royal_Mile" alt="Royal Mile">
-              <figcaption>Royal Mile area on arrival</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Take the LNER train from London to Edinburgh.</li>
-                <li>Check into hotel near Royal Mile.</li>
-                <li>Explore Grassmarket and Victoria Street.</li>
-                <li>Enjoy a relaxed pub dinner.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Reserve seats around a table for family comfort.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 7</span>
-            <h3 class="day-title">Edinburgh Castle and Old Town</h3>
-            <span class="day-date">April 8</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Edinburgh_Castle" alt="Edinburgh Castle">
-              <figcaption>Edinburgh Castle</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Visit Edinburgh Castle in the morning.</li>
-                <li>Walk the Royal Mile toward Holyrood Palace.</li>
-                <li>Optional hike up Arthur's Seat.</li>
-                <li>Dinner in Old Town.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Book a castle slot early for shorter lines.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 8</span>
-            <h3 class="day-title">Stirling Day Trip</h3>
-            <span class="day-date">April 9</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/208701/pexels-photo-208701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Stirling_Castle" alt="Stirling Castle">
-              <figcaption>Stirling Castle day trip</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Take a day trip to Stirling Castle.</li>
-                <li>See the Wallace Monument area.</li>
-                <li>Visit the Bannockburn Heritage Centre.</li>
-                <li>Return to Edinburgh for evening.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Stirling is quick from Edinburgh and very family friendly.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 9</span>
-            <h3 class="day-title">Highlands Drive</h3>
-            <span class="day-date">April 10</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Urquhart_Castle" alt="Urquhart Castle at Loch Ness">
-              <figcaption>Loch Ness and Urquhart Castle</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Pick up rental car and drive north from Edinburgh.</li>
-                <li>Visit Loch Ness and Urquhart Castle.</li>
-                <li>Continue through Glencoe Valley.</li>
-                <li>Overnight in Inverness or Fort William area.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Plan buffer time for scenic stops.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 10</span>
-            <h3 class="day-title">Isle of Skye</h3>
-            <span class="day-date">April 11</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Eilean_Donan" alt="Eilean Donan Castle">
-              <figcaption>Eilean Donan en route to Skye</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Drive via Eilean Donan Castle photo stop.</li>
-                <li>Visit Fairy Pools.</li>
-                <li>Hike to Old Man of Storr viewpoint.</li>
-                <li>Sunset at Neist Point if weather allows.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Pick 2-3 top stops to avoid rushing.</p>
-            </div>
-          </div>
-        </article>
-
-        <article class="day-card">
-          <div class="day-head">
-            <span class="day-tag">Day 11</span>
-            <h3 class="day-title">Return and Fly Home</h3>
-            <span class="day-date">April 12</span>
-          </div>
-          <div class="day-layout">
-            <figure class="day-photo">
-              <img src="https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400" data-wiki-page="Edinburgh_Airport" alt="Airport departure">
-              <figcaption>Departure day</figcaption>
-            </figure>
-            <div>
-              <ul class="day-list">
-                <li>Drive back toward Edinburgh.</li>
-                <li>Return rental car.</li>
-                <li>Arrive at airport about 2.5 hours before flight.</li>
-                <li>Fly home.</li>
-              </ul>
-              <p class="tip"><strong>Tip:</strong> Keep this day flexible in case of traffic or weather delays.</p>
-            </div>
-          </div>
-        </article>
-      </section>
-    </div>
-  </main>
-
-  <footer class="container">
-    Built as a chronological itinerary with photo-and-bullets side-by-side for each day.
-  </footer>
+    <footer>Designed as a true chronological itinerary with one image per unique bullet item.</footer>
+  </div>
 
   <script>
-    (function loadPoiImagesFromWikipedia() {
+    const itinerary = [
+      {
+        day: 1,
+        title: "Arrive in London",
+        date: "April 2",
+        items: [
+          { text: "Fly in and check into a family hotel near South Bank.", page: "South_Bank", caption: "South Bank base" },
+          { text: "Take an easy evening walk along the Thames.", page: "River_Thames", caption: "Evening Thames walk" },
+          { text: "See Tower Bridge lit up at night.", page: "Tower_Bridge", caption: "Tower Bridge at night" },
+          { text: "Have dinner near Borough Market.", page: "Borough_Market", caption: "Borough Market" }
+        ]
+      },
+      {
+        day: 2,
+        title: "Classic London Icons",
+        date: "April 3",
+        items: [
+          { text: "Visit the Tower of London and Crown Jewels.", page: "Tower_of_London", caption: "Tower of London" },
+          { text: "Take a Thames river cruise toward Westminster.", page: "Westminster", caption: "Cruise toward Westminster" },
+          { text: "Watch the Changing of the Guard at Buckingham Palace.", page: "Buckingham_Palace", caption: "Buckingham Palace" },
+          { text: "Relax in Hyde Park in the afternoon.", page: "Hyde_Park,_London", caption: "Hyde Park" }
+        ]
+      },
+      {
+        day: 3,
+        title: "Museums and Westminster",
+        date: "April 4",
+        items: [
+          { text: "Tour the British Museum.", page: "British_Museum", caption: "British Museum" },
+          { text: "Walk through Westminster Abbey and Parliament area.", page: "Westminster_Abbey", caption: "Westminster Abbey" },
+          { text: "Photo stop at Big Ben.", page: "Big_Ben", caption: "Big Ben" },
+          { text: "Cross Millennium Bridge and visit Tate Modern.", page: "Millennium_Bridge,_London", caption: "Millennium Bridge" }
+        ]
+      },
+      {
+        day: 4,
+        title: "Stonehenge and White Cliffs",
+        date: "April 5",
+        items: [
+          { text: "Drive to Stonehenge in the morning.", page: "Stonehenge", caption: "Stonehenge" },
+          { text: "Continue east to the White Cliffs of Dover.", page: "White_Cliffs_of_Dover", caption: "White Cliffs of Dover" },
+          { text: "Walk the cliff path and enjoy Channel views.", page: "Dover", caption: "Dover coast views" },
+          { text: "Return to London in the evening.", page: "London", caption: "Back to London" }
+        ]
+      },
+      {
+        day: 5,
+        title: "Stratford-upon-Avon",
+        date: "April 6",
+        items: [
+          { text: "Visit Shakespeare's Birthplace.", page: "Shakespeare's_Birthplace", caption: "Shakespeare's Birthplace" },
+          { text: "Stop by Anne Hathaway's Cottage.", page: "Anne_Hathaway's_Cottage", caption: "Anne Hathaway's Cottage" },
+          { text: "Take a River Avon walk.", page: "River_Avon,_Warwickshire", caption: "River Avon" },
+          { text: "Drive back to London for final night.", page: "London", caption: "London evening return" }
+        ]
+      },
+      {
+        day: 6,
+        title: "Train to Edinburgh",
+        date: "April 7",
+        items: [
+          { text: "Take the LNER train from London to Edinburgh.", page: "LNER", caption: "LNER northbound" },
+          { text: "Check into hotel near Royal Mile.", page: "Royal_Mile", caption: "Royal Mile" },
+          { text: "Explore Grassmarket and Victoria Street.", page: "Grassmarket", caption: "Grassmarket" },
+          { text: "Enjoy a relaxed pub dinner.", page: "Edinburgh", caption: "Edinburgh night" }
+        ]
+      },
+      {
+        day: 7,
+        title: "Edinburgh Castle and Old Town",
+        date: "April 8",
+        items: [
+          { text: "Visit Edinburgh Castle in the morning.", page: "Edinburgh_Castle", caption: "Edinburgh Castle" },
+          { text: "Walk the Royal Mile toward Holyrood Palace.", page: "Holyrood_Palace", caption: "Royal Mile to Holyrood" },
+          { text: "Optional hike up Arthur's Seat.", page: "Arthur's_Seat", caption: "Arthur's Seat" },
+          { text: "Dinner in Old Town.", page: "Old_Town,_Edinburgh", caption: "Old Town" }
+        ]
+      },
+      {
+        day: 8,
+        title: "Stirling Day Trip",
+        date: "April 9",
+        items: [
+          { text: "Take a day trip to Stirling Castle.", page: "Stirling_Castle", caption: "Stirling Castle" },
+          { text: "See the Wallace Monument area.", page: "National_Wallace_Monument", caption: "Wallace Monument" },
+          { text: "Visit the Bannockburn Heritage Centre.", page: "Battle_of_Bannockburn", caption: "Bannockburn" },
+          { text: "Return to Edinburgh for evening.", page: "Edinburgh", caption: "Return to Edinburgh" }
+        ]
+      },
+      {
+        day: 9,
+        title: "Highlands Drive",
+        date: "April 10",
+        items: [
+          { text: "Pick up rental car and drive north from Edinburgh.", page: "Scottish_Highlands", caption: "Road into the Highlands" },
+          { text: "Visit Loch Ness and Urquhart Castle.", page: "Urquhart_Castle", caption: "Urquhart Castle" },
+          { text: "Continue through Glencoe Valley.", page: "Glencoe,_Highland", caption: "Glencoe" },
+          { text: "Overnight in Inverness or Fort William area.", page: "Inverness", caption: "Inverness base" }
+        ]
+      },
+      {
+        day: 10,
+        title: "Isle of Skye",
+        date: "April 11",
+        items: [
+          { text: "Drive via Eilean Donan Castle photo stop.", page: "Eilean_Donan", caption: "Eilean Donan" },
+          { text: "Visit Fairy Pools.", page: "Fairy_Pools", caption: "Fairy Pools" },
+          { text: "Hike to Old Man of Storr viewpoint.", page: "Old_Man_of_Storr", caption: "Old Man of Storr" },
+          { text: "Sunset at Neist Point if weather allows.", page: "Neist_Point_Lighthouse", caption: "Neist Point sunset" }
+        ]
+      },
+      {
+        day: 11,
+        title: "Return and Fly Home",
+        date: "April 12",
+        items: [
+          { text: "Drive back toward Edinburgh.", page: "A9_road_(Scotland)", caption: "Scenic return drive" },
+          { text: "Return rental car.", page: "Edinburgh_Airport", caption: "Edinburgh Airport" },
+          { text: "Arrive at airport about 2.5 hours before flight.", page: "Edinburgh_Airport", caption: "Departure prep" },
+          { text: "Fly home.", page: "Airplane", caption: "Homeward flight" }
+        ]
+      }
+    ];
+
+    const fallbackImages = {
+      South_Bank: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      River_Thames: "https://images.pexels.com/photos/1796730/pexels-photo-1796730.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Tower_Bridge: "https://images.pexels.com/photos/1650899/pexels-photo-1650899.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Borough_Market: "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Tower_of_London: "https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Westminster: "https://images.pexels.com/photos/724533/pexels-photo-724533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Buckingham_Palace: "https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "Hyde_Park,_London": "https://images.pexels.com/photos/2521619/pexels-photo-2521619.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      British_Museum: "https://images.pexels.com/photos/356844/pexels-photo-356844.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Westminster_Abbey: "https://images.pexels.com/photos/2082103/pexels-photo-2082103.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Big_Ben: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "Millennium_Bridge,_London": "https://images.pexels.com/photos/378570/pexels-photo-378570.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Stonehenge: "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      White_Cliffs_of_Dover: "https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Dover: "https://images.pexels.com/photos/1005417/pexels-photo-1005417.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      London: "https://images.pexels.com/photos/1837590/pexels-photo-1837590.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "Shakespeare's_Birthplace": "https://images.pexels.com/photos/161154/street-building-road-old-161154.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "Anne_Hathaway's_Cottage": "https://images.pexels.com/photos/106152/eiffel-tower-paris-france-tower-106152.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "River_Avon,_Warwickshire": "https://images.pexels.com/photos/355423/pexels-photo-355423.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      LNER: "https://images.pexels.com/photos/1004584/pexels-photo-1004584.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Royal_Mile: "https://images.pexels.com/photos/427679/pexels-photo-427679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Grassmarket: "https://images.pexels.com/photos/1827610/pexels-photo-1827610.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Edinburgh: "https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Edinburgh_Castle: "https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Holyrood_Palace: "https://images.pexels.com/photos/1329711/pexels-photo-1329711.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "Arthur's_Seat": "https://images.pexels.com/photos/2901209/pexels-photo-2901209.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "Old_Town,_Edinburgh": "https://images.pexels.com/photos/1308940/pexels-photo-1308940.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Stirling_Castle: "https://images.pexels.com/photos/208701/pexels-photo-208701.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      National_Wallace_Monument: "https://images.pexels.com/photos/157811/pexels-photo-157811.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Battle_of_Bannockburn: "https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Scottish_Highlands: "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Urquhart_Castle: "https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "Glencoe,_Highland": "https://images.pexels.com/photos/572897/pexels-photo-572897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Inverness: "https://images.pexels.com/photos/355465/pexels-photo-355465.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Eilean_Donan: "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Fairy_Pools: "https://images.pexels.com/photos/355465/pexels-photo-355465.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Old_Man_of_Storr: "https://images.pexels.com/photos/2901209/pexels-photo-2901209.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Neist_Point_Lighthouse: "https://images.pexels.com/photos/1533720/pexels-photo-1533720.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "A9_road_(Scotland)": "https://images.pexels.com/photos/210243/pexels-photo-210243.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Edinburgh_Airport: "https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Airplane: "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400"
+    };
+
+    function renderTimeline() {
+      const timeline = document.getElementById("timeline");
+      timeline.innerHTML = itinerary
+        .map((day) => {
+          const itemsMarkup = day.items
+            .map((item) => {
+              const fallback = fallbackImages[item.page] || fallbackImages.London;
+              return `
+                <article class="poi-item">
+                  <figure class="poi-photo">
+                    <img src="${fallback}" data-wiki-page="${item.page}" alt="${item.caption}">
+                    <figcaption class="poi-caption">${item.caption}</figcaption>
+                  </figure>
+                  <div class="poi-text">${item.text}</div>
+                </article>
+              `;
+            })
+            .join("");
+
+          return `
+            <section class="day-card">
+              <div class="day-head">
+                <span class="day-pill">Day ${day.day}</span>
+                <h3 class="day-title">${day.title}</h3>
+                <span class="day-date">${day.date}</span>
+              </div>
+              <div class="poi-list">${itemsMarkup}</div>
+            </section>
+          `;
+        })
+        .join("");
+    }
+
+    function loadWikipediaImages() {
       const images = document.querySelectorAll("img[data-wiki-page]");
-      if (!images.length) return;
-
       images.forEach((img) => {
-        const pageTitle = img.getAttribute("data-wiki-page");
-        if (!pageTitle) return;
+        const page = img.getAttribute("data-wiki-page");
+        if (!page) return;
 
-        const summaryUrl = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(pageTitle);
-        fetch(summaryUrl, { headers: { Accept: "application/json" } })
+        const url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(page);
+        fetch(url, { headers: { Accept: "application/json" } })
           .then((response) => (response.ok ? response.json() : null))
           .then((data) => {
             if (!data) return;
             const source = (data.originalimage && data.originalimage.source) || (data.thumbnail && data.thumbnail.source);
             if (source) img.src = source;
           })
-          .catch(function () {
-            // Keep fallback image if fetch fails.
+          .catch(() => {
+            // Fallback image remains in place.
           });
       });
-    })();
+    }
+
+    renderTimeline();
+    loadWikipediaImages();
   </script>
 </body>
 </html>
