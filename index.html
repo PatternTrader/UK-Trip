@@ -1287,13 +1287,21 @@
         }
       }
 
+      const validCostKeys = new Set();
       itinerary.forEach((day) => {
         day.items.forEach((item, index) => {
           const key = getItemKey(day, item, index);
+          validCostKeys.add(key);
           if ((costState[key] === undefined || costState[key] === "") && typeof item.defaultCost === "number") {
             costState[key] = item.defaultCost.toFixed(2);
           }
         });
+      });
+
+      Object.keys(costState).forEach((key) => {
+        if (!validCostKeys.has(key)) {
+          delete costState[key];
+        }
       });
       localStorage.setItem(COST_STORAGE_KEY, JSON.stringify(costState));
     }
