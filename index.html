@@ -682,9 +682,7 @@
           { text: "Browse Forbidden Planet London Megastore for comics and collectibles.", page: "Forbidden_Planet_London_Megastore", caption: "Forbidden Planet London" },
           { text: "See the John Snow cholera pump on Broadwick Street in Soho.", page: "John_Snow_cholera_pump", caption: "John Snow cholera pump" },
           { text: "Explore Soho streets and food spots.", page: "Soho", caption: "Soho" },
-          { text: "Eat classic pub food at Ye Olde Cheshire Cheese. <a href=\"https://ye-olde-cheshire-cheese.co.uk/\" target=\"_blank\" rel=\"noopener noreferrer\">Ye Olde Cheshire Cheese site</a>.", page: "Ye_Olde_Cheshire_Cheese", caption: "Ye Olde Cheshire Cheese" },
-          { text: "Have a famous Indian meal at Dishoom Covent Garden. <a href=\"https://www.dishoom.com/menu/all-day-main/\" target=\"_blank\" rel=\"noopener noreferrer\">Dishoom all-day menu</a>.", page: "Dishoom_Covent_Garden", caption: "Dishoom Covent Garden" },
-          { text: "Try famous fish and chips at Rock & Sole Plaice.", page: "Rock_and_Sole_Plaice", caption: "Rock & Sole Plaice" },
+          { text: "Dinner: eat classic pub food at Ye Olde Cheshire Cheese. <a href=\"https://ye-olde-cheshire-cheese.co.uk/\" target=\"_blank\" rel=\"noopener noreferrer\">Ye Olde Cheshire Cheese site</a>.", page: "Ye_Olde_Cheshire_Cheese", caption: "Ye Olde Cheshire Cheese dinner" },
           { text: "Finish with an evening stroll down Oxford Street.", page: "Oxford_Street", caption: "Oxford Street" }
         ]
       },
@@ -695,6 +693,7 @@
         items: [
           { text: "Visit the Royal Observatory Greenwich and stand on the Prime Meridian line.", page: "Royal_Observatory_Greenwich", caption: "Royal Observatory Greenwich" },
           { text: "Tour the British Museum.", page: "British_Museum", caption: "British Museum" },
+          { text: "Lunch: have a famous Indian meal at Dishoom Covent Garden. <a href=\"https://www.dishoom.com/menu/all-day-main/\" target=\"_blank\" rel=\"noopener noreferrer\">Dishoom all-day menu</a>.", page: "Dishoom_Covent_Garden", caption: "Dishoom lunch" },
           { text: "Browse food and vintage stalls at Camden Market.", page: "Camden_Market", caption: "Camden Market" },
           { text: "Visit Kensington Palace and surrounding gardens.", page: "Kensington_Palace", caption: "Kensington Palace" }
         ]
@@ -709,7 +708,8 @@
           { text: "Tour the Royal Shakespeare Theatre.", page: "Royal_Shakespeare_Theatre", caption: "Royal Shakespeare Theatre" },
           { text: "Stop by Anne Hathaway's Cottage.", page: "Anne_Hathaway's_Cottage", caption: "Anne Hathaway's Cottage" },
           { text: "Take a River Avon walk.", page: "River_Avon,_Warwickshire", caption: "River Avon" },
-          { text: "Return to London by rail/coach for final night.", page: "London", caption: "London evening return" }
+          { text: "Return to London by rail/coach for final night.", page: "London", caption: "London evening return" },
+          { text: "Dinner: try famous fish and chips at Rock & Sole Plaice.", page: "Rock_and_Sole_Plaice", caption: "Rock & Sole Plaice dinner" }
         ]
       },
       {
@@ -803,10 +803,10 @@
       Forbidden_Planet_London_Megastore: "17:15",
       John_Snow_cholera_pump: "17:45",
       Soho: "18:15",
-      Ye_Olde_Cheshire_Cheese: "19:00",
-      Dishoom_Covent_Garden: "20:00",
-      Rock_and_Sole_Plaice: "21:00",
-      Oxford_Street: "21:45",
+      Ye_Olde_Cheshire_Cheese: "19:30",
+      Dishoom_Covent_Garden: "13:15",
+      Rock_and_Sole_Plaice: "20:45",
+      Oxford_Street: "21:00",
       Royal_Observatory_Greenwich: "09:15",
       British_Museum: "10:00",
       Camden_Market: "13:30",
@@ -933,14 +933,13 @@
         { mode: "Walk", bufferMin: 10, note: "Leicester Square to Shaftesbury Avenue." },
         { mode: "Walk", bufferMin: 10, note: "Shaftesbury Avenue to Broadwick Street." },
         { mode: "Walk", bufferMin: 10, note: "Short Soho neighborhood transfer." },
-        { mode: "Walk", bufferMin: 15, note: "Soho to Covent Garden pub stop." },
-        { mode: "Walk", bufferMin: 8, note: "Quick transfer for Indian dinner stop." },
-        { mode: "Walk", bufferMin: 8, note: "Short transfer to fish-and-chips spot." },
-        { mode: "Tube + walk", bufferMin: 20, note: "Evening move to Oxford Street." }
+        { mode: "Walk + Tube", bufferMin: 25, note: "Soho to Fleet Street pub dinner stop." },
+        { mode: "Tube", bufferMin: 25, note: "Evening move to Oxford Street." }
       ],
       4: [
         { mode: "DLR + walk", bufferMin: 40, note: "Central London to Greenwich Observatory." },
         { mode: "DLR + Tube", bufferMin: 40, note: "Greenwich back to Bloomsbury museum area." },
+        { mode: "Walk + Tube", bufferMin: 20, note: "Bloomsbury to Covent Garden lunch stop." },
         { mode: "Tube", bufferMin: 35, note: "Cross-city move to Camden." },
         { mode: "Tube + walk", bufferMin: 30, note: "Camden to Kensington." }
       ],
@@ -950,7 +949,8 @@
         { mode: "Walk", bufferMin: 12, note: "Town-center transfer." },
         { mode: "Walk/short taxi", bufferMin: 20, note: "Local movement in Stratford." },
         { mode: "Walk", bufferMin: 10, note: "Riverside segment." },
-        { mode: "Coach or rail return", bufferMin: 125, note: "Guided tour coach or train back to London." }
+        { mode: "Coach or rail return", bufferMin: 125, note: "Guided tour coach or train back to London." },
+        { mode: "Walk/Tube", bufferMin: 20, note: "Transfer to dinner stop near Covent Garden." }
       ],
       6: [
         { mode: "Train (LNER)", bufferMin: 270, note: "London to Edinburgh rail journey." },
