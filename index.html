@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>UK Family Trip Itinerary | April 2-12, 2025</title>
-<link rel="icon" type="image/svg+xml" href="images/favicon-uk.svg">
+<link rel="icon" type="image/svg+xml" href="images/favicon-uk-round.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
@@ -643,7 +643,7 @@
         title: "New York to London Flight",
         date: "April 2-3",
         items: [
-          { text: "Leave from 303 E. 83rd St, NY, NY to LaGuardia Airport (LGA). Estimated drive is ~19 min for 8.0 miles in light traffic; plan 30-45 min with typical city traffic.", page: "303_E_83rd_St_NYC", caption: "Depart from 303 E. 83rd St" },
+          { text: "Leave from 303 E. 83rd St, NY, NY to LaGuardia Airport (LGA) via subway + bus. Typical transfer is about 55-70 min; plan around 65 min plus station and platform buffer.", page: "303_E_83rd_St_NYC", caption: "Depart from 303 E. 83rd St" },
           { text: "Depart New York (LGA) at 2:49pm on United, 1 stop via IAD.", page: "LaGuardia_Airport", caption: "NYC to London flight", defaultCost: 1534.5 },
           { text: "Connection at Washington Dulles (IAD), about 2h 9m.", page: "Washington_Dulles_International_Airport", caption: "IAD connection" },
           { text: "Arrive London Heathrow at 6:55am on April 3.", page: "London_Heathrow_Arrival", caption: "Arrive London Heathrow" },
@@ -675,7 +675,12 @@
           { text: "Step into Trafalgar Square for iconic city views.", page: "Trafalgar_Square", caption: "Trafalgar Square" },
           { text: "Take in the lights and screens at Piccadilly Circus.", page: "Piccadilly_Circus", caption: "Piccadilly Circus" },
           { text: "Walk through Leicester Square.", page: "Leicester_Square", caption: "Leicester Square" },
+          { text: "Browse Forbidden Planet London Megastore for comics and collectibles.", page: "Forbidden_Planet_London_Megastore", caption: "Forbidden Planet London" },
+          { text: "See the John Snow cholera pump on Broadwick Street in Soho.", page: "John_Snow_cholera_pump", caption: "John Snow cholera pump" },
           { text: "Explore Soho streets and food spots.", page: "Soho", caption: "Soho" },
+          { text: "Eat classic pub food at The Lamb & Flag in Covent Garden.", page: "The_Lamb_and_Flag", caption: "The Lamb & Flag pub dinner" },
+          { text: "Have a famous Indian meal at Dishoom Covent Garden.", page: "Dishoom_Covent_Garden", caption: "Dishoom Covent Garden" },
+          { text: "Try famous fish and chips at Rock & Sole Plaice.", page: "Rock_and_Sole_Plaice", caption: "Rock & Sole Plaice" },
           { text: "Finish with an evening stroll down Oxford Street.", page: "Oxford_Street", caption: "Oxford Street" }
         ]
       },
@@ -684,6 +689,7 @@
         title: "Museums and London Neighborhoods",
         date: "April 5",
         items: [
+          { text: "Visit the Royal Observatory Greenwich and stand on the Prime Meridian line.", page: "Royal_Observatory_Greenwich", caption: "Royal Observatory Greenwich" },
           { text: "Tour the British Museum.", page: "British_Museum", caption: "British Museum" },
           { text: "Browse food and vintage stalls at Camden Market.", page: "Camden_Market", caption: "Camden Market" },
           { text: "Visit Kensington Palace and surrounding gardens.", page: "Kensington_Palace", caption: "Kensington Palace" }
@@ -770,7 +776,7 @@
     ];
 
     const visitTimes = {
-      "303_E_83rd_St_NYC": "12:10",
+      "303_E_83rd_St_NYC": "12:35",
       LaGuardia_Airport: "14:49",
       Washington_Dulles_International_Airport: "17:10",
       London_Heathrow_Arrival: "06:55",
@@ -790,8 +796,14 @@
       Trafalgar_Square: "14:30",
       Piccadilly_Circus: "16:00",
       Leicester_Square: "16:45",
-      Soho: "18:00",
-      Oxford_Street: "19:30",
+      Forbidden_Planet_London_Megastore: "17:15",
+      John_Snow_cholera_pump: "17:45",
+      Soho: "18:15",
+      The_Lamb_and_Flag: "19:00",
+      Dishoom_Covent_Garden: "20:00",
+      Rock_and_Sole_Plaice: "21:00",
+      Oxford_Street: "21:45",
+      Royal_Observatory_Greenwich: "09:15",
       British_Museum: "10:00",
       Camden_Market: "13:30",
       Kensington_Palace: "16:30",
@@ -828,7 +840,7 @@
     };
 
     const visitDurationsMin = {
-      "303_E_83rd_St_NYC": 35,
+      "303_E_83rd_St_NYC": 65,
       LaGuardia_Airport: 75,
       Washington_Dulles_International_Airport: 45,
       London_Heathrow_Arrival: 60,
@@ -848,8 +860,14 @@
       Trafalgar_Square: 40,
       Piccadilly_Circus: 35,
       Leicester_Square: 30,
+      Forbidden_Planet_London_Megastore: 30,
+      John_Snow_cholera_pump: 25,
       Soho: 90,
+      The_Lamb_and_Flag: 75,
+      Dishoom_Covent_Garden: 70,
+      Rock_and_Sole_Plaice: 60,
       Oxford_Street: 75,
+      Royal_Observatory_Greenwich: 90,
       British_Museum: 120,
       Camden_Market: 90,
       Kensington_Palace: 90,
@@ -886,7 +904,7 @@
 
     const dayTransportPlans = {
       1: [
-        { mode: "Taxi/Rideshare", bufferMin: 35, note: "303 E. 83rd St to LGA is ~8.0 miles; baseline routing ~19 min, but city traffic can push this to 30-45 min." },
+        { mode: "Subway + bus", bufferMin: 65, note: "Use subway to Jackson Heights/Roosevelt Ave then airport bus to LGA; typical total 55-70 min." },
         { mode: "Airplane", bufferMin: 0, note: "Long-haul departure segment." },
         { mode: "Airplane + terminal transfer", bufferMin: 129, note: "Connection window at IAD." },
         { mode: "Heathrow Express + Tube/Taxi", bufferMin: 75, note: "Immigration + transfer into central London." },
@@ -908,11 +926,17 @@
         { mode: "Walk", bufferMin: 10, note: "Adjacent square stop." },
         { mode: "Walk", bufferMin: 20, note: "West End move." },
         { mode: "Walk", bufferMin: 10, note: "Very short transfer." },
-        { mode: "Walk", bufferMin: 15, note: "Neighborhood stroll." },
-        { mode: "Walk", bufferMin: 20, note: "Evening high-street finish." }
+        { mode: "Walk", bufferMin: 10, note: "Leicester Square to Shaftesbury Avenue." },
+        { mode: "Walk", bufferMin: 10, note: "Shaftesbury Avenue to Broadwick Street." },
+        { mode: "Walk", bufferMin: 10, note: "Short Soho neighborhood transfer." },
+        { mode: "Walk", bufferMin: 15, note: "Soho to Covent Garden pub stop." },
+        { mode: "Walk", bufferMin: 8, note: "Quick transfer for Indian dinner stop." },
+        { mode: "Walk", bufferMin: 8, note: "Short transfer to fish-and-chips spot." },
+        { mode: "Tube + walk", bufferMin: 20, note: "Evening move to Oxford Street." }
       ],
       4: [
-        { mode: "Tube", bufferMin: 30, note: "Morning museum transfer." },
+        { mode: "DLR + walk", bufferMin: 40, note: "Central London to Greenwich Observatory." },
+        { mode: "DLR + Tube", bufferMin: 40, note: "Greenwich back to Bloomsbury museum area." },
         { mode: "Tube", bufferMin: 35, note: "Cross-city move to Camden." },
         { mode: "Tube + walk", bufferMin: 30, note: "Camden to Kensington." }
       ],
@@ -989,8 +1013,14 @@
       Trafalgar_Square: [51.5080, -0.1281],
       Piccadilly_Circus: [51.5101, -0.1340],
       Leicester_Square: [51.5113, -0.1270],
+      Forbidden_Planet_London_Megastore: [51.5158, -0.1292],
+      John_Snow_cholera_pump: [51.5138, -0.1363],
       Soho: [51.5136, -0.1365],
+      The_Lamb_and_Flag: [51.5129, -0.1246],
+      Dishoom_Covent_Garden: [51.5128, -0.1261],
+      Rock_and_Sole_Plaice: [51.5156, -0.1248],
       Oxford_Street: [51.5154, -0.1410],
+      Royal_Observatory_Greenwich: [51.4769, 0.0005],
       British_Museum: [51.5194, -0.1270],
       Camden_Market: [51.5416, -0.1439],
       Kensington_Palace: [51.5050, -0.1877],
@@ -1052,8 +1082,14 @@
       Trafalgar_Square: "https://images.pexels.com/photos/705764/pexels-photo-705764.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Piccadilly_Circus: "https://images.pexels.com/photos/297640/pexels-photo-297640.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Leicester_Square: "https://images.pexels.com/photos/214699/pexels-photo-214699.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Forbidden_Planet_London_Megastore: "https://images.pexels.com/photos/317356/pexels-photo-317356.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      John_Snow_cholera_pump: "https://images.pexels.com/photos/1616470/pexels-photo-1616470.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Soho: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      The_Lamb_and_Flag: "https://images.pexels.com/photos/1269036/pexels-photo-1269036.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Dishoom_Covent_Garden: "https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Rock_and_Sole_Plaice: "https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Oxford_Street: "https://images.pexels.com/photos/169647/pexels-photo-169647.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Royal_Observatory_Greenwich: "https://images.pexels.com/photos/372281/pexels-photo-372281.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Camden_Market: "https://images.pexels.com/photos/1450372/pexels-photo-1450372.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Kensington_Palace: "https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Stonehenge: "https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -1092,7 +1128,7 @@
     };
 
     const poiMeta = {
-      "303_E_83rd_St_NYC": { why: "Your exact departure point for the airport run.", researchedCost: "No admission cost; taxi/rideshare fare applies." },
+      "303_E_83rd_St_NYC": { why: "Your exact departure point for the airport run.", researchedCost: "No admission cost; subway + bus fare applies." },
       LaGuardia_Airport: { why: "Major New York gateway and your trip's launch point.", researchedCost: "No attraction admission; airline fare applies." },
       Washington_Dulles_International_Airport: { why: "Main transatlantic connection hub in this itinerary.", researchedCost: "No attraction admission; connection only." },
       London_Heathrow_Arrival: { why: "Primary UK entry point and start of your London leg.", researchedCost: "Free airport terminal access." },
@@ -1112,8 +1148,14 @@
       Trafalgar_Square: { why: "Historic civic square and central orientation point in London.", researchedCost: "Free public square." },
       Piccadilly_Circus: { why: "Famous neon-lit junction and West End energy hub.", researchedCost: "Free public area." },
       Leicester_Square: { why: "Cinema and theatre district heart with constant street activity.", researchedCost: "Free public square." },
+      Forbidden_Planet_London_Megastore: { why: "Flagship pop-culture megastore for comics, manga, and collectibles.", researchedCost: "Free entry retail shop." },
+      John_Snow_cholera_pump: { why: "Historic public-health landmark tied to the 1854 cholera outbreak mapping breakthrough.", researchedCost: "Free street-side historical stop." },
       Soho: { why: "Dense district of restaurants, music, theatre, and nightlife culture.", researchedCost: "Free to walk and explore." },
+      The_Lamb_and_Flag: { why: "Historic Covent Garden pub known for classic British pub atmosphere.", researchedCost: "Paid dining." },
+      Dishoom_Covent_Garden: { why: "One of London's best-known Indian restaurants for Bombay-style dishes.", researchedCost: "Paid dining." },
+      Rock_and_Sole_Plaice: { why: "Long-running London fish-and-chips institution near Covent Garden.", researchedCost: "Paid dining." },
       Oxford_Street: { why: "Historic shopping boulevard with flagship stores.", researchedCost: "Free public street access." },
+      Royal_Observatory_Greenwich: { why: "Home of the Prime Meridian and one of London's key scientific-history sites.", researchedCost: "Greenwich Park access free; official Prime Meridian courtyard entry is paid." },
       British_Museum: { why: "Major world-history museum with landmark artifacts.", researchedCost: "Permanent galleries free; some exhibitions paid." },
       Camden_Market: { why: "Alternative market district known for food, fashion, and music culture.", researchedCost: "Market entry free; food/shopping paid." },
       Kensington_Palace: { why: "Royal residence with state apartments and palace exhibitions.", researchedCost: "Paid admission (official tickets)." },
