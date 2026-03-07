@@ -1195,6 +1195,7 @@
     };
 
     const COST_STORAGE_KEY = "ukTripCostInputsV1";
+    const EMPTY_IMAGE_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'><rect width='1200' height='800' fill='white'/></svg>";
     let costState = {};
 
     function renderTimeline() {
@@ -1203,7 +1204,6 @@
         .map((day) => {
           let itemsMarkup = "";
           day.items.forEach((item, itemIndex) => {
-            const fallback = fallbackImages[item.page] || fallbackImages.London;
             const visitTime = visitTimes[item.page] || "Flexible";
             const duration = visitDurationsMin[item.page] || 60;
             const visitEndTime = addMinutesToTime(visitTime, duration);
@@ -1229,7 +1229,7 @@
             itemsMarkup += `
               <article class="poi-item">
                 <figure class="poi-photo">
-                  <img src="${fallback}" data-wiki-page="${item.page}" alt="${item.caption}">
+                  <img src="${EMPTY_IMAGE_PLACEHOLDER}" data-wiki-page="${item.page}" alt="${item.caption}">
                   <figcaption class="poi-caption">${item.caption}</figcaption>
                 </figure>
                 <div class="poi-text">
