@@ -1546,17 +1546,25 @@
       images.forEach((img) => {
         const page = img.getAttribute("data-wiki-page");
         if (!page) return;
+        const backup = fallbackImages[page];
 
         const url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(page);
         fetch(url, { headers: { Accept: "application/json" } })
           .then((response) => (response.ok ? response.json() : null))
           .then((data) => {
-            if (!data) return;
+            if (!data) {
+              if (backup) img.src = backup;
+              return;
+            }
             const source = (data.originalimage && data.originalimage.source) || (data.thumbnail && data.thumbnail.source);
-            if (source) img.src = source;
+            if (source) {
+              img.src = source;
+            } else if (backup) {
+              img.src = backup;
+            }
           })
           .catch(() => {
-            // Fallback image remains in place.
+            if (backup) img.src = backup;
           });
       });
     }
