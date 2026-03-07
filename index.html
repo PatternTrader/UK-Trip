@@ -1220,7 +1220,7 @@
               const transferStartTime = subtractMinutesFromTime(visitTime, transport.bufferMin);
               itemsMarkup += `
                 <article class="travel-block">
-                  <div class="travel-title">Travel Downtime - ${transport.mode} | ${transferStartTime} - ${transferEndTime} (${transport.bufferMin} min)</div>
+                  <div class="travel-title">${transferStartTime} - ${transferEndTime} (${transport.bufferMin} min) - ${transport.mode}</div>
                   <div class="travel-desc">Estimated transfer buffer: ~${transport.bufferMin} min. ${transport.note}</div>
                 </article>
               `;
