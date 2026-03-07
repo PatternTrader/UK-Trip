@@ -618,6 +618,10 @@
             <li><a href="https://www.lner.co.uk/" target="_blank" rel="noopener noreferrer">LNER train bookings</a></li>
             <li><a href="https://www.booking.com/" target="_blank" rel="noopener noreferrer">Hotel search (Booking.com)</a></li>
             <li><a href="https://www.bletchleypark.org.uk/" target="_blank" rel="noopener noreferrer">Bletchley Park</a></li>
+            <li><a href="https://www.nationalrail.co.uk/destinations/trains-from-london-to-bletchley/" target="_blank" rel="noopener noreferrer">National Rail: London to Bletchley</a></li>
+            <li><a href="https://evanevanstours.com/tours/day-tours-from-london/warwick-castle-shakespeares-birthplace-oxford-the-cotswolds/" target="_blank" rel="noopener noreferrer">Evan Evans: Stratford guided day tour</a></li>
+            <li><a href="https://www.timberbush-tours.co.uk/our-tours/from-edinburgh/2-day-tours/loch-ness-inverness-highlands" target="_blank" rel="noopener noreferrer">Timberbush: Highlands/Inverness 2-day tour</a></li>
+            <li><a href="https://www.rabbies.com/en-us/tour/the-isle-of-skye-3-day-tour-from-edinburgh" target="_blank" rel="noopener noreferrer">Rabbie's: Isle of Skye 3-day tour</a></li>
           </ul>
         </article>
       </div>
@@ -700,12 +704,12 @@
         title: "Stratford-upon-Avon",
         date: "April 6",
         items: [
-          { text: "Stop at Bletchley Park on the way out of London.", page: "Bletchley_Park", caption: "Bletchley Park" },
-          { text: "Visit Shakespeare's Birthplace.", page: "Shakespeare's_Birthplace", caption: "Shakespeare's Birthplace" },
+          { text: "Travel no-car to Bletchley Park by train from London Euston. <a href=\"https://www.nationalrail.co.uk/destinations/trains-from-london-to-bletchley/\" target=\"_blank\" rel=\"noopener noreferrer\">National Rail London - Bletchley planning</a>.", page: "Bletchley_Park", caption: "Bletchley Park" },
+          { text: "Guided no-car option for Stratford: book coach + guide from London. <a href=\"https://evanevanstours.com/tours/day-tours-from-london/warwick-castle-shakespeares-birthplace-oxford-the-cotswolds/\" target=\"_blank\" rel=\"noopener noreferrer\">Evan Evans Stratford day tour</a>.", page: "Shakespeare's_Birthplace", caption: "Shakespeare's Birthplace" },
           { text: "Tour the Royal Shakespeare Theatre.", page: "Royal_Shakespeare_Theatre", caption: "Royal Shakespeare Theatre" },
           { text: "Stop by Anne Hathaway's Cottage.", page: "Anne_Hathaway's_Cottage", caption: "Anne Hathaway's Cottage" },
           { text: "Take a River Avon walk.", page: "River_Avon,_Warwickshire", caption: "River Avon" },
-          { text: "Drive back to London for final night.", page: "London", caption: "London evening return" }
+          { text: "Return to London by rail/coach for final night.", page: "London", caption: "London evening return" }
         ]
       },
       {
@@ -746,7 +750,7 @@
         title: "Highlands Drive",
         date: "April 10",
         items: [
-          { text: "Pick up rental car and drive north from Edinburgh.", page: "Scottish_Highlands", caption: "Road into the Highlands" },
+          { text: "No-car guided option: book a 2-day Highlands + Inverness tour with transport from Edinburgh. <a href=\"https://www.timberbush-tours.co.uk/our-tours/from-edinburgh/2-day-tours/loch-ness-inverness-highlands\" target=\"_blank\" rel=\"noopener noreferrer\">Timberbush 2-day Highlands/Inverness tour</a>.", page: "Scottish_Highlands", caption: "Road into the Highlands" },
           { text: "Visit Loch Ness and Urquhart Castle.", page: "Urquhart_Castle", caption: "Urquhart Castle" },
           { text: "Continue through Glencoe Valley.", page: "Glencoe,_Highland", caption: "Glencoe" },
           { text: "Overnight in Inverness or Fort William area.", page: "Inverness", caption: "Inverness base" }
@@ -757,9 +761,9 @@
         title: "Skye Morning and Return to London",
         date: "April 11",
         items: [
-          { text: "Early stop at Eilean Donan Castle before heading south.", page: "Eilean_Donan", caption: "Eilean Donan" },
+          { text: "No-car guided option for Skye + Eilean Donan from Edinburgh. <a href=\"https://www.rabbies.com/en-us/tour/the-isle-of-skye-3-day-tour-from-edinburgh\" target=\"_blank\" rel=\"noopener noreferrer\">Rabbie's 3-day Skye tour</a>.", page: "Eilean_Donan", caption: "Eilean Donan" },
           { text: "Quick scenic stop at Old Man of Storr.", page: "Old_Man_of_Storr", caption: "Old Man of Storr" },
-          { text: "Drive back toward Edinburgh for evening train.", page: "A9_road_(Scotland)", caption: "Drive south to Edinburgh" },
+          { text: "Return toward Edinburgh on guided tour transport, then connect by evening train.", page: "A9_road_(Scotland)", caption: "Drive south to Edinburgh" },
           { text: "Take an evening LNER train from Edinburgh to London.", page: "Edinburgh_Waverley_railway_station", caption: "Edinburgh to London train" }
         ]
       },
@@ -941,12 +945,12 @@
         { mode: "Tube + walk", bufferMin: 30, note: "Camden to Kensington." }
       ],
       5: [
-        { mode: "Rental car", bufferMin: 30, note: "Pickup and departure from London." },
-        { mode: "Rental car", bufferMin: 75, note: "Drive Bletchley to Stratford." },
+        { mode: "Train (Avanti/National Rail)", bufferMin: 55, note: "London Euston to Bletchley no-car transfer." },
+        { mode: "Guided coach tour", bufferMin: 90, note: "Coach transfer to Stratford stop cluster." },
         { mode: "Walk", bufferMin: 12, note: "Town-center transfer." },
         { mode: "Walk/short taxi", bufferMin: 20, note: "Local movement in Stratford." },
         { mode: "Walk", bufferMin: 10, note: "Riverside segment." },
-        { mode: "Rental car", bufferMin: 120, note: "Drive back to London." }
+        { mode: "Coach or rail return", bufferMin: 125, note: "Guided tour coach or train back to London." }
       ],
       6: [
         { mode: "Train (LNER)", bufferMin: 270, note: "London to Edinburgh rail journey." },
@@ -967,15 +971,15 @@
         { mode: "Train or car", bufferMin: 55, note: "Return to Edinburgh." }
       ],
       9: [
-        { mode: "Rental car", bufferMin: 45, note: "Pickup paperwork + departure from Edinburgh." },
-        { mode: "Rental car", bufferMin: 80, note: "Highlands road segment." },
-        { mode: "Rental car", bufferMin: 90, note: "Loch Ness to Glencoe drive." },
-        { mode: "Rental car", bufferMin: 75, note: "Drive to overnight base." }
+        { mode: "Guided tour coach", bufferMin: 45, note: "Board coach in Edinburgh; guide handles routing." },
+        { mode: "Guided tour coach", bufferMin: 80, note: "Highlands route segment by tour vehicle." },
+        { mode: "Guided tour coach", bufferMin: 90, note: "Loch Ness to Glencoe segment on tour." },
+        { mode: "Guided tour coach", bufferMin: 75, note: "Transfer to overnight base with tour group." }
       ],
       10: [
-        { mode: "Rental car", bufferMin: 55, note: "Morning drive and stop." },
-        { mode: "Rental car", bufferMin: 75, note: "Skye scenic road transfer." },
-        { mode: "Rental car (return)", bufferMin: 240, note: "Long drive south + allow 40 min to return car." },
+        { mode: "Guided tour coach", bufferMin: 55, note: "Morning stop via Skye tour route." },
+        { mode: "Guided tour coach", bufferMin: 75, note: "Scenic transfer managed by guide/driver." },
+        { mode: "Guided tour coach", bufferMin: 240, note: "Long southbound segment back toward Edinburgh." },
         { mode: "Train (LNER)", bufferMin: 270, note: "Evening Edinburgh to London." }
       ],
       11: [
@@ -986,9 +990,9 @@
     };
 
     const dayLogisticsNotes = {
-      5: "Car day: allow 30 min for pickup in London and about 15 min for fuel/rest stop each direction.",
-      9: "Car rental starts today in Edinburgh; budget 45 min for paperwork plus parking time at major stops.",
-      10: "Return rental car before evening train at Edinburgh; keep at least 40 min for return and station transfer.",
+      5: "No-car option: prebook Bletchley rail + Stratford guided coach tour; verify same-day return timing to London.",
+      9: "No-car option: board a prebooked Highlands guided tour from Edinburgh (coach + guide included).",
+      10: "If using guided Skye/Highlands tour transport, confirm Edinburgh arrival time before evening LNER train.",
       11: "8:30am flight: leave central London around 4:30am to comfortably reach Heathrow by 5:30am."
     };
 
