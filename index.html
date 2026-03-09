@@ -1642,8 +1642,9 @@
           primarySrc = candidates[0] || primaryFallback;
         }
 
+        // If no distinct secondary photo exists, keep it relevant to this POI.
         if (secondarySrc === primarySrc) {
-          secondarySrc = secondaryFallbackImages[page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
+          secondarySrc = secondaryFallbackImages[page] || primaryFallback;
         }
 
         if (primaryEl) primaryEl.src = primarySrc;
