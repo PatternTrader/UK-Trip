@@ -1162,7 +1162,7 @@
       LNER: "https://images.pexels.com/photos/302428/pexels-photo-302428.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Royal_Mile: "https://images.pexels.com/photos/427679/pexels-photo-427679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Grassmarket: "https://images.pexels.com/photos/1827610/pexels-photo-1827610.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
-      Edinburgh: "https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Edinburgh: "https://upload.wikimedia.org/wikipedia/commons/1/1a/Skyline_of_Edinburgh.jpg",
       Edinburgh_Castle: "https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Holyrood_Palace: "https://images.pexels.com/photos/1329711/pexels-photo-1329711.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "Arthur's_Seat": "https://images.pexels.com/photos/2901209/pexels-photo-2901209.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -1191,6 +1191,7 @@
       London_Heathrow_Arrival: "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       London_Heathrow_Departure: "https://images.pexels.com/photos/62623/wing-plane-flying-airplane-62623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       LNER: "https://images.pexels.com/photos/302428/pexels-photo-302428.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Edinburgh: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Edinburgh_Castle_from_the_North.JPG/1280px-Edinburgh_Castle_from_the_North.JPG",
       Edinburgh_Waverley_railway_station: "https://images.pexels.com/photos/163743/train-railway-carriage-rail-163743.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Airplane: "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400"
     };
@@ -1324,7 +1325,7 @@
             const costClass = costType === "paid" ? "paid-warning" : (costType === "free" ? "free-warning" : (costType === "mixed" ? "mixed-warning" : ""));
             const transport = getTransportEntry(day.day, itemIndex);
             const primaryPhoto = fallbackImages[item.page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
-            const secondPhoto = primaryPhoto;
+            const secondPhoto = getSecondaryPhoto(item.page, primaryPhoto);
 
             if (transport && transport.bufferMin > 0) {
               const transferEndTime = visitTime;
@@ -1439,8 +1440,28 @@
       return dayPlan[itemIndex] || { mode: "Walk/Tube", bufferMin: 20, note: "Local transfer buffer." };
     }
 
-    function getSecondaryPhoto(page) {
-      return secondaryFallbackImages[page] || fallbackImages[page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
+    function getSecondaryPhoto(page, primaryPhoto) {
+      const fallback = secondaryFallbackImages[page] || getSecondaryQueryPhoto(page) || fallbackImages[page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
+      if (primaryPhoto && getImageIdentity(fallback) === getImageIdentity(primaryPhoto)) return getSecondaryQueryPhoto(page) || fallback;
+      return fallback;
+    }
+
+    function getSecondaryQueryPhoto(page) {
+      const query = String(page || "")
+        .replace(/_/g, " ")
+        .replace(/\(.*?\)/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+      if (!query) return "";
+      return `https://source.unsplash.com/1600x900/?${encodeURIComponent(query + ", travel photography")}`;
+    }
+
+    function getImageIdentity(url) {
+      const raw = String(url || "").trim().toLowerCase();
+      if (!raw) return "";
+      const noQuery = raw.split("?")[0];
+      const fileName = noQuery.substring(noQuery.lastIndexOf("/") + 1).replace(/^\d+px-/, "");
+      return fileName;
     }
 
     function initializeCostState() {
@@ -1741,18 +1762,30 @@
         const primaryEl = pageImages.find((img) => img.getAttribute("data-wiki-slot") === "primary") || pageImages[0];
         const secondaryEl = pageImages.find((img) => img.getAttribute("data-wiki-slot") === "secondary");
         const primaryFallback = (primaryEl && primaryEl.getAttribute("data-fallback")) || fallbackImages[page] || EMPTY_IMAGE_PLACEHOLDER;
-        const secondaryFallback = (secondaryEl && secondaryEl.getAttribute("data-fallback")) || secondaryFallbackImages[page] || primaryFallback;
+        const secondaryFallback = (secondaryEl && secondaryEl.getAttribute("data-fallback")) || secondaryFallbackImages[page] || getSecondaryQueryPhoto(page) || primaryFallback;
 
         let primarySrc = primaryFallback;
-        // Keep right-side image relevant by mirroring the selected primary POI photo.
-        let secondarySrc = primaryFallback;
+        // Keep right-side image relevant but visually different from the left side.
+        let secondarySrc = secondaryFallback;
 
         const candidates = await fetchWikiImageCandidates(page);
         if (candidates.length) {
           primarySrc = candidates[0] || primaryFallback;
         }
 
-        secondarySrc = primarySrc || secondaryFallback;
+        if (candidates.length) {
+          const secondaryCandidate = candidates.find((src) => getImageIdentity(src) !== getImageIdentity(primarySrc));
+          secondarySrc = secondaryCandidate || secondaryFallback || primaryFallback;
+        }
+
+        if (getImageIdentity(secondarySrc) === getImageIdentity(primarySrc)) {
+          const distinctFallback = secondaryFallbackImages[page];
+          if (distinctFallback && getImageIdentity(distinctFallback) !== getImageIdentity(primarySrc)) {
+            secondarySrc = distinctFallback;
+          } else {
+            secondarySrc = getSecondaryQueryPhoto(page) || secondarySrc;
+          }
+        }
 
         if (primaryEl) primaryEl.src = primarySrc;
         if (secondaryEl) secondaryEl.src = secondarySrc;
