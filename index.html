@@ -1186,6 +1186,7 @@
     };
 
     const secondaryFallbackImages = {
+      "303_E_83rd_St_NYC": "https://images.pexels.com/photos/1486222/pexels-photo-1486222.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       LaGuardia_Airport: "https://images.pexels.com/photos/912050/pexels-photo-912050.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Washington_Dulles_International_Airport: "https://images.pexels.com/photos/62623/wing-plane-flying-airplane-62623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       London_Heathrow_Arrival: "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -1441,19 +1442,9 @@
     }
 
     function getSecondaryPhoto(page, primaryPhoto) {
-      const fallback = secondaryFallbackImages[page] || getSecondaryQueryPhoto(page) || fallbackImages[page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
-      if (primaryPhoto && getImageIdentity(fallback) === getImageIdentity(primaryPhoto)) return getSecondaryQueryPhoto(page) || fallback;
+      const fallback = secondaryFallbackImages[page] || fallbackImages[page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
+      if (primaryPhoto && getImageIdentity(fallback) === getImageIdentity(primaryPhoto)) return secondaryFallbackImages[page] || fallback;
       return fallback;
-    }
-
-    function getSecondaryQueryPhoto(page) {
-      const query = String(page || "")
-        .replace(/_/g, " ")
-        .replace(/\(.*?\)/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-      if (!query) return "";
-      return `https://source.unsplash.com/1600x900/?${encodeURIComponent(query + ", travel photography")}`;
     }
 
     function getImageIdentity(url) {
@@ -1762,7 +1753,7 @@
         const primaryEl = pageImages.find((img) => img.getAttribute("data-wiki-slot") === "primary") || pageImages[0];
         const secondaryEl = pageImages.find((img) => img.getAttribute("data-wiki-slot") === "secondary");
         const primaryFallback = (primaryEl && primaryEl.getAttribute("data-fallback")) || fallbackImages[page] || EMPTY_IMAGE_PLACEHOLDER;
-        const secondaryFallback = (secondaryEl && secondaryEl.getAttribute("data-fallback")) || secondaryFallbackImages[page] || getSecondaryQueryPhoto(page) || primaryFallback;
+        const secondaryFallback = (secondaryEl && secondaryEl.getAttribute("data-fallback")) || secondaryFallbackImages[page] || primaryFallback;
 
         let primarySrc = primaryFallback;
         // Keep right-side image relevant but visually different from the left side.
@@ -1782,8 +1773,6 @@
           const distinctFallback = secondaryFallbackImages[page];
           if (distinctFallback && getImageIdentity(distinctFallback) !== getImageIdentity(primarySrc)) {
             secondarySrc = distinctFallback;
-          } else {
-            secondarySrc = getSecondaryQueryPhoto(page) || secondarySrc;
           }
         }
 
