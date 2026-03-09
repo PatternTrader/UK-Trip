@@ -1345,7 +1345,7 @@
     }
 
     function getSecondaryPhoto(page) {
-      return secondaryFallbackImages[page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
+      return secondaryFallbackImages[page] || fallbackImages[page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
     }
 
     function initializeCostState() {
@@ -1634,16 +1634,16 @@
         const secondaryFallback = (secondaryEl && secondaryEl.getAttribute("data-fallback")) || secondaryFallbackImages[page] || primaryFallback;
 
         let primarySrc = primaryFallback;
+        // Keep right-side image photo-only by using curated fallback sources.
         let secondarySrc = secondaryFallback;
 
         const candidates = await fetchWikiImageCandidates(page);
         if (candidates.length) {
           primarySrc = candidates[0] || primaryFallback;
-          secondarySrc = candidates.find((src) => src !== primarySrc) || secondaryFallback;
         }
 
         if (secondarySrc === primarySrc) {
-          secondarySrc = secondaryFallback !== primarySrc ? secondaryFallback : "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
+          secondarySrc = secondaryFallbackImages[page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
         }
 
         if (primaryEl) primaryEl.src = primarySrc;
