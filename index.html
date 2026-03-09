@@ -1074,7 +1074,7 @@
       "County_Hall,_London": "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Tower_Bridge: "https://images.pexels.com/photos/1650899/pexels-photo-1650899.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Borough_Market: "https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
-      Tower_of_London: "https://images.pexels.com/photos/2363/france-landmark-lights-night.jpg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Tower_of_London: "https://upload.wikimedia.org/wikipedia/commons/e/ec/Tower_of_London_from_the_Shard_%288515883950%29.jpg",
       Westminster: "https://images.pexels.com/photos/724533/pexels-photo-724533.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Buckingham_Palace: "https://images.pexels.com/photos/532826/pexels-photo-532826.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "Hyde_Park,_London": "https://images.pexels.com/photos/2521619/pexels-photo-2521619.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -1107,7 +1107,7 @@
       Bletchley_Park: "https://images.pexels.com/photos/161154/street-building-road-old-161154.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       "Shakespeare's_Birthplace": "https://images.pexels.com/photos/161154/street-building-road-old-161154.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Royal_Shakespeare_Theatre: "https://images.pexels.com/photos/713149/pexels-photo-713149.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
-      "Anne_Hathaway's_Cottage": "https://images.pexels.com/photos/106152/eiffel-tower-paris-france-tower-106152.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      "Anne_Hathaway's_Cottage": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Anne_Hathaways_Cottage_1_%285662418953%29.jpg",
       "River_Avon,_Warwickshire": "https://images.pexels.com/photos/355423/pexels-photo-355423.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       LNER: "https://images.pexels.com/photos/302428/pexels-photo-302428.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Royal_Mile: "https://images.pexels.com/photos/427679/pexels-photo-427679.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -1567,7 +1567,22 @@
 
     function isUsableWikiImage(urlOrTitle) {
       const t = String(urlOrTitle || "").toLowerCase();
-      return !t.includes(".svg") && !t.includes("icon") && !t.includes("logo");
+      const blockedTerms = [
+        ".svg",
+        "icon",
+        "logo",
+        "map",
+        "locator",
+        "coat_of_arms",
+        "flag",
+        "diagram",
+        "route",
+        "seal",
+        "drawing",
+        "sketch",
+        "illustration"
+      ];
+      return !blockedTerms.some((term) => t.includes(term));
     }
 
     function pickBestMediaSrc(item) {
@@ -1640,6 +1655,8 @@
         const candidates = await fetchWikiImageCandidates(page);
         if (candidates.length) {
           primarySrc = candidates[0] || primaryFallback;
+          const distinctSecondaryCandidate = candidates.find((src) => src && src !== primarySrc);
+          if (distinctSecondaryCandidate) secondarySrc = distinctSecondaryCandidate;
         }
 
         // If no distinct secondary photo exists, keep it relevant to this POI.
