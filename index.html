@@ -1228,6 +1228,7 @@
             const costType = getCostType(meta.researchedCost);
             const costClass = costType === "paid" ? "paid-warning" : (costType === "free" ? "free-warning" : (costType === "mixed" ? "mixed-warning" : ""));
             const transport = getTransportEntry(day.day, itemIndex);
+            const primaryPhoto = fallbackImages[item.page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
             const secondPhoto = getSecondaryPhoto(item.page);
 
             if (transport && transport.bufferMin > 0) {
@@ -1244,7 +1245,7 @@
             itemsMarkup += `
               <article class="poi-item">
                 <figure class="poi-photo">
-                  <img src="${EMPTY_IMAGE_PLACEHOLDER}" data-wiki-page="${item.page}" alt="${item.caption}">
+                  <img src="${primaryPhoto}" data-wiki-page="${item.page}" data-wiki-slot="primary" data-fallback="${primaryPhoto}" alt="${item.caption}">
                   <figcaption class="poi-caption">${item.caption}</figcaption>
                 </figure>
                 <div class="poi-text">
@@ -1259,7 +1260,7 @@
                   </div>
                 </div>
                 <figure class="poi-photo right">
-                  <img src="${secondPhoto}" alt="${item.caption} alternate photo">
+                  <img src="${secondPhoto}" data-wiki-page="${item.page}" data-wiki-slot="secondary" data-fallback="${secondPhoto}" alt="${item.caption} alternate photo">
                   <figcaption class="poi-caption">${item.caption} view</figcaption>
                 </figure>
               </article>
@@ -1564,32 +1565,90 @@
       });
     }
 
-    function loadWikipediaImages() {
-      const images = document.querySelectorAll("img[data-wiki-page]");
-      images.forEach((img) => {
-        const page = img.getAttribute("data-wiki-page");
-        if (!page) return;
-        const backup = fallbackImages[page];
+    function isUsableWikiImage(urlOrTitle) {
+      const t = String(urlOrTitle || "").toLowerCase();
+      return !t.includes(".svg") && !t.includes("icon") && !t.includes("logo");
+    }
 
-        const url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(page);
-        fetch(url, { headers: { Accept: "application/json" } })
-          .then((response) => (response.ok ? response.json() : null))
-          .then((data) => {
-            if (!data) {
-              if (backup) img.src = backup;
-              return;
-            }
-            const source = (data.originalimage && data.originalimage.source) || (data.thumbnail && data.thumbnail.source);
-            if (source) {
-              img.src = source;
-            } else if (backup) {
-              img.src = backup;
-            }
-          })
-          .catch(() => {
-            if (backup) img.src = backup;
+    function pickBestMediaSrc(item) {
+      if (!item) return "";
+      if (Array.isArray(item.srcset) && item.srcset.length) {
+        return item.srcset[item.srcset.length - 1].src || "";
+      }
+      if (item.original && item.original.source) return item.original.source;
+      if (item.src) return item.src;
+      return "";
+    }
+
+    async function fetchWikiImageCandidates(page) {
+      const unique = new Set();
+      const pushUnique = (src) => {
+        if (!src) return;
+        if (!isUsableWikiImage(src)) return;
+        unique.add(src);
+      };
+
+      try {
+        const mediaUrl = "https://en.wikipedia.org/api/rest_v1/page/media-list/" + encodeURIComponent(page);
+        const mediaResp = await fetch(mediaUrl, { headers: { Accept: "application/json" } });
+        if (mediaResp.ok) {
+          const mediaData = await mediaResp.json();
+          const items = Array.isArray(mediaData.items) ? mediaData.items : [];
+          items.forEach((item) => {
+            if (item.type !== "image") return;
+            const src = pickBestMediaSrc(item);
+            const title = item.title || "";
+            if (isUsableWikiImage(title) && isUsableWikiImage(src)) pushUnique(src);
           });
-      });
+        }
+      } catch (_) {
+        // Ignore and continue to summary fallback.
+      }
+
+      try {
+        const summaryUrl = "https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(page);
+        const summaryResp = await fetch(summaryUrl, { headers: { Accept: "application/json" } });
+        if (summaryResp.ok) {
+          const summaryData = await summaryResp.json();
+          pushUnique(summaryData && summaryData.originalimage && summaryData.originalimage.source);
+          pushUnique(summaryData && summaryData.thumbnail && summaryData.thumbnail.source);
+        }
+      } catch (_) {
+        // Ignore summary errors.
+      }
+
+      return Array.from(unique);
+    }
+
+    async function loadWikipediaImages() {
+      const allImages = Array.from(document.querySelectorAll("img[data-wiki-page]"));
+      const pages = Array.from(new Set(allImages.map((img) => img.getAttribute("data-wiki-page")).filter(Boolean)));
+
+      await Promise.all(pages.map(async (page) => {
+        const pageImages = allImages.filter((img) => img.getAttribute("data-wiki-page") === page);
+        if (!pageImages.length) return;
+
+        const primaryEl = pageImages.find((img) => img.getAttribute("data-wiki-slot") === "primary") || pageImages[0];
+        const secondaryEl = pageImages.find((img) => img.getAttribute("data-wiki-slot") === "secondary");
+        const primaryFallback = (primaryEl && primaryEl.getAttribute("data-fallback")) || fallbackImages[page] || EMPTY_IMAGE_PLACEHOLDER;
+        const secondaryFallback = (secondaryEl && secondaryEl.getAttribute("data-fallback")) || secondaryFallbackImages[page] || primaryFallback;
+
+        let primarySrc = primaryFallback;
+        let secondarySrc = secondaryFallback;
+
+        const candidates = await fetchWikiImageCandidates(page);
+        if (candidates.length) {
+          primarySrc = candidates[0] || primaryFallback;
+          secondarySrc = candidates.find((src) => src !== primarySrc) || secondaryFallback;
+        }
+
+        if (secondarySrc === primarySrc) {
+          secondarySrc = secondaryFallback !== primarySrc ? secondaryFallback : "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
+        }
+
+        if (primaryEl) primaryEl.src = primarySrc;
+        if (secondaryEl) secondaryEl.src = secondarySrc;
+      }));
     }
 
     initializeCostState();
