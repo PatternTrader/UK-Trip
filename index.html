@@ -1759,11 +1759,12 @@
       const routeStops = [];
       itinerary.forEach((day) => {
         if (!topMapSelectedDays.has(day.day)) return;
-        day.items.forEach((item) => {
+        day.items.forEach((item, itemIndex) => {
           const coords = poiCoordinates[item.page];
           if (!coords || !isTopMapStop(item.page, coords)) return;
           routeStops.push({
             day: day.day,
+            order: itemIndex + 1,
             label: item.caption,
             page: item.page,
             coords,
@@ -1857,13 +1858,13 @@
           fillColor: `hsl(${hue} 80% 45%)`,
           fillOpacity: 0.95
         }).addTo(markersLayer);
-        marker.bindTooltip(`Day ${stop.day}: ${stop.label}`, {
+        marker.bindTooltip(`Day ${stop.day} #${stop.order}: ${stop.label}`, {
           permanent: true,
           direction: "top",
           className: "map-label",
           offset: [0, -8]
         });
-        marker.bindPopup(`<strong>Day ${stop.day}</strong><br>${stop.label}<br>${stop.time}`);
+        marker.bindPopup(`<strong>Day ${stop.day} - Stop ${stop.order}</strong><br>${stop.label}<br>${stop.time}`);
       });
 
       const routeLine = routeStops.map((stop) => stop.coords);
