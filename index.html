@@ -626,8 +626,8 @@
         <article class="cc-card">
           <h3>Flights Tracker</h3>
           <ul class="cc-list">
-            <li>Outbound: Thu Apr 2, 2:49pm LGA -> Fri Apr 3, 6:55am LHR (IAD connection)</li>
-            <li>Return: Sun Apr 12, 8:30am LHR -> 2:41pm LGA (YYZ connection)</li>
+            <li>Outbound: Thu Apr 2, 3:07pm EWR -> Fri Apr 3, 6:55am LHR (1h 55m IAD connection)</li>
+            <li>Return: Sun Apr 12, 8:30am LHR -> 3:07pm JFK (2h 5m YYZ connection)</li>
             <li>Total flight cost tracked: $3,069.00</li>
           </ul>
         </article>
@@ -687,9 +687,9 @@
         title: "New York to London Flight",
         date: "April 2-3",
         items: [
-          { text: "Leave from 303 E. 83rd St, NY, NY to LaGuardia Airport (LGA) via subway + bus. Typical transfer is about 55-70 min; plan around 65 min plus station and platform buffer.", page: "303_E_83rd_St_NYC", caption: "Depart from 303 E. 83rd St" },
-          { text: "Depart New York (LGA) at 2:49pm on United, 1 stop via IAD.", page: "LaGuardia_Airport", caption: "NYC to London flight", defaultCost: 1534.5 },
-          { text: "Connection at Washington Dulles (IAD), about 2h 9m.", page: "Washington_Dulles_International_Airport", caption: "IAD connection" },
+          { text: "Leave from 303 E. 83rd St, NY, NY to Newark Liberty Airport (EWR). Typical transfer is about 70-95 min; plan around 80 min plus terminal buffer.", page: "303_E_83rd_St_NYC", caption: "Depart from 303 E. 83rd St" },
+          { text: "Depart New York (EWR) at 3:07pm on United, 1 stop via IAD.", page: "Newark_Liberty_International_Airport", caption: "Newark to London flight", defaultCost: 1534.5 },
+          { text: "Connection at Washington Dulles (IAD), about 1h 55m.", page: "Washington_Dulles_International_Airport", caption: "IAD connection" },
           { text: "Arrive London Heathrow at 6:55am on April 3.", page: "London_Heathrow_Arrival", caption: "Arrive London Heathrow" },
           { text: "Light arrival day near South Bank to reset after overnight travel.", page: "South_Bank", caption: "London arrival morning" }
         ]
@@ -812,7 +812,7 @@
         items: [
           { text: "Leave central London very early for Heathrow.", page: "London_Heathrow_Departure", caption: "Early transfer to Heathrow" },
           { text: "Arrive by 5:30am for check-in and security.", page: "London_Heathrow_Departure", caption: "Heathrow departure terminal" },
-          { text: "Flight departs London at 8:30am and arrives New York at 2:41pm.", page: "Airplane", caption: "London to New York flight", defaultCost: 1534.5 }
+          { text: "Flight departs London at 8:30am, connects via Toronto (YYZ) for about 2h 5m, and arrives New York (JFK) at 3:07pm.", page: "Airplane", caption: "London to New York flight", defaultCost: 1534.5 }
         ]
       }
     ];
@@ -833,8 +833,8 @@
 
     const visitTimes = {
       "303_E_83rd_St_NYC": "12:35",
-      LaGuardia_Airport: "14:49",
-      Washington_Dulles_International_Airport: "17:10",
+      Newark_Liberty_International_Airport: "15:07",
+      Washington_Dulles_International_Airport: "17:20",
       London_Heathrow_Arrival: "06:55",
       South_Bank: "15:30",
       "County_Hall,_London": "16:30",
@@ -898,7 +898,7 @@
 
     const visitDurationsMin = {
       "303_E_83rd_St_NYC": 65,
-      LaGuardia_Airport: 75,
+      Newark_Liberty_International_Airport: 80,
       Washington_Dulles_International_Airport: 45,
       London_Heathrow_Arrival: 60,
       South_Bank: 90,
@@ -962,9 +962,9 @@
 
     const dayTransportPlans = {
       1: [
-        { mode: "Subway + bus", bufferMin: 65, note: "Use subway to Jackson Heights/Roosevelt Ave then airport bus to LGA; typical total 55-70 min." },
+        { mode: "NJ Transit / Amtrak / rideshare", bufferMin: 80, note: "Transfer from Upper East Side to EWR; typical total 70-95 min." },
         { mode: "Airplane", bufferMin: 0, note: "Long-haul departure segment." },
-        { mode: "Airplane + terminal transfer", bufferMin: 129, note: "Connection window at IAD." },
+        { mode: "Airplane + terminal transfer", bufferMin: 115, note: "Connection window at IAD." },
         { mode: "Heathrow Express + Tube/Taxi", bufferMin: 75, note: "Immigration + transfer into central London." },
         { mode: "Walk", bufferMin: 20, note: "Short local movement on arrival day." }
       ],
@@ -1037,7 +1037,7 @@
       11: [
         { mode: "Taxi/ride share", bufferMin: 60, note: "Pre-dawn airport transfer." },
         { mode: "Airport process", bufferMin: 180, note: "Bag drop, security, boarding buffer." },
-        { mode: "Airplane", bufferMin: 0, note: "LHR to LGA travel segment." }
+        { mode: "Airplane", bufferMin: 0, note: "LHR to JFK travel segment via YYZ." }
       ]
     };
 
@@ -1050,7 +1050,7 @@
 
     const poiCoordinates = {
       "303_E_83rd_St_NYC": [40.7759, -73.9528],
-      LaGuardia_Airport: [40.7769, -73.8740],
+      Newark_Liberty_International_Airport: [40.6895, -74.1745],
       Washington_Dulles_International_Airport: [38.9531, -77.4565],
       London_Heathrow_Arrival: [51.4700, -0.4543],
       South_Bank: [51.5076, -0.1160],
@@ -1115,7 +1115,7 @@
 
     const fallbackImages = {
       "303_E_83rd_St_NYC": "https://images.pexels.com/photos/466685/pexels-photo-466685.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
-      LaGuardia_Airport: "https://images.pexels.com/photos/52500/airport-aircraft-runway-flight-52500.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Newark_Liberty_International_Airport: "https://images.pexels.com/photos/62623/wing-plane-flying-airplane-62623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Washington_Dulles_International_Airport: "https://images.pexels.com/photos/358319/pexels-photo-358319.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       London_Heathrow_Arrival: "https://upload.wikimedia.org/wikipedia/commons/0/0d/London_-_Heathrow_%28LHR_-_EGLL%29_AN1572653.jpg",
       South_Bank: "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -1186,7 +1186,7 @@
 
     const secondaryFallbackImages = {
       "303_E_83rd_St_NYC": "https://images.pexels.com/photos/1486222/pexels-photo-1486222.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
-      LaGuardia_Airport: "https://images.pexels.com/photos/912050/pexels-photo-912050.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
+      Newark_Liberty_International_Airport: "https://images.pexels.com/photos/912050/pexels-photo-912050.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       Washington_Dulles_International_Airport: "https://images.pexels.com/photos/62623/wing-plane-flying-airplane-62623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       London_Heathrow_Arrival: "https://images.pexels.com/photos/46148/aircraft-jet-landing-cloud-46148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
       London_Heathrow_Departure: "https://images.pexels.com/photos/62623/wing-plane-flying-airplane-62623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400",
@@ -1198,7 +1198,7 @@
 
     const poiMeta = {
       "303_E_83rd_St_NYC": { why: "Your exact departure point for the airport run.", researchedCost: "No admission cost; subway + bus fare applies." },
-      LaGuardia_Airport: { why: "Major New York gateway and your trip's launch point.", researchedCost: "No attraction admission; airline fare applies." },
+      Newark_Liberty_International_Airport: { why: "Major New York/New Jersey gateway and your updated trip launch point.", researchedCost: "No attraction admission; airline fare applies." },
       Washington_Dulles_International_Airport: { why: "Main transatlantic connection hub in this itinerary.", researchedCost: "No attraction admission; connection only." },
       London_Heathrow_Arrival: { why: "Primary UK entry point and start of your London leg.", researchedCost: "Free airport terminal access." },
       South_Bank: { why: "One of London's best urban river walks with skyline views.", researchedCost: "Free public area." },
@@ -1257,7 +1257,7 @@
       "A9_road_(Scotland)": { why: "Main north-south route connecting Highlands and Edinburgh.", researchedCost: "Long transfer route back toward Edinburgh." },
       Edinburgh_Waverley_railway_station: { why: "Central rail hub for London return leg.", researchedCost: "Station access free; ticketed rail travel required." },
       London_Heathrow_Departure: { why: "International departure hub for your flight home.", researchedCost: "Free airport terminal access." },
-      Airplane: { why: "Transatlantic return transport to New York.", researchedCost: "Airfare already budgeted: $1,534.50 per leg based on your screenshot." }
+      Airplane: { why: "Transatlantic return transport to New York via Toronto.", researchedCost: "Airfare budget from latest screenshot: $3,069 round trip (about $1,534.50 per leg)." }
     };
 
     const COST_STORAGE_KEY = "ukTripCostInputsV1";
@@ -1607,7 +1607,7 @@
 
     function isTopMapStop(page, coords) {
       if (!Array.isArray(coords) || coords.length !== 2) return false;
-      if (page === "LaGuardia_Airport" || page === "Airplane") return false;
+      if (page === "Newark_Liberty_International_Airport" || page === "Airplane") return false;
       const [lat, lon] = coords;
       const isInUkBounds = lat >= 49.5 && lat <= 59.5 && lon >= -8.8 && lon <= 2.2;
       return isInUkBounds;
