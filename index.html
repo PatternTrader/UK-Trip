@@ -489,6 +489,30 @@
     color: #d6e8fa;
   }
 
+  .map-filters {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .map-filters label {
+    font-size: 0.84rem;
+    color: #deecf9;
+    font-weight: 700;
+  }
+
+  .map-day-filter {
+    border: 1px solid #c3d1e3;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #1f3045;
+    padding: 6px 10px;
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
   #route-map {
     width: 100%;
     height: 420px;
@@ -606,6 +630,12 @@
       <div class="map-head">
         <h2>Route Map of Itinerary Points of Interest</h2>
         <p>Colored dots mark each stop, and the bold red line follows the travel order from London through Scotland.</p>
+        <div class="map-filters">
+          <label for="route-map-day-filter">Top map filter:</label>
+          <select id="route-map-day-filter" class="map-day-filter">
+            <option value="all">All Days</option>
+          </select>
+        </div>
       </div>
       <div id="route-map"></div>
     </section>
@@ -1263,6 +1293,8 @@
     const COST_STORAGE_KEY = "ukTripCostInputsV1";
     const EMPTY_IMAGE_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'><rect width='1200' height='800' fill='white'/></svg>";
     let costState = {};
+    let topRouteMap = null;
+    let topRouteLayerGroup = null;
 
     function renderStaySummary() {
       const staySummaryEl = document.getElementById("stay-summary");
@@ -1552,16 +1584,11 @@
       });
     }
 
-    function buildRouteMap() {
-      if (typeof L === "undefined") return;
-      const map = L.map("route-map");
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: "&copy; OpenStreetMap contributors"
-      }).addTo(map);
-
+    function collectTopMapStops(dayFilter) {
+      const selected = String(dayFilter || "all");
       const routeStops = [];
       itinerary.forEach((day) => {
+        if (selected !== "all" && String(day.day) !== selected) return;
         day.items.forEach((item) => {
           const coords = poiCoordinates[item.page];
           if (!coords || !isTopMapStop(item.page, coords)) return;
@@ -1574,18 +1601,38 @@
           });
         });
       });
+      return routeStops;
+    }
 
-      if (!routeStops.length) return;
+    function renderTopRouteMap(dayFilter) {
+      if (typeof L === "undefined") return;
+
+      if (!topRouteMap) {
+        topRouteMap = L.map("route-map");
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 19,
+          attribution: "&copy; OpenStreetMap contributors"
+        }).addTo(topRouteMap);
+        topRouteLayerGroup = L.layerGroup().addTo(topRouteMap);
+      }
+
+      const routeStops = collectTopMapStops(dayFilter);
+      topRouteLayerGroup.clearLayers();
+
+      if (!routeStops.length) {
+        topRouteMap.setView([54.2, -2.8], 5);
+        return;
+      }
 
       routeStops.forEach((stop, index) => {
-        const hue = (stop.day * 32) % 360;
+        const hue = (stop.day * 32 + index * 3) % 360;
         const marker = L.circleMarker(stop.coords, {
           radius: 7,
           color: "#ffffff",
           weight: 2,
           fillColor: `hsl(${hue} 80% 45%)`,
           fillOpacity: 0.95
-        }).addTo(map);
+        }).addTo(topRouteLayerGroup);
         marker.bindTooltip(`Day ${stop.day}: ${stop.label}`, {
           permanent: true,
           direction: "top",
@@ -1600,9 +1647,28 @@
         color: "#d81d2c",
         weight: 5,
         opacity: 0.9
-      }).addTo(map);
+      }).addTo(topRouteLayerGroup);
 
-      map.fitBounds(routeLine, { padding: [30, 30] });
+      if (routeLine.length === 1) {
+        topRouteMap.setView(routeLine[0], 12);
+      } else {
+        topRouteMap.fitBounds(routeLine, { padding: [30, 30] });
+      }
+    }
+
+    function setupTopMapFilters() {
+      const filterEl = document.getElementById("route-map-day-filter");
+      if (!filterEl) return;
+      itinerary.forEach((day) => {
+        const option = document.createElement("option");
+        option.value = String(day.day);
+        option.textContent = `Day ${day.day}`;
+        filterEl.appendChild(option);
+      });
+      filterEl.value = "all";
+      filterEl.addEventListener("change", () => {
+        renderTopRouteMap(filterEl.value);
+      });
     }
 
     function isTopMapStop(page, coords) {
@@ -1786,7 +1852,8 @@
     renderTimeline();
     renderCostSheet();
     bindCostInputs();
-    buildRouteMap();
+    setupTopMapFilters();
+    renderTopRouteMap("all");
     buildDayMaps();
     loadWikipediaImages();
   </script>
