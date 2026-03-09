@@ -591,20 +591,59 @@
     color: #324559;
   }
 
-  .cc-links {
+  .cc-checklist {
     margin: 0;
-    padding-left: 18px;
+    padding: 0;
+    list-style: none;
     display: grid;
-    gap: 6px;
-    font-size: 0.84rem;
+    gap: 8px;
   }
 
-  .cc-links a {
+  .cc-check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+    color: #324559;
+    line-height: 1.35;
+    font-size: 0.85rem;
+  }
+
+  .cc-check-btn {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #8ea5bf;
+    background: #ffffff;
+    color: transparent;
+    font-weight: 900;
+    line-height: 1;
+    margin-top: 1px;
+    flex: 0 0 18px;
+    cursor: pointer;
+  }
+
+  .cc-check-item.is-done .cc-check-btn {
+    background: #1c5487;
+    border-color: #1c5487;
+    color: #ffffff;
+  }
+
+  .cc-check-text {
+    flex: 1;
+  }
+
+  .cc-check-item.is-done .cc-check-text {
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  .cc-check-text a {
     color: #0f4e84;
     text-decoration: none;
   }
 
-  .cc-links a:hover {
+  .cc-check-text a:hover {
     text-decoration: underline;
   }
 
@@ -640,16 +679,6 @@
       <div id="route-map"></div>
     </section>
 
-    <header class="hero">
-      <h1>Chronological UK Family Itinerary</h1>
-      <p>Each unique itinerary bullet now has its own dedicated photo to make every stop feel tangible, scenic, and travel-inspiring.</p>
-      <div class="meta">
-        <span>Dates: April 2-12, 2025</span>
-        <span>Trip length: 11 days</span>
-        <span>Family of 5</span>
-      </div>
-    </header>
-
     <section class="command-center">
       <h2 class="section-title">Dad-Level Trip Command Center</h2>
       <div class="cc-grid">
@@ -663,34 +692,85 @@
         </article>
         <article class="cc-card">
           <h3>Hotel Options (When Needed)</h3>
-          <ul class="cc-list">
-            <li>London base (South Bank / Westminster): Apr 3-6 and Apr 11 night</li>
-            <li>Edinburgh base (Royal Mile / New Town): Apr 7-9</li>
-            <li>Highlands transit base (Inverness/Fort William): Apr 10</li>
+          <ul class="cc-checklist">
+            <li class="cc-check-item js-cc-check-item" data-check-id="hotel-london">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text">London base (South Bank / Westminster): Apr 3-6 and Apr 11 night</span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="hotel-edinburgh">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text">Edinburgh base (Royal Mile / New Town): Apr 7-9</span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="hotel-highlands">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text">Highlands transit base (Inverness/Fort William): Apr 10</span>
+            </li>
           </ul>
         </article>
         <article class="cc-card">
           <h3>Ticket Purchases Tracker</h3>
-          <ul class="cc-list">
-            <li>Priority buys: Tower of London, Westminster Abbey, Edinburgh Castle, Stirling Castle, Bletchley Park</li>
-            <li>Rail buys: LNER London -> Edinburgh and Edinburgh -> London</li>
-            <li>Reminder: update each paid POI cost in the itinerary and spreadsheet</li>
+          <ul class="cc-checklist">
+            <li class="cc-check-item js-cc-check-item" data-check-id="ticket-priority">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text">Priority buys: Tower of London, Westminster Abbey, Edinburgh Castle, Stirling Castle, Bletchley Park</span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="ticket-rail">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text">Rail buys: LNER London -> Edinburgh and Edinburgh -> London</span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="ticket-reminder">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text">Reminder: update each paid POI cost in the itinerary and spreadsheet</span>
+            </li>
           </ul>
         </article>
         <article class="cc-card">
           <h3>Booking Links</h3>
-          <ul class="cc-links">
-            <li><a href="https://www.historicroyalpalaces.com/tower-of-london/" target="_blank" rel="noopener noreferrer">Tower of London tickets</a></li>
-            <li><a href="https://www.westminster-abbey.org/" target="_blank" rel="noopener noreferrer">Westminster Abbey</a></li>
-            <li><a href="https://www.londoneye.com/tickets-and-prices/" target="_blank" rel="noopener noreferrer">London Eye tickets</a></li>
-            <li><a href="https://www.edinburghcastle.scot/" target="_blank" rel="noopener noreferrer">Edinburgh Castle</a></li>
-            <li><a href="https://www.lner.co.uk/" target="_blank" rel="noopener noreferrer">LNER train bookings</a></li>
-            <li><a href="https://www.booking.com/" target="_blank" rel="noopener noreferrer">Hotel search (Booking.com)</a></li>
-            <li><a href="https://www.bletchleypark.org.uk/" target="_blank" rel="noopener noreferrer">Bletchley Park</a></li>
-            <li><a href="https://www.nationalrail.co.uk/destinations/trains-from-london-to-bletchley/" target="_blank" rel="noopener noreferrer">National Rail: London to Bletchley</a></li>
-            <li><a href="https://evanevanstours.com/tours/day-tours-from-london/warwick-castle-shakespeares-birthplace-oxford-the-cotswolds/" target="_blank" rel="noopener noreferrer">Evan Evans: Stratford guided day tour</a></li>
-            <li><a href="https://www.timberbush-tours.co.uk/our-tours/from-edinburgh/2-day-tours/loch-ness-inverness-highlands" target="_blank" rel="noopener noreferrer">Timberbush: Highlands/Inverness 2-day tour</a></li>
-            <li><a href="https://www.rabbies.com/en-us/tour/the-isle-of-skye-3-day-tour-from-edinburgh" target="_blank" rel="noopener noreferrer">Rabbie's: Isle of Skye 3-day tour</a></li>
+          <ul class="cc-checklist">
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-tower-london">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://www.historicroyalpalaces.com/tower-of-london/" target="_blank" rel="noopener noreferrer">Tower of London tickets</a></span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-westminster">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://www.westminster-abbey.org/" target="_blank" rel="noopener noreferrer">Westminster Abbey</a></span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-london-eye">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://www.londoneye.com/tickets-and-prices/" target="_blank" rel="noopener noreferrer">London Eye tickets</a></span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-edinburgh-castle">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://www.edinburghcastle.scot/" target="_blank" rel="noopener noreferrer">Edinburgh Castle</a></span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-lner">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://www.lner.co.uk/" target="_blank" rel="noopener noreferrer">LNER train bookings</a></span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-booking">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://www.booking.com/" target="_blank" rel="noopener noreferrer">Hotel search (Booking.com)</a></span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-bletchley">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://www.bletchleypark.org.uk/" target="_blank" rel="noopener noreferrer">Bletchley Park</a></span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-national-rail">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://www.nationalrail.co.uk/destinations/trains-from-london-to-bletchley/" target="_blank" rel="noopener noreferrer">National Rail: London to Bletchley</a></span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-evan-evans">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://evanevanstours.com/tours/day-tours-from-london/warwick-castle-shakespeares-birthplace-oxford-the-cotswolds/" target="_blank" rel="noopener noreferrer">Evan Evans: Stratford guided day tour</a></span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-timberbush">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://www.timberbush-tours.co.uk/our-tours/from-edinburgh/2-day-tours/loch-ness-inverness-highlands" target="_blank" rel="noopener noreferrer">Timberbush: Highlands/Inverness 2-day tour</a></span>
+            </li>
+            <li class="cc-check-item js-cc-check-item" data-check-id="link-rabbies">
+              <button type="button" class="cc-check-btn" aria-label="Toggle checklist item" aria-pressed="false"></button>
+              <span class="cc-check-text"><a href="https://www.rabbies.com/en-us/tour/the-isle-of-skye-3-day-tour-from-edinburgh" target="_blank" rel="noopener noreferrer">Rabbie's: Isle of Skye 3-day tour</a></span>
+            </li>
           </ul>
         </article>
       </div>
@@ -1293,8 +1373,10 @@
     };
 
     const COST_STORAGE_KEY = "ukTripCostInputsV1";
+    const COMMAND_CHECKLIST_STORAGE_KEY = "ukTripCommandChecklistV1";
     const EMPTY_IMAGE_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'><rect width='1200' height='800' fill='white'/></svg>";
     let costState = {};
+    let commandChecklistState = {};
     let topRouteMap = null;
     let topRouteLayerGroup = null;
 
@@ -1690,6 +1772,53 @@
       });
     }
 
+    function setCommandChecklistItemState(itemEl, isDone) {
+      if (!itemEl) return;
+      itemEl.classList.toggle("is-done", Boolean(isDone));
+      const button = itemEl.querySelector(".cc-check-btn");
+      if (button) {
+        button.setAttribute("aria-pressed", String(Boolean(isDone)));
+        button.textContent = isDone ? "\u2713" : "";
+      }
+    }
+
+    function initializeCommandChecklist() {
+      const saved = localStorage.getItem(COMMAND_CHECKLIST_STORAGE_KEY);
+      if (saved) {
+        try {
+          commandChecklistState = JSON.parse(saved) || {};
+        } catch (_) {
+          commandChecklistState = {};
+        }
+      }
+
+      const items = Array.from(document.querySelectorAll(".js-cc-check-item[data-check-id]"));
+      items.forEach((itemEl) => {
+        const id = itemEl.getAttribute("data-check-id");
+        const isDone = Boolean(commandChecklistState[id]);
+        setCommandChecklistItemState(itemEl, isDone);
+      });
+
+      const commandCenter = document.querySelector(".command-center");
+      if (!commandCenter) return;
+
+      commandCenter.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
+        if (target.closest("a")) return;
+
+        const itemEl = target.closest(".js-cc-check-item");
+        if (!(itemEl instanceof HTMLElement)) return;
+        const id = itemEl.getAttribute("data-check-id");
+        if (!id) return;
+
+        const nextDone = !Boolean(commandChecklistState[id]);
+        commandChecklistState[id] = nextDone;
+        setCommandChecklistItemState(itemEl, nextDone);
+        localStorage.setItem(COMMAND_CHECKLIST_STORAGE_KEY, JSON.stringify(commandChecklistState));
+      });
+    }
+
     function isTopMapStop(page, coords) {
       if (!Array.isArray(coords) || coords.length !== 2) return false;
       if (page === "Newark_Liberty_International_Airport" || page === "Airplane") return false;
@@ -1871,6 +2000,7 @@
     renderTimeline();
     renderCostSheet();
     bindCostInputs();
+    initializeCommandChecklist();
     setupTopMapFilters();
     renderTopRouteMap("all");
     buildDayMaps();
