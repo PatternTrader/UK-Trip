@@ -77,34 +77,6 @@
     background: rgba(255, 255, 255, 0.1);
   }
 
-  .alert-controls {
-    margin-top: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .alert-btn {
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    background: rgba(255, 255, 255, 0.16);
-    color: #f2f7fb;
-    border-radius: 10px;
-    font-weight: 700;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-
-  .alert-btn:hover {
-    background: rgba(255, 255, 255, 0.26);
-  }
-
-  .alert-state {
-    font-size: 0.9rem;
-    color: #dceaf7;
-    font-weight: 700;
-  }
-
   .section-title {
     margin: 0 0 14px;
     font-family: "Libre Baskerville", serif;
@@ -610,11 +582,6 @@
         <span>Dates: April 2-12, 2025</span>
         <span>Trip length: 11 days</span>
         <span>Family of 5</span>
-      </div>
-      <div class="alert-controls">
-        <button class="alert-btn" id="enable-audio-alerts" type="button">Enable ding alerts</button>
-        <button class="alert-btn" id="test-audio-alert" type="button">Test ding</button>
-        <span class="alert-state" id="audio-alert-state">Audio alerts: off</span>
       </div>
     </header>
 
@@ -1242,11 +1209,8 @@
     };
 
     const COST_STORAGE_KEY = "ukTripCostInputsV1";
-    const AUDIO_ALERT_STORAGE_KEY = "ukTripAudioAlertsEnabled";
     const EMPTY_IMAGE_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'><rect width='1200' height='800' fill='white'/></svg>";
     let costState = {};
-    let audioContext = null;
-    let audioAlertsEnabled = false;
 
     function renderTimeline() {
       const timeline = document.getElementById("timeline");
@@ -1628,67 +1592,6 @@
       });
     }
 
-    function initAudioAlerts() {
-      const enableBtn = document.getElementById("enable-audio-alerts");
-      const testBtn = document.getElementById("test-audio-alert");
-      const state = document.getElementById("audio-alert-state");
-      if (!enableBtn || !testBtn || !state) return;
-
-      function updateState() {
-        state.textContent = audioAlertsEnabled ? "Audio alerts: on" : "Audio alerts: off";
-      }
-
-      function ensureAudioContext() {
-        if (!audioContext) {
-          audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioContext.state === "suspended") {
-          audioContext.resume();
-        }
-      }
-
-      function playDing(durationMs = 180, frequency = 920) {
-        try {
-          ensureAudioContext();
-          const osc = audioContext.createOscillator();
-          const gain = audioContext.createGain();
-          osc.type = "sine";
-          osc.frequency.value = frequency;
-          gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.2, audioContext.currentTime + 0.02);
-          gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + durationMs / 1000);
-          osc.connect(gain);
-          gain.connect(audioContext.destination);
-          osc.start();
-          osc.stop(audioContext.currentTime + durationMs / 1000);
-        } catch (_) {
-          // Ignore browser audio restrictions/failures.
-        }
-      }
-
-      enableBtn.addEventListener("click", () => {
-        audioAlertsEnabled = !audioAlertsEnabled;
-        localStorage.setItem(AUDIO_ALERT_STORAGE_KEY, audioAlertsEnabled ? "1" : "0");
-        updateState();
-        if (audioAlertsEnabled) playDing(220, 860);
-      });
-
-      testBtn.addEventListener("click", () => {
-        playDing(220, 1000);
-      });
-
-      audioAlertsEnabled = localStorage.getItem(AUDIO_ALERT_STORAGE_KEY) === "1";
-      updateState();
-
-      window.tripDing = function tripDing() {
-        playDing(220, 980);
-      };
-
-      if (audioAlertsEnabled) {
-        setTimeout(() => playDing(180, 760), 350);
-      }
-    }
-
     initializeCostState();
     renderTimeline();
     renderCostSheet();
@@ -1696,7 +1599,6 @@
     buildRouteMap();
     buildDayMaps();
     loadWikipediaImages();
-    initAudioAlerts();
   </script>
 </body>
 </html>
