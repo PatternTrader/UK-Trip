@@ -1324,7 +1324,7 @@
             const costClass = costType === "paid" ? "paid-warning" : (costType === "free" ? "free-warning" : (costType === "mixed" ? "mixed-warning" : ""));
             const transport = getTransportEntry(day.day, itemIndex);
             const primaryPhoto = fallbackImages[item.page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
-            const secondPhoto = getSecondaryPhoto(item.page);
+            const secondPhoto = primaryPhoto;
 
             if (transport && transport.bufferMin > 0) {
               const transferEndTime = visitTime;
@@ -1744,18 +1744,15 @@
         const secondaryFallback = (secondaryEl && secondaryEl.getAttribute("data-fallback")) || secondaryFallbackImages[page] || primaryFallback;
 
         let primarySrc = primaryFallback;
-        // Keep right-side image photo-only by using curated fallback sources.
-        let secondarySrc = secondaryFallback;
+        // Keep right-side image relevant by mirroring the selected primary POI photo.
+        let secondarySrc = primaryFallback;
 
         const candidates = await fetchWikiImageCandidates(page);
         if (candidates.length) {
           primarySrc = candidates[0] || primaryFallback;
         }
 
-        // If no distinct secondary photo exists, keep it relevant to this POI.
-        if (secondarySrc === primarySrc) {
-          secondarySrc = secondaryFallbackImages[page] || primaryFallback;
-        }
+        secondarySrc = primarySrc || secondaryFallback;
 
         if (primaryEl) primaryEl.src = primarySrc;
         if (secondaryEl) secondaryEl.src = secondarySrc;
