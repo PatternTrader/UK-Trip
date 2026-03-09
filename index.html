@@ -84,6 +84,41 @@
     color: var(--brand);
   }
 
+  .stay-summary {
+    margin: 0 0 16px;
+  }
+
+  .stay-summary-card {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #ffffff;
+    padding: 14px 16px;
+    box-shadow: 0 8px 18px rgba(14, 34, 56, 0.07);
+  }
+
+  .stay-summary-title {
+    margin: 0 0 8px;
+    font-family: "Libre Baskerville", serif;
+    font-size: 1.08rem;
+    color: #163f68;
+  }
+
+  .stay-summary-meta {
+    margin: 0 0 10px;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    font-weight: 700;
+  }
+
+  .stay-summary-list {
+    margin: 0;
+    padding-left: 18px;
+    display: grid;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: #2a384a;
+  }
+
   .timeline {
     display: grid;
     gap: 18px;
@@ -632,6 +667,7 @@
     </section>
 
     <h2 class="section-title">Day-by-Day Plan With Photo Per Bullet</h2>
+    <section id="stay-summary" class="stay-summary"></section>
     <main id="timeline" class="timeline"></main>
 
     <section class="cost-panel">
@@ -782,6 +818,20 @@
         ]
       }
     ];
+
+    const dayStayPlan = {
+      1: { town: "London", country: "England" },
+      2: { town: "London", country: "England" },
+      3: { town: "London", country: "England" },
+      4: { town: "London", country: "England" },
+      5: { town: "London", country: "England" },
+      6: { town: "Edinburgh", country: "Scotland" },
+      7: { town: "Edinburgh", country: "Scotland" },
+      8: { town: "Edinburgh", country: "Scotland" },
+      9: { town: "Inverness / Fort William area", country: "Scotland" },
+      10: { town: "London", country: "England" },
+      11: { town: "London", country: "England" }
+    };
 
     const visitTimes = {
       "303_E_83rd_St_NYC": "12:35",
@@ -1211,6 +1261,51 @@
     const COST_STORAGE_KEY = "ukTripCostInputsV1";
     const EMPTY_IMAGE_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'><rect width='1200' height='800' fill='white'/></svg>";
     let costState = {};
+
+    function renderStaySummary() {
+      const staySummaryEl = document.getElementById("stay-summary");
+      if (!staySummaryEl) return;
+
+      const segments = [];
+      itinerary.forEach((day) => {
+        const stay = dayStayPlan[day.day] || { town: "Unknown", country: "Unknown" };
+        const segmentKey = `${stay.town}|${stay.country}`;
+        const current = segments[segments.length - 1];
+        if (current && current.key === segmentKey) {
+          current.endDay = day.day;
+          current.days += 1;
+          return;
+        }
+
+        segments.push({
+          key: segmentKey,
+          town: stay.town,
+          country: stay.country,
+          startDay: day.day,
+          endDay: day.day,
+          days: 1
+        });
+      });
+
+      const hotelSwitches = Math.max(segments.length - 1, 0);
+      const segmentRows = segments
+        .map((segment) => {
+          const dayLabel = segment.days === 1 ? "day" : "days";
+          const dayRange = segment.startDay === segment.endDay
+            ? `Day ${segment.startDay}`
+            : `Day ${segment.startDay}-Day ${segment.endDay}`;
+          return `<li><strong>${segment.town}, ${segment.country}</strong>: ${segment.days} ${dayLabel} (${dayRange})</li>`;
+        })
+        .join("");
+
+      staySummaryEl.innerHTML = `
+        <article class="stay-summary-card">
+          <h3 class="stay-summary-title">Hotel Base Plan By Town/Country</h3>
+          <p class="stay-summary-meta">Estimated hotel switches: ${hotelSwitches}</p>
+          <ul class="stay-summary-list">${segmentRows}</ul>
+        </article>
+      `;
+    }
 
     function renderTimeline() {
       const timeline = document.getElementById("timeline");
@@ -1668,6 +1763,7 @@
     }
 
     initializeCostState();
+    renderStaySummary();
     renderTimeline();
     renderCostSheet();
     bindCostInputs();
