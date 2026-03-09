@@ -857,6 +857,8 @@
           { text: "Tour Westminster Abbey.", page: "Westminster_Abbey", caption: "Westminster Abbey" },
           { text: "Photo stop at Big Ben and Parliament.", page: "Big_Ben", caption: "Big Ben" },
           { text: "Ride the London Eye for skyline views over Westminster and the Thames.", page: "London_Eye", caption: "London Eye" },
+          { text: "Continue east along the South Bank to Tate Modern.", page: "Tate_Modern", caption: "Tate Modern" },
+          { text: "Stop at Shakespeare's Globe nearby.", page: "Shakespeare's_Globe", caption: "Shakespeare's Globe" },
           { text: "Visit the Tower of London and Crown Jewels.", page: "Tower_of_London", caption: "Tower of London" },
           { text: "Walk back toward the river for classic Tower Bridge skyline views.", page: "Tower_Bridge", caption: "Tower Bridge skyline" }
         ]
@@ -875,8 +877,6 @@
           { text: "See the John Snow cholera pump on Broadwick Street in Soho.", page: "John_Snow_cholera_pump", caption: "John Snow cholera pump" },
           { text: "Explore Soho streets and food spots.", page: "Soho", caption: "Soho" },
           { text: "Finish the West End sweep with an evening stroll down Oxford Street.", page: "Oxford_Street", caption: "Oxford Street" },
-          { text: "Head back toward the river for Tate Modern on the South Bank.", page: "Tate_Modern", caption: "Tate Modern" },
-          { text: "Continue to Shakespeare's Globe nearby.", page: "Shakespeare's_Globe", caption: "Shakespeare's Globe" },
           { text: "Dinner: eat classic pub food at Ye Olde Cheshire Cheese. <a href=\"https://ye-olde-cheshire-cheese.co.uk/\" target=\"_blank\" rel=\"noopener noreferrer\">Ye Olde Cheshire Cheese site</a>.", page: "Ye_Olde_Cheshire_Cheese", caption: "Ye Olde Cheshire Cheese dinner" }
         ]
       },
@@ -999,7 +999,9 @@
       Westminster_Abbey: "11:30",
       Big_Ben: "13:00",
       London_Eye: "13:45",
-      Tower_of_London: "14:30",
+      Tate_Modern: "15:15",
+      "Shakespeare's_Globe": "17:00",
+      Tower_of_London: "18:20",
       British_Museum: "09:30",
       National_Gallery: "12:15",
       Trafalgar_Square: "14:00",
@@ -1009,9 +1011,7 @@
       John_Snow_cholera_pump: "16:55",
       Soho: "17:30",
       Oxford_Street: "19:20",
-      Tate_Modern: "21:00",
-      "Shakespeare's_Globe": "22:45",
-      Ye_Olde_Cheshire_Cheese: "23:55",
+      Ye_Olde_Cheshire_Cheese: "21:10",
       Dishoom_Covent_Garden: "19:45",
       Rock_and_Sole_Plaice: "20:45",
       Royal_Observatory_Greenwich: "09:15",
@@ -1128,7 +1128,9 @@
         { mode: "Walk", bufferMin: 20, note: "Westminster cluster transfer." },
         { mode: "Walk", bufferMin: 10, note: "Photo stop nearby." },
         { mode: "Walk", bufferMin: 15, note: "Cross to South Bank for timed London Eye slot." },
-        { mode: "Tube", bufferMin: 30, note: "Westminster/South Bank to Tower district." },
+        { mode: "Walk", bufferMin: 20, note: "Continue east on the South Bank to Tate Modern." },
+        { mode: "Walk", bufferMin: 12, note: "Short riverside transfer to Globe area." },
+        { mode: "Walk + Tube", bufferMin: 25, note: "South Bank to Tower district." },
         { mode: "Walk", bufferMin: 20, note: "Riverside skyline segment." }
       ],
       3: [
@@ -1141,9 +1143,7 @@
         { mode: "Walk", bufferMin: 10, note: "Shaftesbury Avenue to Broadwick Street." },
         { mode: "Walk", bufferMin: 10, note: "Short Soho neighborhood transfer." },
         { mode: "Walk + Tube", bufferMin: 20, note: "Soho to Oxford Street evening stroll." },
-        { mode: "Tube + walk", bufferMin: 25, note: "Oxford Street back to the South Bank." },
-        { mode: "Walk", bufferMin: 12, note: "Short riverside transfer to Globe area." },
-        { mode: "Walk + Tube", bufferMin: 20, note: "South Bank to Fleet Street pub dinner stop." }
+        { mode: "Tube + walk", bufferMin: 20, note: "Oxford Street to Fleet Street pub dinner stop." }
       ],
       4: [
         { mode: "DLR + walk", bufferMin: 40, note: "Central London to Greenwich Observatory." },
