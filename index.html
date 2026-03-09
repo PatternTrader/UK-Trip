@@ -1603,6 +1603,29 @@
       return dayPlan[itemIndex] || { mode: "Walk/Tube", bufferMin: 20, note: "Local transfer buffer." };
     }
 
+    function formatDayFilterDate(day) {
+      const raw = String((day && day.date) || "");
+      const match = raw.match(/([A-Za-z]+)\s+(\d{1,2})/);
+      if (!match) return raw;
+      const monthName = match[1];
+      const dayNumber = Number(match[2]);
+      if (Number.isNaN(dayNumber)) return raw;
+      const parsed = new Date(`${monthName} ${dayNumber}, 2026`);
+      if (Number.isNaN(parsed.getTime())) return raw;
+      return new Intl.DateTimeFormat("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+      }).format(parsed);
+    }
+
+    function getWeekdayForDay(day) {
+      const formatted = formatDayFilterDate(day);
+      if (!formatted) return "";
+      const weekday = formatted.split(",")[0];
+      return weekday || "";
+    }
+
     function getSecondaryPhoto(page, primaryPhoto) {
       const fallback = secondaryFallbackImages[page] || fallbackImages[page] || "https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=900&w=1400";
       if (primaryPhoto && getImageIdentity(fallback) === getImageIdentity(primaryPhoto)) return secondaryFallbackImages[page] || fallback;
