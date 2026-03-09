@@ -1658,13 +1658,30 @@
       }
     }
 
+    function formatDayFilterDate(day) {
+      const raw = String((day && day.date) || "");
+      const match = raw.match(/([A-Za-z]+)\s+(\d{1,2})/);
+      if (!match) return raw;
+      const monthName = match[1];
+      const dayNumber = Number(match[2]);
+      if (Number.isNaN(dayNumber)) return raw;
+      const parsed = new Date(`${monthName} ${dayNumber}, 2025`);
+      if (Number.isNaN(parsed.getTime())) return raw;
+      return new Intl.DateTimeFormat("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric"
+      }).format(parsed);
+    }
+
     function setupTopMapFilters() {
       const filterEl = document.getElementById("route-map-day-filter");
       if (!filterEl) return;
       itinerary.forEach((day) => {
         const option = document.createElement("option");
         option.value = String(day.day);
-        option.textContent = `Day ${day.day}`;
+        const dayStamp = formatDayFilterDate(day);
+        option.textContent = dayStamp ? `Day ${day.day} - ${dayStamp}` : `Day ${day.day}`;
         filterEl.appendChild(option);
       });
       filterEl.value = "all";
