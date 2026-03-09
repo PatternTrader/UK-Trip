@@ -728,14 +728,12 @@
       },
       {
         day: 4,
-        title: "Museums and London Neighborhoods",
+        title: "Greenwich and Stonehenge Day Trip",
         date: "April 5",
         items: [
           { text: "Visit the Royal Observatory Greenwich and stand on the Prime Meridian line.", page: "Royal_Observatory_Greenwich", caption: "Royal Observatory Greenwich" },
-          { text: "Tour the British Museum.", page: "British_Museum", caption: "British Museum" },
-          { text: "Lunch: have a famous Indian meal at Dishoom Covent Garden. <a href=\"https://www.dishoom.com/menu/all-day-main/\" target=\"_blank\" rel=\"noopener noreferrer\">Dishoom all-day menu</a>.", page: "Dishoom_Covent_Garden", caption: "Dishoom lunch" },
-          { text: "Browse food and vintage stalls at Camden Market.", page: "Camden_Market", caption: "Camden Market" },
-          { text: "Visit Kensington Palace and surrounding gardens.", page: "Kensington_Palace", caption: "Kensington Palace" }
+          { text: "Take a no-car Stonehenge excursion from London (coach tour or rail + local tour) and spend the core afternoon at the stones.", page: "Stonehenge", caption: "Stonehenge day trip" },
+          { text: "Return to London for dinner at Dishoom Covent Garden. <a href=\"https://www.dishoom.com/menu/all-day-main/\" target=\"_blank\" rel=\"noopener noreferrer\">Dishoom all-day menu</a>.", page: "Dishoom_Covent_Garden", caption: "Dishoom dinner" }
         ]
       },
       {
@@ -862,6 +860,7 @@
       Rock_and_Sole_Plaice: "20:45",
       Oxford_Street: "21:00",
       Royal_Observatory_Greenwich: "09:15",
+      Stonehenge: "13:30",
       British_Museum: "10:00",
       Camden_Market: "13:30",
       Kensington_Palace: "16:30",
@@ -926,6 +925,7 @@
       Rock_and_Sole_Plaice: 60,
       Oxford_Street: 75,
       Royal_Observatory_Greenwich: 90,
+      Stonehenge: 180,
       British_Museum: 120,
       Camden_Market: 90,
       Kensington_Palace: 90,
@@ -992,10 +992,8 @@
       ],
       4: [
         { mode: "DLR + walk", bufferMin: 40, note: "Central London to Greenwich Observatory." },
-        { mode: "DLR + Tube", bufferMin: 40, note: "Greenwich back to Bloomsbury museum area." },
-        { mode: "Walk + Tube", bufferMin: 20, note: "Bloomsbury to Covent Garden lunch stop." },
-        { mode: "Tube", bufferMin: 35, note: "Cross-city move to Camden." },
-        { mode: "Tube + walk", bufferMin: 30, note: "Camden to Kensington." }
+        { mode: "Coach tour or rail + local transfer", bufferMin: 120, note: "Greenwich to Stonehenge area transfer; prebook tour/train timings." },
+        { mode: "Coach/rail return + Tube", bufferMin: 140, note: "Stonehenge return to central London for dinner." }
       ],
       5: [
         { mode: "Train (Avanti/National Rail)", bufferMin: 55, note: "London Euston to Bletchley no-car transfer." },
@@ -1079,6 +1077,7 @@
       Rock_and_Sole_Plaice: [51.5156, -0.1248],
       Oxford_Street: [51.5154, -0.1410],
       Royal_Observatory_Greenwich: [51.4769, 0.0005],
+      Stonehenge: [51.1789, -1.8262],
       British_Museum: [51.5194, -0.1270],
       Camden_Market: [51.5416, -0.1439],
       Kensington_Palace: [51.5050, -0.1877],
@@ -1226,6 +1225,7 @@
       Rock_and_Sole_Plaice: { why: "Long-running London fish-and-chips institution near Covent Garden.", researchedCost: "Paid dining." },
       Oxford_Street: { why: "Historic shopping boulevard with flagship stores.", researchedCost: "Free public street access." },
       Royal_Observatory_Greenwich: { why: "Home of the Prime Meridian and one of London's key scientific-history sites.", researchedCost: "Greenwich Park access free; official Prime Meridian courtyard entry is paid." },
+      Stonehenge: { why: "One of Britain's most iconic prehistoric monuments with dramatic open-landscape setting.", researchedCost: "Paid timed-entry ticket required for official Stonehenge access." },
       British_Museum: { why: "Major world-history museum with landmark artifacts.", researchedCost: "Permanent galleries free; some exhibitions paid." },
       Camden_Market: { why: "Alternative market district known for food, fashion, and music culture.", researchedCost: "Market entry free; food/shopping paid." },
       Kensington_Palace: { why: "Royal residence with state apartments and palace exhibitions.", researchedCost: "Paid admission (official tickets)." },
