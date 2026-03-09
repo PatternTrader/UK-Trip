@@ -506,28 +506,55 @@
     color: #d6e8fa;
   }
 
-  .map-filters {
-    margin-top: 10px;
+  .map-toolbar {
     display: flex;
-    align-items: center;
-    gap: 8px;
     flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e4eaf2;
+    background: linear-gradient(180deg, #f9fbfe 0%, #f2f6fb 100%);
   }
 
-  .map-filters label {
-    font-size: 0.84rem;
-    color: #deecf9;
-    font-weight: 700;
+  .map-filter-actions,
+  .map-filter-days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
-  .map-day-filter {
-    border: 1px solid #c3d1e3;
-    border-radius: 8px;
+  .map-filter-chip {
+    border: 1px solid #bfd0e2;
+    border-radius: 999px;
     background: #ffffff;
-    color: #1f3045;
-    padding: 6px 10px;
-    font-size: 0.86rem;
+    color: #284466;
+    padding: 7px 12px;
+    font-size: 0.82rem;
     font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  }
+
+  .map-filter-chip:hover {
+    border-color: #5e88b0;
+    transform: translateY(-1px);
+  }
+
+  .map-filter-chip.is-active {
+    border-color: #103860;
+    background: #103860;
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(16, 56, 96, 0.16);
+  }
+
+  .map-filter-chip.is-secondary {
+    background: #edf4fb;
+  }
+
+  .map-filter-status {
+    padding: 10px 16px 0;
+    font-size: 0.82rem;
+    color: #4f6174;
   }
 
   #route-map {
@@ -686,13 +713,12 @@
       <div class="map-head">
         <h2>Route Map of Itinerary Points of Interest</h2>
         <p>Colored dots mark each stop, and the bold red line follows the travel order from London through Scotland.</p>
-        <div class="map-filters">
-          <label for="route-map-day-filter">Top map filter:</label>
-          <select id="route-map-day-filter" class="map-day-filter">
-            <option value="all">All Days</option>
-          </select>
-        </div>
       </div>
+      <div class="map-toolbar">
+        <div class="map-filter-actions" id="route-map-actions"></div>
+        <div class="map-filter-days" id="route-day-filters"></div>
+      </div>
+      <div class="map-filter-status" id="route-map-status" aria-live="polite"></div>
       <div id="route-map"></div>
     </section>
 
@@ -1392,10 +1418,10 @@
     const COST_STORAGE_KEY = "ukTripCostInputsV1";
     const COMMAND_CHECKLIST_STORAGE_KEY = "ukTripCommandChecklistV1";
     const EMPTY_IMAGE_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'><rect width='1200' height='800' fill='white'/></svg>";
+    const topMapSelectedDays = new Set(itinerary.map((day) => day.day));
     let costState = {};
     let commandChecklistState = {};
-    let topRouteMap = null;
-    let topRouteLayerGroup = null;
+    let routeMapState = null;
 
     function renderStaySummary() {
       const staySummaryEl = document.getElementById("stay-summary");
@@ -1688,11 +1714,28 @@
       });
     }
 
-    function collectTopMapStops(dayFilter) {
-      const selected = String(dayFilter || "all");
+    function buildRouteMap() {
+      if (typeof L === "undefined") return;
+      const map = L.map("route-map");
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: "&copy; OpenStreetMap contributors"
+      }).addTo(map);
+
+      routeMapState = {
+        map,
+        markersLayer: L.layerGroup().addTo(map),
+        routeLayer: L.layerGroup().addTo(map)
+      };
+
+      renderRouteMapFilters();
+      refreshRouteMap();
+    }
+
+    function getSelectedRouteStops() {
       const routeStops = [];
       itinerary.forEach((day) => {
-        if (selected !== "all" && String(day.day) !== selected) return;
+        if (!topMapSelectedDays.has(day.day)) return;
         day.items.forEach((item) => {
           const coords = poiCoordinates[item.page];
           if (!coords || !isTopMapStop(item.page, coords)) return;
@@ -1708,35 +1751,89 @@
       return routeStops;
     }
 
-    function renderTopRouteMap(dayFilter) {
-      if (typeof L === "undefined") return;
+    function getSelectedDaysLabel() {
+      const selectedDays = Array.from(topMapSelectedDays).sort((a, b) => a - b);
+      if (!selectedDays.length) return "No days selected.";
+      if (selectedDays.length === itinerary.length) return "Showing all days on the map.";
+      return `Showing Day${selectedDays.length > 1 ? "s" : ""} ${selectedDays.join(", ")} on the map.`;
+    }
 
-      if (!topRouteMap) {
-        topRouteMap = L.map("route-map");
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          maxZoom: 19,
-          attribution: "&copy; OpenStreetMap contributors"
-        }).addTo(topRouteMap);
-        topRouteLayerGroup = L.layerGroup().addTo(topRouteMap);
+    function renderRouteMapFilters() {
+      const actionsEl = document.getElementById("route-map-actions");
+      const daysEl = document.getElementById("route-day-filters");
+      if (!actionsEl || !daysEl) return;
+
+      actionsEl.innerHTML = `
+        <button type="button" class="map-filter-chip is-secondary" data-map-action="all">All days</button>
+        <button type="button" class="map-filter-chip is-secondary" data-map-action="clear">Clear</button>
+      `;
+
+      daysEl.innerHTML = itinerary
+        .map((day) => `
+          <button
+            type="button"
+            class="map-filter-chip ${topMapSelectedDays.has(day.day) ? "is-active" : ""}"
+            data-map-day="${day.day}"
+            aria-pressed="${topMapSelectedDays.has(day.day) ? "true" : "false"}"
+          >
+            Day ${day.day}
+          </button>
+        `)
+        .join("");
+
+      actionsEl.querySelector('[data-map-action="all"]')?.addEventListener("click", () => {
+        itinerary.forEach((day) => topMapSelectedDays.add(day.day));
+        renderRouteMapFilters();
+        refreshRouteMap();
+      });
+
+      actionsEl.querySelector('[data-map-action="clear"]')?.addEventListener("click", () => {
+        topMapSelectedDays.clear();
+        renderRouteMapFilters();
+        refreshRouteMap();
+      });
+
+      daysEl.querySelectorAll("[data-map-day]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const dayNumber = Number(button.getAttribute("data-map-day"));
+          if (topMapSelectedDays.has(dayNumber)) {
+            topMapSelectedDays.delete(dayNumber);
+          } else {
+            topMapSelectedDays.add(dayNumber);
+          }
+          renderRouteMapFilters();
+          refreshRouteMap();
+        });
+      });
+    }
+
+    function refreshRouteMap() {
+      if (!routeMapState) return;
+      const { map, markersLayer, routeLayer } = routeMapState;
+      const statusEl = document.getElementById("route-map-status");
+      const routeStops = getSelectedRouteStops();
+
+      markersLayer.clearLayers();
+      routeLayer.clearLayers();
+
+      if (statusEl) {
+        statusEl.textContent = getSelectedDaysLabel();
       }
 
-      const routeStops = collectTopMapStops(dayFilter);
-      topRouteLayerGroup.clearLayers();
-
       if (!routeStops.length) {
-        topRouteMap.setView([54.2, -2.8], 5);
+        map.setView([54.5, -3.5], 5);
         return;
       }
 
-      routeStops.forEach((stop, index) => {
-        const hue = (stop.day * 32 + index * 3) % 360;
+      routeStops.forEach((stop) => {
+        const hue = (stop.day * 32) % 360;
         const marker = L.circleMarker(stop.coords, {
           radius: 7,
           color: "#ffffff",
           weight: 2,
           fillColor: `hsl(${hue} 80% 45%)`,
           fillOpacity: 0.95
-        }).addTo(topRouteLayerGroup);
+        }).addTo(markersLayer);
         marker.bindTooltip(`Day ${stop.day}: ${stop.label}`, {
           permanent: true,
           direction: "top",
@@ -1747,56 +1844,16 @@
       });
 
       const routeLine = routeStops.map((stop) => stop.coords);
-      L.polyline(routeLine, {
-        color: "#d81d2c",
-        weight: 5,
-        opacity: 0.9
-      }).addTo(topRouteLayerGroup);
-
-      if (routeLine.length === 1) {
-        topRouteMap.setView(routeLine[0], 12);
+      if (routeLine.length > 1) {
+        L.polyline(routeLine, {
+          color: "#d81d2c",
+          weight: 5,
+          opacity: 0.9
+        }).addTo(routeLayer);
+        map.fitBounds(routeLine, { padding: [30, 30] });
       } else {
-        topRouteMap.fitBounds(routeLine, { padding: [30, 30] });
+        map.setView(routeLine[0], 13);
       }
-    }
-
-    function formatDayFilterDate(day) {
-      const raw = String((day && day.date) || "");
-      const match = raw.match(/([A-Za-z]+)\s+(\d{1,2})/);
-      if (!match) return raw;
-      const monthName = match[1];
-      const dayNumber = Number(match[2]);
-      if (Number.isNaN(dayNumber)) return raw;
-      const parsed = new Date(`${monthName} ${dayNumber}, 2026`);
-      if (Number.isNaN(parsed.getTime())) return raw;
-      return new Intl.DateTimeFormat("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "numeric"
-      }).format(parsed);
-    }
-
-    function getWeekdayForDay(day) {
-      const formatted = formatDayFilterDate(day);
-      if (!formatted) return "";
-      const weekday = formatted.split(",")[0];
-      return weekday || "";
-    }
-
-    function setupTopMapFilters() {
-      const filterEl = document.getElementById("route-map-day-filter");
-      if (!filterEl) return;
-      itinerary.forEach((day) => {
-        const option = document.createElement("option");
-        option.value = String(day.day);
-        const dayStamp = formatDayFilterDate(day);
-        option.textContent = dayStamp ? `Day ${day.day} - ${dayStamp}` : `Day ${day.day}`;
-        filterEl.appendChild(option);
-      });
-      filterEl.value = "all";
-      filterEl.addEventListener("change", () => {
-        renderTopRouteMap(filterEl.value);
-      });
     }
 
     function setCommandChecklistItemState(itemEl, isDone) {
@@ -2028,8 +2085,7 @@
     renderCostSheet();
     bindCostInputs();
     initializeCommandChecklist();
-    setupTopMapFilters();
-    renderTopRouteMap("all");
+    buildRouteMap();
     buildDayMaps();
     loadWikipediaImages();
   </script>
