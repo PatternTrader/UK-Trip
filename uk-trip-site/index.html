@@ -2169,6 +2169,290 @@
     buildDayMaps();
     loadWikipediaImages();
   </script>
+
+<!-- ============================================================
+     HIGHLIGHTS GALLERY
+============================================================ -->
+<style>
+  .highlights-gallery {
+    background: #080e16;
+    padding: 4rem 0 5rem;
+    border-top: 1px solid rgba(200,151,58,0.15);
+  }
+  .highlights-gallery .gallery-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding: 0 1.5rem;
+  }
+  .highlights-gallery .gallery-header .gallery-label {
+    display: inline-block;
+    font-size: 0.68rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c8973a;
+    margin-bottom: 0.5rem;
+  }
+  .highlights-gallery .gallery-header h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    color: #f2f7fb;
+    margin: 0 0 0.6rem;
+  }
+  .highlights-gallery .gallery-header p {
+    font-size: 0.85rem;
+    color: #6b7a8d;
+    letter-spacing: 1px;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 3px;
+  }
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    background: #1b2a4a;
+  }
+  .gallery-item img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .gallery-item:hover img {
+    transform: scale(1.06);
+  }
+  .gallery-caption {
+    padding: 8px 10px 10px;
+    background: #080e16;
+  }
+  .gallery-caption .cap-location {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #f2f7fb;
+    letter-spacing: 0.5px;
+    display: block;
+  }
+  .gallery-caption .cap-desc {
+    font-size: 0.67rem;
+    color: #6b7a8d;
+    line-height: 1.4;
+    margin-top: 2px;
+    display: block;
+  }
+  .gallery-section-divider {
+    display: contents;
+  }
+  .gallery-section-label {
+    grid-column: 1 / -1;
+    padding: 18px 4px 6px;
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c8973a;
+    border-top: 1px solid rgba(200,151,58,0.15);
+  }
+  .gallery-section-label:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+  @media (max-width: 900px) {
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<section class="highlights-gallery">
+  <div class="gallery-header">
+    <span class="gallery-label">In order of travel</span>
+    <h2>Highlights of England &amp; Scotland</h2>
+    <p>London · Day Trips · Edinburgh · Highlands · Isle of Skye</p>
+  </div>
+
+  <div class="gallery-grid">
+
+    <!-- LONDON -->
+    <div class="gallery-section-label">🇬🇧 &nbsp;London &mdash; Days 1&ndash;3</div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1667818748785-3d3a9411187f?w=600&q=80&fit=crop&h=600" alt="Tower Bridge at night" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Tower Bridge</span>
+        <span class="cap-desc">London's iconic bascule bridge glowing over the Thames at night</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1693127935301-d4174b3aff96?w=600&q=80&fit=crop&h=600" alt="Buckingham Palace" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Buckingham Palace</span>
+        <span class="cap-desc">The King's official London residence — catch the Changing of the Guard at 11am</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1680302061197-87c3a9be59cd?w=600&q=80&fit=crop&h=600" alt="Big Ben Westminster" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Big Ben &amp; Westminster</span>
+        <span class="cap-desc">The Elizabeth Tower rising above Parliament Square — London's most recognised silhouette</span>
+      </div>
+    </div>
+
+    <!-- placeholder to keep grid balanced -->
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+
+    <!-- ENGLAND DAY TRIPS -->
+    <div class="gallery-section-label">🗿 &nbsp;England Day Trips &mdash; Days 4&ndash;5</div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1520499030345-d646f4350b30?w=600&q=80&fit=crop&h=600" alt="Stonehenge at sunset" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Stonehenge</span>
+        <span class="cap-desc">5,000-year-old stone circle silhouetted against a blazing sunset sky in Wiltshire</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1560603383-64514a208263?w=600&q=80&fit=crop&h=600" alt="White Cliffs of Dover" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">White Cliffs of Dover</span>
+        <span class="cap-desc">350ft chalk cliffs stretching along the Channel — England at its most dramatic</span>
+      </div>
+    </div>
+
+    <!-- two spacers to fill row -->
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+
+    <!-- EDINBURGH -->
+    <div class="gallery-section-label">🏴󠁧󠁢󠁳󠁣󠁴󠁿 &nbsp;Edinburgh &mdash; Days 6&ndash;8</div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1668509549273-14abf4067904?w=600&q=80&fit=crop&h=600" alt="Edinburgh Castle at sunrise" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Edinburgh Castle</span>
+        <span class="cap-desc">Scotland's most visited attraction, perched on volcanic rock above the golden city at sunrise</span>
+      </div>
+    </div>
+
+    <!-- spacers -->
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+
+    <!-- HIGHLANDS -->
+    <div class="gallery-section-label">⛰️ &nbsp;Scottish Highlands &mdash; Day 9</div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1561538433-276d3f8e0359?w=600&q=80&fit=crop&h=600" alt="Loch Ness and Urquhart Castle" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Loch Ness &amp; Urquhart Castle</span>
+        <span class="cap-desc">Medieval castle ruins brooding on the shore of Scotland's most famous and mysterious loch</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1532785907815-0afcbb413aa5?w=600&q=80&fit=crop&h=600" alt="Glencoe Valley" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Glencoe Valley</span>
+        <span class="cap-desc">A sweeping glacial valley of emerald peaks and brooding skies — one of Scotland's great drives</span>
+      </div>
+    </div>
+
+    <!-- spacers -->
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+
+    <!-- ISLE OF SKYE -->
+    <div class="gallery-section-label">🌊 &nbsp;Isle of Skye &mdash; Days 10&ndash;11</div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1655419157056-23863ba7948d?w=600&q=80&fit=crop&h=600" alt="Eilean Donan Castle" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Eilean Donan Castle</span>
+        <span class="cap-desc">Scotland's most photographed castle, rising from the mist where three lochs meet</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1609087998060-f567d481a1ae?w=600&q=80&fit=crop&h=600" alt="Fairy Pools Isle of Skye" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Fairy Pools</span>
+        <span class="cap-desc">Crystal-clear blue pools fed by waterfalls cascading down from the Cuillin mountains at dusk</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1551801691-f0bce83d4f68?w=600&q=80&fit=crop&h=600" alt="The Quiraing" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">The Quiraing</span>
+        <span class="cap-desc">Ancient landslip on the Trotternish ridge — dramatic rocky pinnacles over sweeping green valleys</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1589806567522-18564e9cf0bc?w=600&q=80&fit=crop&h=600" alt="Old Man of Storr" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Old Man of Storr</span>
+        <span class="cap-desc">Otherworldly basalt pinnacles rising through storm clouds above the Isle of Skye</span>
+      </div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://images.unsplash.com/photo-1589708249886-cff7237d7586?w=600&q=80&fit=crop&h=600" alt="Neist Point Lighthouse" loading="lazy">
+      <div class="gallery-caption">
+        <span class="cap-location">Neist Point Lighthouse</span>
+        <span class="cap-desc">Skye's most westerly point — cliffside lighthouse with jaw-dropping sunset views over the Hebrides</span>
+      </div>
+    </div>
+
+    <!-- spacers to complete last row -->
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+    <div class="gallery-item" style="visibility:hidden;pointer-events:none;">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="aspect-ratio:1/1;">
+      <div class="gallery-caption"><span class="cap-location">&nbsp;</span></div>
+    </div>
+
+  </div>
+</section>
+
 </body>
 </html>
 
