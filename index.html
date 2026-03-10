@@ -551,6 +551,42 @@
     background: #edf4fb;
   }
 
+  .map-filter-chip.city-london {
+    border-color: #e0bf3f;
+    background: #fff6d6;
+    color: #6f5800;
+  }
+
+  .map-filter-chip.city-edinburgh {
+    border-color: #6ea8ff;
+    background: #e8f1ff;
+    color: #1f4f99;
+  }
+
+  .map-filter-chip.city-inverness {
+    border-color: #68c992;
+    background: #e7f8ee;
+    color: #17643a;
+  }
+
+  .map-filter-chip.is-active.city-london {
+    border-color: #d1a900;
+    background: #d1a900;
+    color: #ffffff;
+  }
+
+  .map-filter-chip.is-active.city-edinburgh {
+    border-color: #1f5cb5;
+    background: #1f5cb5;
+    color: #ffffff;
+  }
+
+  .map-filter-chip.is-active.city-inverness {
+    border-color: #1f8a4d;
+    background: #1f8a4d;
+    color: #ffffff;
+  }
+
   .map-filter-status {
     padding: 10px 16px 0;
     font-size: 0.82rem;
@@ -1418,6 +1454,11 @@
     const COST_STORAGE_KEY = "ukTripCostInputsV1";
     const COMMAND_CHECKLIST_STORAGE_KEY = "ukTripCommandChecklistV1";
     const EMPTY_IMAGE_PLACEHOLDER = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 800'><rect width='1200' height='800' fill='white'/></svg>";
+    const STAY_COLOR_BY_TOWN = {
+      London: "#d1a900",
+      Edinburgh: "#1f5cb5",
+      "Inverness / Fort William area": "#1f8a4d"
+    };
     const topMapSelectedDays = new Set(itinerary.map((day) => day.day));
     let costState = {};
     let commandChecklistState = {};
@@ -1759,6 +1800,8 @@
       const routeStops = [];
       itinerary.forEach((day) => {
         if (!topMapSelectedDays.has(day.day)) return;
+        const stay = dayStayPlan[day.day] || { town: "Unknown" };
+        const town = stay.town || "Unknown";
         day.items.forEach((item, itemIndex) => {
           const coords = poiCoordinates[item.page];
           if (!coords || !isTopMapStop(item.page, coords)) return;
@@ -1768,7 +1811,8 @@
             label: item.caption,
             page: item.page,
             coords,
-            time: visitTimes[item.page] || "Flexible"
+            time: visitTimes[item.page] || "Flexible",
+            town
           });
         });
       });
@@ -1793,16 +1837,22 @@
       `;
 
       daysEl.innerHTML = itinerary
-        .map((day) => `
+        .map((day) => {
+          const stay = dayStayPlan[day.day] || { town: "Unknown" };
+          const town = stay.town || "Unknown";
+          const townClass = town === "London" ? "city-london" : (town === "Edinburgh" ? "city-edinburgh" : (town === "Inverness / Fort William area" ? "city-inverness" : ""));
+          return `
           <button
             type="button"
-            class="map-filter-chip ${topMapSelectedDays.has(day.day) ? "is-active" : ""}"
+            class="map-filter-chip ${townClass} ${topMapSelectedDays.has(day.day) ? "is-active" : ""}"
             data-map-day="${day.day}"
             aria-pressed="${topMapSelectedDays.has(day.day) ? "true" : "false"}"
+            title="${town}"
           >
             Day ${day.day} (${getWeekdayForDay(day)})
           </button>
-        `)
+        `;
+        })
         .join("");
 
       actionsEl.querySelector('[data-map-action="all"]')?.addEventListener("click", () => {
@@ -1850,15 +1900,15 @@
       }
 
       routeStops.forEach((stop) => {
-        const hue = (stop.day * 32) % 360;
+        const color = STAY_COLOR_BY_TOWN[stop.town] || `hsl(${(stop.day * 32) % 360} 80% 45%)`;
         const marker = L.circleMarker(stop.coords, {
           radius: 7,
           color: "#ffffff",
           weight: 2,
-          fillColor: `hsl(${hue} 80% 45%)`,
+          fillColor: color,
           fillOpacity: 0.95
         }).addTo(markersLayer);
-        marker.bindTooltip(`Day ${stop.day} #${stop.order}: ${stop.label}`, {
+        marker.bindTooltip(`Day ${stop.day} (${stop.town}) #${stop.order}: ${stop.label}`, {
           permanent: true,
           direction: "top",
           className: "map-label",
